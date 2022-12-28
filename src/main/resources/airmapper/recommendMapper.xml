@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recommend">
+<!-- 검색지역 추가 -->
+	<insert id ="reco_insert" parameterType="recommendVO">
+		insert into recommend values(#{userid},#{dest},now())
+	</insert>
+	
+	<!-- 검색 지역 삭제 -->
+	<delete id="reco_delete" parameterType="recommendVO">
+		delete from recommend order by date asc limit 1
+	</delete>
+</mapper>
