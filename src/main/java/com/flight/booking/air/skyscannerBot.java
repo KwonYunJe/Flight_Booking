@@ -1,4 +1,4 @@
-package com.flight.booking;
+package com.flight.booking.air;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,7 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class melonBot {
+
+public class skyscannerBot {
 	 
 	private WebDriver driver;
 	private WebElement element;
@@ -14,7 +15,7 @@ public class melonBot {
  
 	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	public static String WEB_DRIVER_PATH = "D:\\study\\algorithm_study\\Flight_Booking\\Flight_Booking\\Flight_Booking\\src\\main\\resources\\chromedriver.exe";
-	public melonBot() {
+	public skyscannerBot() {
 		// WebDriver 경로 설정
 		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
  
@@ -24,9 +25,11 @@ public class melonBot {
  
 		driver = new ChromeDriver(options);
  
-		url = "https://www.melon.com/chart/index.htm";
+		url ="http://tour.tmon.co.kr/flight/domestic/result?trip=OW&sch=%EB%B6%80%EC%82%B0_PUS_%EA%B9%80%ED%8F%AC_GMP_2023-1-17&ps=1-0-0&seat=D";
+		//                                                                                출발지                   목적지     날짜     성인 소아 유아 좌석  
+		
+		
 	}
- 
 	public void activateBot() {
 		try {
 			driver.get(url);
@@ -34,23 +37,26 @@ public class melonBot {
 			Thread.sleep(2000);
  
 			// 곡 제목 파싱
-			element = driver.findElement(By.xpath("/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[1]/td[6]/div/div/div[1]/span/a"));
-			String title = element.getAttribute("title");
+		element = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div/div[1]/div/div[1]/div[3]/div[2]/table/tbody/tr[1]/td[1]/span"));
+		//String title = element.getAttribute("title");
+		String title = element.getText();
  
 			// 좋아요 수 파싱
-			element = driver.findElement(By.xpath("/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[1]/td[8]/div/button/span[2]"));
-			String cntLike = element.getText();
+			element = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div/div[1]/div/div[1]/div[3]/div[2]/table/tbody/tr[1]/td[6]/label/span"));
+		String cntLike = element.getText();
 			
-			System.out.println("1위 노래는 [" + title + "]입니다.");
-			System.out.println("좋아요 수는 [" + cntLike + "]입니다.");
+			System.out.println("항공사는 [" + title + "]입니다.");
+			System.out.println("최저가는 [" + cntLike + "]입니다.");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			driver.close();
 		}
 	}
  
 	public static void main(String[] args) {
-		melonBot bot1 = new melonBot();
+		skyscannerBot bot1 = new skyscannerBot();
 		bot1.activateBot();
 	}
 }
