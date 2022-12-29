@@ -19,7 +19,7 @@ public class SeleniumTest {
     public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
     public static final String WEB_DRIVER_PATH = "D:\\study\\algorithm_study\\Flight_Booking\\Flight_Booking\\Flight_Booking\\src\\main\\resources\\chromedriver.exe";
     
-    //크롤링 할 URL
+    //크롤링 할URL
     private String base_url;
     
     public SeleniumTest() {
