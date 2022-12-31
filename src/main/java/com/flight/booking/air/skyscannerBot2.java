@@ -95,6 +95,12 @@ public class skyscannerBot2 {
 		
 		model.addAttribute("airline",airline);
 		model.addAttribute("price",price);
+		model.addAttribute("departure", departure);
+		model.addAttribute("arrival", arrival);
+		model.addAttribute("airdate", airdate);
+		model.addAttribute("adult", adult);
+		model.addAttribute("child", child);
+		model.addAttribute("baby", baby);
 		
 		
 		
