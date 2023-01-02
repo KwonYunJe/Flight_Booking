@@ -50,29 +50,28 @@ public class SkyscannerBot {
 		String month = "";
 		String date = "";
 		
-		String[] array = originAirdate.split("-");
-		System.out.println(array[0]);
-		System.out.println(array[1]);
-		System.out.println(array[2]);
-		year = array[0];
-		System.out.println(array[1].charAt(0));
-		if(array[1].charAt(0) == '0') {
-			month = array[1].substring(1);
+		String[] array = originAirdate.split("-");	// "-" 기준으로 문자열 잘라서 배열에 넣기
+		// 배열 첫번째 값은 year, 두번째 값은 month, 세번째 값은 date
+		year = array[0];	
+//		System.out.println(array[1].charAt(0));
+		if(array[1].charAt(0) == '0') {		// month가 0으로 시작하면
+			month = array[1].substring(1);	// 0 지우고 넣기
 		} else {
 			month = array[1];
 		}
-		if(array[2].charAt(0) == '0') {
-			date = array[2].substring(1);
+		if(array[2].charAt(0) == '0') {		// date가 0으로 시작하면
+			date = array[2].substring(1);	// 0 지우고 넣기
 		} else {
 			date = array[2];
 		}
 		String airdate = year + "-" + month + "-" + date;
-		System.out.println(airdate);
+//		System.out.println(airdate);
+		
 		// url에 값 넣어주기
 		url ="http://tour.tmon.co.kr/flight/domestic/result?trip=OW&sch=" + departure + "_" + arrival + "_" + airdate + "&ps=" + adult + "-" + child + "-" + baby + "&seat=D";
 
 		ArrayList<String> airline = new ArrayList<String>(); // 항공사 리스트
-		ArrayList<String> price = new ArrayList<String>(); // 최저가 리스트 
+		ArrayList<String> price = new ArrayList<String>(); // 가격 리스트 
 		ArrayList<String> tour = new ArrayList<String>(); // 판매사 리스트 
 		ArrayList<String> depTime = new ArrayList<String>(); // 출발시간 리스트
 		ArrayList<String> desTime = new ArrayList<String>(); // 도착시간 리스트
@@ -108,6 +107,7 @@ public class SkyscannerBot {
 				// 도착 시간 크롤링
 				element = driver.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div[1]/div/div[1]/div[3]/div[2]/table/tbody/tr[" + i + "]/td[2]/span[2]"));
 				desTime_crawl = element.getText();
+				
 				// 항공사, 가격 출력
 				System.out.println("항공사는 [" + airline_crawl + "]입니다.");
 				System.out.println("최저가는 [" + price_crawl + "]입니다.");
@@ -128,7 +128,6 @@ public class SkyscannerBot {
 		} finally {
 			//driver.close();
 		}
-		
 		
 		// model에 추가
 		model.addAttribute("airline",airline);
