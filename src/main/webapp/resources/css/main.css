@@ -11,18 +11,17 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-primary: "Inter", sans-serif;
   --font-secondary: "Cardo", sans-serif;
 }
 
 /* Colors */
 :root {
-  --color-default: #bcc2fc;
-  --color-primary: #27a776;
-  --color-secondary: #ffffff;
+  --color-default: gray;
+  --color-primary: #000;
+  --color-secondary: #FFFFFF;
+  --color-btn :#024DAF;
 }
 
 /* Smooth scroll behavior */
@@ -36,7 +35,7 @@
 body {
   font-family: var(--font-default);
   color: var(--color-default);
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 
 a {
@@ -45,7 +44,7 @@ a {
 }
 
 a:hover {
-  color: #32cf93;
+  color: #000;
   text-decoration: none;
 }
 
@@ -92,7 +91,7 @@ h6 {
   font-size: 36px;
   font-weight: 700;
   font-family: var(--font-secondary);
-  color: #fff;
+  color: #FFF;
 }
 
 /*--------------------------------------------------------------
@@ -132,11 +131,11 @@ h6 {
   text-transform: uppercase;
   transition: 0.3s;
   color: #fff;
-  background: var(--color-primary);
+  background: var(--color-btn);
 }
 
 .page-header .cta-btn:hover {
-  background: #2cbc85;
+  background: #2D8CFF;
 }
 
 /*--------------------------------------------------------------
@@ -321,7 +320,7 @@ h6 {
   transition: all 0.5s;
   z-index: 997;
   padding: 30px 0;
-  background-color: #2d8cff;
+  background-color: #2D8CFF;
 }
 
 .header .logo {
@@ -337,7 +336,7 @@ h6 {
   font-size: 32px;
   margin: 0;
   font-weight: 400;
-  color: #fff;
+  color: #FFF;
   font-family: var(--font-secondary);
 }
 
@@ -411,7 +410,7 @@ h6 {
     letter-spacing: 1px;
     font-size: 13px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.5);
+    color: #fff;
     white-space: nowrap;
     transition: 0.3s;
   }
@@ -426,7 +425,7 @@ h6 {
   .navbar a:hover,
   .navbar .active,
   .navbar .active:focus,
-  .navbar li:hover > a {
+  .navbar li:hover>a {
     color: #fff;
   }
 
@@ -443,10 +442,12 @@ h6 {
     background: var(--color-secondary);
     transition: 0.3s;
     border-radius: 4px;
+    background-color: #F2F2F2;
   }
 
   .navbar .dropdown ul li {
     min-width: 200px;
+    background-color: #F2F2F2;
   }
 
   .navbar .dropdown ul a {
@@ -454,6 +455,8 @@ h6 {
     font-size: 15px;
     text-transform: none;
     font-weight: 400;
+    color: #585858;
+    background-color: #F2F2F2;
   }
 
   .navbar .dropdown ul a i {
@@ -462,11 +465,11 @@ h6 {
 
   .navbar .dropdown ul a:hover,
   .navbar .dropdown ul .active:hover,
-  .navbar .dropdown ul li:hover > a {
-    color: #fff;
+  .navbar .dropdown ul li:hover>a {
+    color: #2D8CFF;
   }
 
-  .navbar .dropdown:hover > ul {
+  .navbar .dropdown:hover>ul {
     opacity: 1;
     top: 100%;
     visibility: visible;
@@ -478,7 +481,7 @@ h6 {
     visibility: hidden;
   }
 
-  .navbar .dropdown .dropdown:hover > ul {
+  .navbar .dropdown .dropdown:hover>ul {
     opacity: 1;
     top: 0;
     left: 100%;
@@ -491,12 +494,13 @@ h6 {
     left: -90%;
   }
 
-  .navbar .dropdown .dropdown:hover > ul {
+  .navbar .dropdown .dropdown:hover>ul {
     left: -100%;
   }
 }
 
 @media (min-width: 1280px) {
+
   .mobile-nav-show,
   .mobile-nav-hide {
     display: none;
@@ -555,7 +559,7 @@ h6 {
   .navbar a:hover,
   .navbar .active,
   .navbar .active:focus,
-  .navbar li:hover > a {
+  .navbar li:hover>a {
     color: #fff;
   }
 
@@ -569,8 +573,8 @@ h6 {
     border: 1px solid black;
   }
 
-  .navbar .dropdown > .dropdown-active,
-  .navbar .dropdown .dropdown > .dropdown-active {
+  .navbar .dropdown>.dropdown-active,
+  .navbar .dropdown .dropdown>.dropdown-active {
     display: block;
   }
 
@@ -812,20 +816,14 @@ h6 {
   width: 100%;
 }
 
-.gallery-single
-  .portfolio-details-slider
-  .swiper-pagination
-  .swiper-pagination-bullet {
+.gallery-single .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
   background-color: rgba(255, 255, 255, 0.7);
   opacity: 1;
 }
 
-.gallery-single
-  .portfolio-details-slider
-  .swiper-pagination
-  .swiper-pagination-bullet-active {
+.gallery-single .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
   background-color: var(--color-primary);
 }
 
@@ -855,6 +853,7 @@ h6 {
 }
 
 @media (max-width: 575px) {
+
   .gallery-single .swiper-button-prev,
   .gallery-single .swiper-button-next {
     display: none;
@@ -1079,7 +1078,7 @@ h6 {
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/
-.contact .info-item + .info-item {
+.contact .info-item+.info-item {
   margin-top: 40px;
 }
 
@@ -1135,7 +1134,7 @@ h6 {
   font-weight: 600;
 }
 
-.contact .php-email-form .error-message br + br {
+.contact .php-email-form .error-message br+br {
   margin-top: 25px;
 }
 
@@ -1187,7 +1186,7 @@ h6 {
   padding: 10px 12px;
 }
 
-.contact .php-email-form button[type="submit"] {
+.contact .php-email-form button[type=submit] {
   background: var(--color-primary);
   border: 0;
   padding: 10px 35px;
@@ -1196,7 +1195,7 @@ h6 {
   border-radius: 4px;
 }
 
-.contact .php-email-form button[type="submit"]:hover {
+.contact .php-email-form button[type=submit]:hover {
   background: rgba(39, 167, 118, 0.8);
 }
 
@@ -1275,11 +1274,12 @@ h6 {
   text-transform: uppercase;
   transition: 0.3s;
   color: #fff;
-  background: var(--color-primary);
+  background: var(--color-btn);
 }
 
 .hero .btn-get-started:hover {
-  background: #2cbc85;
+  background: #2D8CFF;
+  color: #fff;
 }
 
 @media (max-width: 768px) {
