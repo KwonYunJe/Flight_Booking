@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class SkyscannerBot {
+public class FlightController {
 	 
 	private WebDriver driver;
 	private WebElement element;
@@ -22,8 +22,8 @@ public class SkyscannerBot {
 	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	public static String WEB_DRIVER_PATH = "C:\\Flight_Booking\\src\\main\\resources\\chromedriver.exe";
 	
-	@RequestMapping("air/crawl")
-	public void skyscannerBot(FlightVO vo, Model model) {
+	@RequestMapping("air/crawling_flight")
+	public void crawling(FlightVO vo, Model model) {
 		// WebDriver 경로 설정
 		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
  

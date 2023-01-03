@@ -105,6 +105,7 @@
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="page-header" style="margin-top: 10px;">
 			<div class="container">
+				<!-- 항공권 검색 내용 (출발지, 도착지, 인원, 여행일정) -->
 				<div>
 					<%
 					// controller에서 만든 model 가져오기
@@ -129,15 +130,18 @@
 					int target_arr = arr.indexOf(target) + 1; // 도착지 문자열에서 문자 "_"의 index + 1
 					String depart = dep.substring(target_dep); // 출발지 문자열에서 문자 "_"까지 삭제("_" 뒷 부분만 남김)
 					String arrival = arr.substring(target_arr); // 도착지 문자열에서 문자 "_"까지 삭제("_" 뒷 부분만 남김)
-					//				System.out.println(depart + " " + arrival);
-					//				System.out.println(dep + " " + arr + " " + date);
+//					System.out.println(depart + " " + arrival);
+//					System.out.println(dep + " " + arr + " " + date);
 
+					//     dep, arr		 : 부산_PUS 형식
+					// depart, arrival   : PUS 형식
+					
 					// 날짜 bar 없애기 (22-12-30 -> 221230)
 					String nobarDate = date.replace("-", "");
-					//				System.out.print(nobarDate);
 					%>
+					
 					<div style="text-align: center;">
-						<h3><%=dep%> ▷ <%=arr%></h3>
+						<h3><%=dep%>  ▷    <%=arr%></h3>
 						<br>
 						<div class="row">
 							<div class="col">
@@ -157,15 +161,16 @@
 				<hr>
 				<br>
 				<div class="row">
+					<!-- 필터 (왼쪽 div) -->
 					<div class="col-sm-4">
-						<a class="cta-btn" style="width: 350px; text-align: center;">가격 변동 추이</a> <br> <br>
+						<a class="cta-btn">가격 변동 추이</a> <br> <br>
 						<h5>출발시간</h5>
-						<input type="text" class="form-control" style="width: 350px;"> <br>
+						<input type="text" class="form-control"> <br>
 						<h5>총 소요시간</h5>
-						<input type="text" class="form-control" style="width: 350px;"> <br>
+						<input type="text" class="form-control"> <br>
 						<h5>항공사</h5>
 						<div class="form-group">
-						<select class="form-control" style="width: 350px;">
+						<select class="form-control">
 							<option>대한항공</option>
 							<option>에어부산</option>
 							<option>아시아나</option>
@@ -174,25 +179,33 @@
 						</div>
 						<br>
 					</div>
+					
+					<!-- 오른쪽 div -->
 					<div class="col-sm-8">
 						<div class="row">
+							<!-- 최저가 띄우기 -->
  							<div class="col">
  								<h4>최저가</h4>
  								<% String lowPrice = price.get(0); %>
 								<h4>￦ <%=lowPrice %></h4>
  							</div>
- 							<div class="col" style="float: right; width: 250px;">
+ 							<div class="col"></div>
+ 							<!-- 정렬 부분 -->
+ 							<div class="col" style="float: right; width: 100px;">
  								<div class="form-group">
+ 								 <label for="pwd">정렬 기준</label>
  								<select class="form-control">
  									<option>최저가순</option>
  									<option>출발시간순</option>
+ 									<option>최단여행순</option>
  								</select>
  								</div>
  							</div>
 						</div>
 						<br>
+						
+						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
 						<%
-						// 항공권 검색 결과 출력
 						for (int i = 0; i < 10; i++) {
 							String airs = airline.get(i);
 							String pri = price.get(i);
@@ -200,7 +213,7 @@
 							String depT = depTime.get(i);
 							String desT = desTime.get(i);
 						%>
-						<div class="media border p-3" style="border-radius: 10px;">
+						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
 							<div class="media-body">
 								<div class="row" style="text-align: center;">
 									<div class="col-sm-3" style="margin-top: 25px;">
@@ -217,12 +230,13 @@
 									<div class="col-sm-3">
 										<h5>￦<%=pri%></h5>
 										<%
-											if (tour.equals("노랑풍선")) {
+										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
 										%>
+										<!-- 예약 버튼 클릭 시 항공권 예약 사이트로 이동  -->
 										<a class="cta-btn"
 											href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart%>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival%>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date%>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">예약</a>
 										<%
-											} else if (tour.equals("웹투어")) {
+										} else if (tour.equals("웹투어")) {	// 판매사가 웹투어일 경우
 											if (depart.equals("SEL")) {
 												depart = "GMP";
 											}
@@ -233,7 +247,7 @@
 										<a class="cta-btn"
 											href="https://www2.webtour.com/da/da_list.asp?wItinerary=oneway&wItinerary_cnt=3&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wDepDate=<%=date%>&wArrDate=<%=date%>&wCarCode=KE%2COZ%2CLJ%2C7C%2CZE%2CTW%2CBX%2CRS%2C4H%2C4V%2CRF&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wSeatClass=All&wSeatClass_cnt=3&wSeatClass_1_txt=%C0%FC%C3%BC&wSeatClass_2_txt=%C0%CF%B9%DD%BC%AE%2F%C7%D2%C0%CE%BC%AE&wSeatClass_3_txt=%BA%F1%C1%EE%B4%CF%BD%BA%BC%AE">예약</a>
 										<%
-											} else if (tour.equals("인터파크")) {
+										} else if (tour.equals("인터파크")) {
 											if (depart.equals("SEL")) {
 												depart = "GMP";
 											}
@@ -244,21 +258,21 @@
 										<a class="cta-btn"
 											href="https://sky.interpark.com/schedules/domestic/<%=depart%>-<%=arrival%>-<%=nobarDate%>?adt=<%=adult%>&chd=<%=child%>&inf=<%=baby%>&seat=ALL&pickAirLine=&pickMainFltNo=&pickSDate=">예약</a>
 										<%
-											} else if (tour.equals("제주도닷컴")) {
+										} else if (tour.equals("제주도닷컴")) {
 										%>
 										<a class="cta-btn"
 											href="https://jejudo.com/air/list/search?City_Dep=<%=depart%>&City_Arr=<%=arrival%>&DateDep=<%=date%>&DateArr=<%=date%>&ACnt=<%=adult%>&CCnt=<%=child%>&ICnt=<%=baby%>&itinerary=OneWay">예약</a>
 										<%
-											} else if (tour.equals("하나투어")) {
+										} else if (tour.equals("하나투어")) {
 										%>
 										<a class="cta-btn"
 											href="https://wtdom2.hanatour.com/00001/DA/da_list.asp?wDepDate=<%=nobarDate%>&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wItinerary=oneway&wSeatClass=ALL&">예약</a>
 										<%
-											} else {
+										} else {
 										%>
 										<a class="cta-btn" href="#">예약</a>
 										<%
-											}
+										}
 										%>
 									</div>
 									<br>
