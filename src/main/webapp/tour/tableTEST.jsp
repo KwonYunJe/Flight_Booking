@@ -17,12 +17,12 @@
 
 	<h1>USER INSERT</h1>
 	<form action="userCreate"><br>
-		ID: <input type="text" name="id" value="yunje2"><br>
-		PW: <input type="password" name="pw" value="1234"><br>
+		ID: <input type="text" name="userid" value="yunje2"><button type="submit">ID중복체크</button><br>
+		PW: <input type="password" name="password" value="1234"><br>
 		Name: <input type="text" name="name" value="KWONYUNJE"><br>
 		Tel: <input type="text" name="tel" value="010-1111-1111"><br>
 		Gender: <input type="text" name="gender" value="male"><br>
-		Nickname: <input type="text" name="nickname" value="YUEIS"><br>
+		Nickname: <input type="text" name="nickname" value="YUEIS"><br><!-- 닉네임 중복체크 작업해야됨 -->
 		<button type="submit">Submit</button>
 	</form><br>
 	<hr>

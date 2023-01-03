@@ -9,6 +9,7 @@ public class UserVO {
 	private String nickname;
 	
 	
+	
 	public String getUserid() {
 		return userid;
 	}
@@ -47,9 +48,11 @@ public class UserVO {
 	}
 	@Override
 	public String toString() {
-		return "UserVO [id=" + userid + ", pw=" + password + ", name=" + name + ", tel=" + tel + ", gender=" + gender
-				+ ", nickname=" + nickname + "]";
+		return "UserVO [userid=" + userid + ", password=" + password + ", name=" + name + ", tel=" + tel + ", gender="
+				+ gender + ", nickname=" + nickname + "]";
 	}
+	
+	
 	
 	
 }

@@ -1,5 +1,6 @@
 package com.flight.booking.tour;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ public class TourController {
 	LoginDAO lDao;
 	
 	@RequestMapping("tour/userCreate")
-	public String userCreate(UserVO vo) throws Exception {
+	public String userCreate(UserVO vo) throws Exception{
 		System.out.println("회원가입 제어 요청됨.");
 		//1. 입력한 값 받아오기 
 		//2. vo만들어서 넣기.
@@ -35,7 +36,6 @@ public class TourController {
 		uDao.create(vo);
 		
 		return "/tour/success";
-
 	}
 	@RequestMapping("tour/bbsInsert")
 	public String bbsInsert(BbsVO vo) throws Exception{
