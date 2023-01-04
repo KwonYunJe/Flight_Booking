@@ -1,7 +1,13 @@
+<%@page import="java.util.Arrays"%>
+<%@page import="com.flight.booking.air.FlightListVO"%>
+<%@page import="java.time.LocalTime"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="com.flight.booking.air.FlightVO"%>
 <%@page import="java.util.ArrayList"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <
@@ -48,6 +54,7 @@
   ======================================================== -->
 </head>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <body>
 	<!-- ======= Header ======= -->
 	<header id="header" class="header d-flex align-items-center fixed-top">
@@ -109,20 +116,16 @@
 				<div>
 					<%
 					// controller에서 만든 model 가져오기
-					ArrayList<String> airline = (ArrayList) request.getAttribute("airline");
-					ArrayList<String> price = (ArrayList) request.getAttribute("price");
-					ArrayList<String> tourCom = (ArrayList) request.getAttribute("tour");
-					ArrayList<String> depTime = (ArrayList) request.getAttribute("depTime");
-					ArrayList<String> desTime = (ArrayList) request.getAttribute("desTime");
-					ArrayList<FlightVO> list = (ArrayList) request.getAttribute("list");
+					ArrayList<FlightListVO> flightList = (ArrayList) request.getAttribute("flightList");
+					ArrayList<FlightVO> searchList = (ArrayList) request.getAttribute("searchList");
 
-					// 사용자가 입력한 값
-					String dep = list.get(0).getDeparture(); // 출발지
-					String arr = list.get(0).getArrival(); // 도착지	
-					String date = list.get(0).getAirdate(); // 날짜
-					String adult = list.get(0).getAdult(); // 성인
-					String child = list.get(0).getChild(); // 소아
-					String baby = list.get(0).getBaby(); // 유아
+					// 사용자가 검색한 값
+					String dep = searchList.get(0).getDeparture(); // 출발지
+					String arr = searchList.get(0).getArrival(); // 도착지	
+					String date = searchList.get(0).getAirdate(); // 날짜
+					String adult = searchList.get(0).getAdult(); // 성인
+					String child = searchList.get(0).getChild(); // 소아
+					String baby = searchList.get(0).getBaby(); // 유아
 
 					// 출발지, 도착지 value값 문자열 자르기 (ex 부산_PUS -> PUS)
 					String target = "_"; // 기준 문자열 : _
@@ -165,18 +168,53 @@
 					<div class="col-sm-4">
 						<a class="cta-btn">가격 변동 추이</a> <br> <br>
 						<h5>출발시간</h5>
-						<input type="text" class="form-control"> <br>
+						<input type="time" class="form-control">
+						<br>
 						<h5>총 소요시간</h5>
-						<input type="text" class="form-control"> <br>
+						<input type="range" class="form-control-range" name="range" min="0" max="10" step="0.5" id="timeRange" style="width: 100%;">
+						<p style="color: black"><span id="value"></span>시간</p>
+    					<script>
+        					var slider = document.getElementById("timeRange");
+        					var output = document.getElementById("value");
+        					output.innerHTML = slider.value;
+        					slider.oninput = function(){
+        						output.innerHTML = this.value;
+        					}
+    					</script>
+						<br>
 						<h5>항공사</h5>
-						<div class="form-group">
 						<select class="form-control">
-							<option>대한항공</option>
-							<option>에어부산</option>
-							<option>아시아나</option>
-							<option>제주항공</option>
-						</select>
+ 							<option>대한항공</option>
+ 							<option>아시아나</option>
+ 							<option>에어부산</option>
+ 							<option>제주항공</option>
+ 							<option>진에어</option>
+ 						</select>
+						<!-- <div class="form-check">
+  							<label class="form-check-label">
+   							<input type="checkbox" class="form-check-input" value="">대한항공
+ 	 						</label>
 						</div>
+						<div class="form-check">
+  							<label class="form-check-label">
+  	  						<input type="checkbox" class="form-check-input" value="">아시아나
+  							</label>
+						</div>
+						<div class="form-check">
+  							<label class="form-check-label">
+  							<input type="checkbox" class="form-check-input" value="">에어부산
+ 							</label>
+						</div>
+						<div class="form-check">
+  							<label class="form-check-label">
+  							<input type="checkbox" class="form-check-input" value="">제주항공
+ 							</label>
+						</div>
+						<div class="form-check">
+  							<label class="form-check-label">
+  							<input type="checkbox" class="form-check-input" value="">진에어
+ 							</label>
+						</div> -->
 						<br>
 					</div>
 					
@@ -186,49 +224,91 @@
 							<!-- 최저가 띄우기 -->
  							<div class="col">
  								<h4>최저가</h4>
- 								<% String lowPrice = price.get(0); %>
-								<h4>￦ <%=lowPrice %></h4>
+ 								<%
+ 								int[] priceArr = new int[flightList.size()];
+ 								int minPrice = flightList.get(0).getPrice();	// minPrice(최저값)를 price 첫 값으로 임시지정
+// 								System.out.println("origin min 값 : " + minPrice);
+ 								for(int i = 0; i < flightList.size(); i++){
+ 									priceArr[i] = flightList.get(i).getPrice();	// price값 콤마 지우고 정수형으로 바꿔서 배열에 저장
+									if(priceArr[i] < minPrice){	// price값이 minPrice보다 작다면
+										minPrice = priceArr[i];	// minPrice를 price값으로 바꿔줌
+									}
+// 									System.out.println("after min 값 : " + minPrice);
+ 								}
+ 								%>
+								<h4>￦ <fmt:formatNumber value="<%=minPrice %>" pattern="#,###"/></h4> <!-- 최저값을 #,### 형식으로 출력 -->
  							</div>
  							<div class="col"></div>
  							<!-- 정렬 부분 -->
  							<div class="col" style="float: right; width: 100px;">
  								<div class="form-group">
- 								 <label for="pwd">정렬 기준</label>
- 								<select class="form-control">
- 									<option>최저가순</option>
- 									<option>출발시간순</option>
- 									<option>최단여행순</option>
+ 								<label>정렬 기준</label>
+ 								<select class="form-control" id="selectSort">
+ 									<option value="minPrice">최저가순</option>
+ 									<option value="minDep">출발시간순</option>
+ 									<option value="minTime">최단여행순</option>
  								</select>
  								</div>
  							</div>
 						</div>
 						<br>
-						
+						<!-- 정렬 기준 선택 이벤트 -->
+						<script type="text/javascript">
+							$(document).ready(function () {
+								$('#selectSort').change(function () {
+									var result = $('#selectSort option:selected').val();
+									if(result == 'minPrice'){
+										alert('최저가순')
+									} else if(result == 'minDep'){
+										alert('출발시간순')
+									} else{
+										alert('최단여행순')
+									}
+								})
+							})
+						</script>
+						<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+						<!-- 가격 큰 순으로 정렬 해보기 -->
+						<!-- 일단 버블 정렬  -->
+						<%
+						/* ArrayList<FlightListVO> temp = new ArrayList<FlightListVO>();
+						for(int i = 0 ; i < flightList.size() - 1; i++){
+							for(int j = flightList.size() - 1; j > i; j--){
+								if(flightList.get(j - 1).getPrice() < flightList.get(j).getPrice()){
+									temp = flightList.get(j - 1);
+									flightList.get(j - 1) = flightList.get(j);
+									flightList.get(j) = temp;
+								}
+							}
+						} */
+						%>
+						<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+												
 						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
 						<%
-						for (int i = 0; i < 10; i++) {
-							String airs = airline.get(i);
-							String pri = price.get(i);
-							String tour = tourCom.get(i);
-							String depT = depTime.get(i);
-							String desT = desTime.get(i);
+						for (int i = 0; i < flightList.size(); i++) {
+							String airline = flightList.get(i).getAirline();
+							int price = flightList.get(i).getPrice();
+							String tour = flightList.get(i).getTour();
+							String depT = flightList.get(i).getDepTime();
+							String arrT = flightList.get(i).getArrTime();
 						%>
 						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
 							<div class="media-body">
 								<div class="row" style="text-align: center;">
 									<div class="col-sm-3" style="margin-top: 25px;">
-										<h5><%=airs%></h5>
+										<h5><%=airline%></h5>
 									</div>
 									<div class="col-sm-3" style="margin-top: 25px;">
 										<h5><%=depT%>
 											--<i class="fi fi-ts-plane-alt"></i>
-											<%=desT%></h5>
+											<%=arrT%></h5>
 									</div>
 									<div class="col-sm-3" style="margin-top: 25px;">
 										<h5><%=tour%></h5>
 									</div>
 									<div class="col-sm-3">
-										<h5>￦<%=pri%></h5>
+										<h5>￦<fmt:formatNumber value="<%=price%>" pattern="#,###"/></h5>
 										<%
 										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
 										%>
