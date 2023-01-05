@@ -31,7 +31,7 @@
 			}
 
 			id1 = setInterval(count1Fn, 0.1);
-			//0.1 = 속도 조절
+			//0.1 = 속도조절
 			function count1Fn() {
 				count1++;
 				if (count1 > ${covidList.get(2)}) {
