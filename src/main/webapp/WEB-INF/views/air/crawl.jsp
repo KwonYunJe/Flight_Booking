@@ -65,7 +65,7 @@
 		<%
 		if(tour.equals("노랑풍선")){
 			%>
-			<td><a href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart %>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival %>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date %>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">클릭</a></td>
+			<td><a href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart %>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival %>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date %>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10"><button>클릭</button></a></td>
 		<%
 		
 		}
@@ -75,12 +75,26 @@
 		<td><a href="https://krair.lottetour.com/subIndexNew.lts?arr0=<%=arrival%>&depdate0=<%=date2%>&inf=0&dep0=<%=depart%>&trip=OW&adt=<%=adult%>&chd=<%=child%>"><button>클릭</button></a></td>
 		<%
 		}
-		%>	
+		else if(tour.equals("와이페이모어")){
+			%>
+		<td><a href="https://www.whypaymore.co.kr/d/flt/dom/scheds?depLocs=<%=depart%>&arrLocs=<%=arrival%>&selectedIds=&dates=<%=date%>&datestemp=&airlines=KE&airlines=OZ&airlines=RF&airlines=BX&airlines=RS&airlines=YP&airlines=7C&airlines=LJ&airlines=TW&airlines=4V&airlines=4H&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&tripType=1&searchSource=M&maintenanceType=TK&pageType=search"><button>클릭</button></a> </td>
+		
+		<% 
+		}
+		else if(tour.equals("선민투어")){
+			String date2 = date.replaceAll("-", ".");
+		%>
+		<td><a href="air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date%>&arrCity=<%=arrival%>&arrDate=<%=date%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>"><button>클릭</button></a></td>
+		
+		<%
+		}
+		%>
 		</tr>	
 	<%
 	}
 	%>
-
+	
+	
 </table>
 </body>
 </html>

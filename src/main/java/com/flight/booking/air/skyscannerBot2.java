@@ -1,25 +1,20 @@
 package com.flight.booking.air;
 
-
-
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.slf4j.LoggerFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mysql.cj.protocol.a.LocalDateTimeValueEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.openqa.selenium.*;
 @Controller
 public class skyscannerBot2 {
 	 
@@ -30,8 +25,8 @@ public class skyscannerBot2 {
 	public static String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	public static String WEB_DRIVER_PATH = "D:\\study\\algorithm_study\\Flight_Booking\\Flight_Booking\\Flight_Booking\\src\\main\\resources\\chromedriver.exe";
 	
-	@RequestMapping("air/test")
-	public void skyscannerBot2(BookingVO vo, Model model) {
+	@RequestMapping("air/change")
+	public void skyscannerBot2(FlightVO vo, Model model) {
 		// WebDriver 경로 설정
 		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
  
@@ -40,71 +35,63 @@ public class skyscannerBot2 {
 		options.addArguments("--disable-popup-blocking");
  
 		driver = new ChromeDriver(options);
-		
-		String departure = vo.getDeparture();
-		String arrival = vo.getArrival();
-		String airdate = vo.getAirdate();
-		int adult = vo.getAdult();
-		int child = vo.getChild();
-		int baby = vo.getBaby();
-				
-	
-//		String departure = request.getParameter("departure"); //웹에서 전달받은 값
-//		String arrival = request.getParameter("arrival"); //웹에서 전달받은 값
-//		String airdate = request.getParameter("airdate"); //웹에서 전달받은 값
-//		String adult = request.getParameter("adult"); //웹에서 전달받은 값
-//		String child = request.getParameter("child"); //웹에서 전달받은 값
-//		String baby = request.getParameter("baby"); //웹에서 전달받은 값
-		
-		System.out.println("출발지 : "+departure+" 도착지 : "+ arrival + " 날짜 : "+ airdate+ " 성인 "+adult+"명 소아 "+child+"명 유아 "+baby+"명");
+		ArrayList<Integer> lowest = new ArrayList<Integer>(); // 최저가 리스트
 		
 		
-		url ="http://tour.tmon.co.kr/flight/domestic/result?trip=OW&sch=%EB%B6%80%EC%82%"+departure+"_%EA%B9%80%ED%8F%"+arrival+"_"+airdate+"&ps="+adult+"-"+child+"-"+baby+"&seat=D";
-		 ArrayList<String> airline = new ArrayList<String>(); //항공사 리스트
-		 ArrayList<String> price = new ArrayList<String>(); //최저가 리스트 
+		String departure = vo.getDeparture(); //출발지 데이터 가져옴
+		String arrival = vo.getArrival(); // 도착지 데이터 가져옴 
+		url ="https://www.google.com/travel/flights/search?tfs=CBwQAhoeagcIARID"+departure+"EgoyMDIzLTAxLTI0cgcIARID"+arrival+"cAGCAQsI____________AUABSAGYAQI";
 		
-//		List<String> airline = new ArrayList();
-//		List<String> price = new ArrayList();
+		
 		try {
 			driver.get(url);
- 
-			Thread.sleep(2000);
- 
-			// 곡 제목 파싱
+			
+			Thread.sleep(3000);
+			
+			WebElement webelement = driver.findElement(By.xpath("/html/body/c-wiz[2]/div/div[2]/c-wiz/div[1]/c-wiz/div[2]/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/div[1]/div/div[1]/div/input"));
+			webelement.click(); // 달력 클릭
 			
 			
-			 for (int i = 1; i < 11; i++) {
-				 element = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div/div[1]/div/div[1]/div[3]/div[2]/table/tbody/tr["+i+"]/td[1]/span"));
-				 String title = element.getText();
-				 element = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div/div[1]/div/div[1]/div[3]/div[2]/table/tbody/tr["+i+"]/td[6]/label/span"));
-				String cntLike = element.getText();
-				System.out.println("항공사는 [" + title + "]입니다.");
-				System.out.println("최저가는 [" + cntLike + "]입니다.");
-				airline.add(title);
-				//airline.add(cntLike);
-				price.add(cntLike);
-			 }
-		//String title = element.getAttribute("title");
-		
- 		
+			for(int i = 1; i <6; i++) {	
+				Thread.sleep(3000);
+				for(int j = 1; j<8; j++) { // 해당 월 최저가 가져옴 
+					element = driver.findElement(By.xpath("/html/body/c-wiz[2]/div/div[2]/c-wiz/div[1]/c-wiz/div[2]/div[1]/div/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div/div[1]/div[3]/div["+i+"]/div["+j+"]/div/div[2]"));
+					String prices = element.getText();
+					prices = prices.replace("₩", ""); //필터링들
+					prices = prices.replace(".", "");
+					prices = prices.replace("만", "00");
+					if (prices.length() == 4) {
+						prices= prices + "00";
+					}
+					if (prices.equals("")) { //값이 비어있으면 0으로 지정
+						prices= "0";
+					}
+					int lowprices = Integer.parseInt(prices);
+					lowest.add(lowprices);
+					if(lowest.size() >= 31) { // 1월기준 31일까지 반복
+						break;
+					}
+				}
+				int totalElements = lowest.size();// arrayList의 요소의 갯수를 구한다.
+				  for (int index = 0; index < totalElements; index++) {
+				   System.out.println(lowest.get(index));
+				  }
+				
+					
+				//31일 /html/body/c-wiz[2]/div/div[2]/c-wiz/div[1]/c-wiz/div[2]/div[1]/div/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div/div[1]/div[3]/div[5]/div[3]/div[2]/div[2]
+			}
+			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
+		}
+		 finally {
 			driver.close();
 		}
-		
-		model.addAttribute("airline",airline);
-		model.addAttribute("price",price);
-		model.addAttribute("departure", departure);
-		model.addAttribute("arrival", arrival);
-		model.addAttribute("airdate", airdate);
-		model.addAttribute("adult", adult);
-		model.addAttribute("child", child);
-		model.addAttribute("baby", baby);
-		
-		
-		
+		//모델에 추가
+		model.addAttribute("departure",departure);
+		model.addAttribute("arrival",arrival);
+		model.addAttribute("lowest",lowest);
 	}
-	
-
 }

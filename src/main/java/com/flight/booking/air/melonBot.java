@@ -34,8 +34,8 @@ public class melonBot {
 			Thread.sleep(2000);
  
 			// 곡 제목 파싱
-			element = driver.findElement(By.xpath("/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[1]/td[6]/div/div/div[1]/span/a"));
-			String title = element.getAttribute("title");
+			element = driver.findElement(By.xpath("/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[2]/td[6]/div/div/div[1]/span/a"));
+			String title = element.getText();
  
 			// 좋아요 수 파싱
 			element = driver.findElement(By.xpath("/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[1]/td[8]/div/button/span[2]"));
@@ -46,9 +46,12 @@ public class melonBot {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
+			finally { 
+				driver.close(); 
+			}
+			
 	}
- 
 	public static void main(String[] args) {
 		melonBot bot1 = new melonBot();
 		bot1.activateBot();

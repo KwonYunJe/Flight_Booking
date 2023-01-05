@@ -126,7 +126,7 @@ public class SkyscannerBot {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			//driver.close();
+			driver.close();
 		}
 		
 		
