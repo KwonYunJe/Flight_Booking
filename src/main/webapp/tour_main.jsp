@@ -28,7 +28,7 @@
 	rel="stylesheet">
 <link href="resources/vendor/glightbox/css/glightbox.min.css"
 	rel="stylesheet">
-<link href="resources/vendor/aos/aos.css" rel="stylesheet">
+
 
 <!-- Template Main CSS File -->
 <link href="resources/css/fly.css" rel="stylesheet"> 	
@@ -396,15 +396,12 @@
 		class="scroll-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
 
-	<div id="preloader">
-		<div class="line"></div>
-	</div>
+	
 
 	<!-- Vendor JS Files -->
 	<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="resources/vendor/swiper/swiper-bundle.min.js"></script>
 	<script src="resources/vendor/glightbox/js/glightbox.min.js"></script>
-	<script src="resources/vendor/aos/aos.js"></script>
 	<script src="resources/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->

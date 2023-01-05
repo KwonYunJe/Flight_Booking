@@ -164,7 +164,7 @@ h6 {
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
-#preloader {
+/* #preloader {
   display: flex;
   position: fixed;
   inset: 0;
@@ -241,8 +241,9 @@ h6 {
   -webkit-animation: preloaderfinish 300ms ease-in-out 500ms forwards;
   animation: preloaderfinish 300ms ease-in-out 500ms forwards;
 }
+*/ 
 
-@-webkit-keyframes lineincrease {
+ /* @-webkit-keyframes lineincrease {
   0% {
     height: 0%;
   }
@@ -300,8 +301,8 @@ h6 {
   100% {
     width: 0%;
   }
-}
-
+} */
+ 
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
