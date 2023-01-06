@@ -13,6 +13,13 @@ public class UserDAO {
 	public void create(UserVO vo) {
 		my.insert("userMap.userCreate", vo);
 	}
-	
+	public UserVO idcheck(UserVO vo) {
+		System.out.println("DAO 작동");
+		return my.selectOne("userMap.idCheck", vo);
+	}
+	public UserVO nickcheck(UserVO vo) {
+		System.out.println("DAO 작동");
+		return my.selectOne("userMap.nickCheck", vo);
+	}
 	
 }

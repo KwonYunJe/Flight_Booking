@@ -5,14 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<script language="javascript">
-	location.href="tableTEST.jsp"
-
-</script>
 </head>
 <body>
-Success!
-<input type="button" value="버튼" onClick="location.href='./tableTEST.jsp'"> 
+	<h1>BBS DELETE</h1>
+	<form action="bbsDelete">
+		Del ID : <input type="text" name="delKey"><br>
+		<button type="submit">Submit</button>
+	</form>
 </body>
 </html>

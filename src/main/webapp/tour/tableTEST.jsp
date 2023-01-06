@@ -1,45 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
+<style type="text/css">
+.recentBbs {
+      width:100px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      display:inline-block;
+  }
+</style>
+
 </head>
 <body>
-<%
-	if(session.getAttribute("member") == null){
-%>
-	<h1>로그인되어있지 않음</h1>
-	<%} else{%>
-	<h1>로그인되어있음</h1>
-	<%} %>
-
-	<h1>USER INSERT</h1>
-	<form action="userCreate"><br>
-		ID: <input type="text" name="userid" value="yunje2"><button type="submit">ID중복체크</button><br>
-		PW: <input type="password" name="password" value="1234"><br>
-		Name: <input type="text" name="name" value="KWONYUNJE"><br>
-		Tel: <input type="text" name="tel" value="010-1111-1111"><br>
-		Gender: <input type="text" name="gender" value="male"><br>
-		Nickname: <input type="text" name="nickname" value="YUEIS"><br><!-- 닉네임 중복체크 작업해야됨 -->
-		<button type="submit">Submit</button>
-	</form><br>
-	<hr>
-	<h1>BBS INSERT</h1>
-	<form action="bbsInsert">
-		userID: <input type="text" name="userId" value="yunje1"><br>
-		title: <input type="text" name="title"><br>
-		contents: <input type="text" name="contents"><br>
-		area: <input type="text" name="area"><br>
-		<button type="submit">Submit</button>
+	<%
+		if (session.getAttribute("member") == null) {
+	%>
+		<a href="login.jsp">로그인</a>
+	<%
+		} else {
+	%>
+	<a href="BbsInsert.jsp">게시글 작성</a>
+	<form action="logout" method="post">
+		<button type="submit">로그아웃</button>
 	</form>
-	<hr>
+	<%
+		}
+	%>
+	
 	<h1>BBS DELETE</h1>
 	<form action="bbsDelete">
 		Del ID : <input type="text" name="delKey"><br>
 		<button type="submit">Submit</button>
 	</form>
+	
 	<hr>
 	<form action="bbsOne">
 		Search id : <input type="text" name="oneKey">
@@ -47,8 +46,87 @@
 	</form>
 	<br>
 	<hr>
-	<a href="bbsAll">
-		<button>전체 검색 요청</button>
-	</a>
+	
+	<h1>최신 게시글</h1>
+	<ol>
+		<li>
+			<a id="bbstitle1" class="recentBbs"></a>
+			<a id="userid1" class="recentBbs"></a>
+			<a id = "bbsarea1" class="recentBbs"></a>
+		</li>
+		<li>
+			<a id="bbstitle2" class="recentBbs"></a>
+			<a id="userid2" class="recentBbs"></a>
+			<a id = "bbsarea2" class="recentBbs"></a>
+		</li>
+		<li>
+			<a id="bbstitle3" class="recentBbs"></a>
+			<a id="userid3" class="recentBbs"></a>
+			<a id = "bbsarea3" class="recentBbs"></a>
+		</li>
+		<li>
+			<a id="bbstitle4" class="recentBbs"></a>
+			<a id="userid4" class="recentBbs"></a>
+			<a id = "bbsarea4" class="recentBbs"></a>
+		</li>
+		<li>
+			<a id="bbstitle5" class="recentBbs"></a>
+			<a id="userid5" class="recentBbs"></a>
+			<a id = "bbsarea5" class="recentBbs"></a>
+		</li>
+	</ol>
+
+	
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	$.ajax({
+		  url : "bbsAll",
+		  type : "post",
+		  
+		  success : function(data) {
+			  for(var i = 0 ;i < 5; i++){
+				  $("#bbstitle1").html(data[i].title);
+				  console.log(data[i].userId);
+				  console.log(data[i].title);
+				  console.log(data[i].bbscont);
+				  console.log(data[i].area);
+				  console.log(data[i].bbstime);
+			  };
+			  $("#bbstitle1").html(data[0].title);
+			  $("#userid1").html(data[0].userId);
+			  $("#bbscont1").html(data[0].bbscont);
+			  $("#bbsarea1").html(data[0].area);
+			  $("#bbstime1").html(data[0].bbstime);
+			  
+			  $("#bbstitle2").html(data[1].title);
+			  $("#userid2").html(data[1].userId);
+			  $("#bbscont2").html(data[1].bbscont);
+			  $("#bbsarea2").html(data[1].area);
+			  $("#bbstime2").html(data[1].bbstime);
+			  
+			  $("#bbstitle3").html(data[2].title);
+			  $("#userid3").html(data[2].userId);
+			  $("#bbscont3").html(data[2].bbscont);
+			  $("#bbsarea3").html(data[2].area);
+			  $("#bbstime3").html(data[2].bbstime);
+			  
+			  $("#bbstitle4").html(data[3].title);
+			  $("#userid4").html(data[3].userId);
+			  $("#bbscont4").html(data[3].bbscont);
+			  $("#bbsarea4").html(data[3].area);
+			  $("#bbstime4").html(data[3].bbstime);
+			  
+			  $("#bbstitle5").html(data[4].title);
+			  $("#userid5").html(data[4].userId);
+			  $("#bbscont5").html(data[4].bbscont);
+			  $("#bbsarea5").html(data[4].area);
+			  $("#bbstime5").html(data[4].bbstime);
+		  },
+		  error : function() {
+		  	alert("error");
+		  }
+		})
+	</script>
 </body>
 </html>

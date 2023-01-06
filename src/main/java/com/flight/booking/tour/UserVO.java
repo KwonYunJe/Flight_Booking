@@ -3,10 +3,10 @@ package com.flight.booking.tour;
 public class UserVO {
 	private String userid="";
 	private String password="";
-	private String name;
-	private String tel;
-	private String gender;
-	private String nickname;
+	private String name="";
+	private String tel="";
+	private String gender="";
+	private String nickname="";
 	
 	
 	

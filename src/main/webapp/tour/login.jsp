@@ -9,21 +9,18 @@
 <title>Login display</title>
 </head>
 <body>
+	
+	<form action='login' method="post">
+		<div>
+			<label>아이디</label> <input id="memberId" name="userid" value="yunje1">
+		</div>
+		<div>
+			<label>비밀번호</label> <input id="memberPass" name="password" value="1234">
+		</div>
+		<input type="submit" value="로그인"> 
+	</form>
+	<a href="SignUp.jsp">회원가입</a>
 
-	<c:if test="${member == null}">
-		<form action='login' method="post">
-			<div>
-				<label>아이디</label> <input id="memberId" name="userid" value="yunje1">
-			</div>
-			<div>
-				<label>비밀번호</label> <input id="memberPass" name="password" value="1234">
-			</div>
-			<input type="submit" value="로그인"> <input type="button"
-				value="회원가입" onclick="location.href='register'">
-		</form>
-	</c:if>
-	<c:if test="${member != null}">
-		<c:redirect url="/boardList" />
-	</c:if>
+
 </body>
 </html>

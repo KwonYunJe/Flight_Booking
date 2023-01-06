@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,7 @@ public class TourController {
 	LoginDAO lDao;
 	
 	@RequestMapping("tour/userCreate")
-	public String userCreate(UserVO vo) throws Exception{
+	public String userCreate(UserVO vo){
 		System.out.println("회원가입 제어 요청됨.");
 		//1. 입력한 값 받아오기 
 		//2. vo만들어서 넣기.
@@ -36,6 +38,52 @@ public class TourController {
 		uDao.create(vo);
 		
 		return "/tour/success";
+	}
+	@RequestMapping("tour/idCheck")
+	public @ResponseBody String idCheck(UserVO vo){
+		try {
+			System.out.println("ID 중복체크 요청됨");
+			System.out.println(vo.getUserid());
+			UserVO rvo = uDao.idcheck(vo); 
+			System.out.println(uDao.idcheck(vo));
+			String idCheckVal ="";
+			if(rvo == null) {
+				idCheckVal = "null";
+			}else {
+				idCheckVal = vo.getUserid();
+			}
+			String result = "{\"userid1\" : \"" + idCheckVal + "\"}";
+			System.out.println("DB id존재 여부 : " + result);
+			return result;
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			String error = "" + e;
+			return error;
+		}
+	}
+	@RequestMapping("tour/nickCheck")
+	public @ResponseBody String nickCheck(UserVO vo){
+		try {
+			System.out.println("nickName 중복체크 요청됨");
+			System.out.println(vo.getNickname());
+			UserVO rvo = uDao.nickcheck(vo); 
+			System.out.println(uDao.nickcheck(vo));
+			String NickVal ="";
+			if(rvo == null) {
+				NickVal = "null";
+			}else {
+				NickVal = rvo.getNickname();
+			}
+			String result = "{\"nickname1\" : \"" + NickVal + "\"}";
+			System.out.println("DB nickname존재 여부 : " + result);
+			return result;
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			String error = "" + e;
+			return error;
+		}
 	}
 	@RequestMapping("tour/bbsInsert")
 	public String bbsInsert(BbsVO vo) throws Exception{
@@ -51,7 +99,7 @@ public class TourController {
 		System.out.println("요청된 게시글 ID : " + delKey);
 		bDao.bbsDelete(delKey);
 		
-		return "success";
+		return "/tour/success";
 	}
 	@RequestMapping("tour/bbsOne")
 	public String bbsOne(int oneKey, Model model, BbsVO vo) throws Exception {
@@ -64,12 +112,12 @@ public class TourController {
 	}
 	
 	@RequestMapping("tour/bbsAll")
-	public String bbsAll(Model model) {
+	public @ResponseBody List bbsAll(Model model) {
 		List<BbsVO> list = bDao.bbsAll();
 		System.out.println(list.size());
 		model.addAttribute("list", list);
 		
-		return "/tour/success";
+		return list;
 	}
 	
 	@RequestMapping("tour/login")
@@ -93,6 +141,13 @@ public class TourController {
             return "/tour/success";
             
         }
-		
 	}
+	@PostMapping("tour/logout")
+	  public String logoutV3(HttpServletRequest request) {
+	    HttpSession session = request.getSession(false);
+	    if (session != null) {
+	      session.invalidate();
+	    }
+	    return "/tour/success";
+	  }
 }

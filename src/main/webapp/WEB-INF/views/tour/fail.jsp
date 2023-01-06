@@ -5,9 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script language="javascript">
+	location.href="tableTEST.jsp"
+</script>
 </head>
 <body>
-Fail!
-<input type="button" value="버튼" onClick="location.href='./tableTEST.jsp'"> 
 </body>
 </html>

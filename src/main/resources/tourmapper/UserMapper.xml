@@ -4,6 +4,12 @@
 	<insert id="userCreate" parameterType="userVO">
 		insert into USER values (#{userid},#{password},#{name},#{tel},#{gender},#{nickname})
 	</insert>
+	<select id="idCheck" parameterType="userVO" resultType="userVO">
+		select * from USER where userid = #{userid}
+	</select>
+	<select id="nickCheck" parameterType="userVO" resultType="userVO">
+		select * from USER where nickname = #{nickname}
+	</select>
 	
 
 </mapper>

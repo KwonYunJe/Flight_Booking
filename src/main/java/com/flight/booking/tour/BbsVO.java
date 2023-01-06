@@ -3,8 +3,9 @@ package com.flight.booking.tour;
 public class BbsVO {
 	private String userId;
 	private String title;
-	private String contents;
+	private String bbscont;
 	private String area;
+	private String bbstime="";
 
 	public String getUserId() {
 		return userId;
@@ -18,11 +19,11 @@ public class BbsVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContents() {
-		return contents;
+	public String getbbscont() {
+		return bbscont;
 	}
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setbbscont(String bbscont) {
+		this.bbscont = bbscont;
 	}
 	public String getArea() {
 		return area;
@@ -30,11 +31,18 @@ public class BbsVO {
 	public void setArea(String area) {
 		this.area = area;
 	}
-	
+	public String getBbstime() {
+		return bbstime;
+	}
+	public void setBbstime(String bbstime) {
+		this.bbstime = bbstime;
+	}
 	@Override
 	public String toString() {
-		return "BbsVO [userId=" + userId + ", title=" + title + ", contents=" + contents + ", area=" + area + "]";
+		return "BbsVO [userId=" + userId + ", title=" + title + ", bbscont=" + bbscont + ", area=" + area
+				+ ", bbstime=" + bbstime + "]";
 	}
+	
 	
 	
 	
