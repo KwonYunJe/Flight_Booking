@@ -30,10 +30,11 @@
        position: absolute;
         top: 50%;
         left: 50%;
-
+		padding-left: 75px;
+		padding-top: 20px;
         width: 900px;
         height: 800px;
-
+		align-items : center;
         background-color: rgb(255, 255, 255);
         border-radius: 10px;
         box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
@@ -54,6 +55,8 @@
         height: 80%;
         padding: 10px;
       }
+      
+      
       .m_footer{
         height: 10%;
         padding: 15px;
@@ -114,12 +117,9 @@
  
     
     <div class="m_body">
-     <canvas id="testChart" width="800px" height="600px"></canvas>
-   
+     <canvas id="testChart" width=800px height=750px></canvas>
     </div>
     
-  
-   
   </div>
 </div> 
 <!-- 모달 -->

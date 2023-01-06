@@ -84,7 +84,7 @@
 		else if(tour.equals("선민투어")){
 			String date2 = date.replaceAll("-", ".");
 		%>
-		<td><a href="air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date%>&arrCity=<%=arrival%>&arrDate=<%=date%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>"><button>클릭</button></a></td>
+		<td><a href="air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date2%>&arrCity=<%=arrival%>&arrDate=<%=date2%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>"><button>클릭</button></a></td>
 		
 		<%
 		}
