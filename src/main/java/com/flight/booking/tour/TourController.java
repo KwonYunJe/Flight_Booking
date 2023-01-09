@@ -28,6 +28,7 @@ public class TourController {
 	@Autowired
 	LoginDAO lDao;
 	
+	
 	@RequestMapping("tour/userCreate")
 	public String userCreate(UserVO vo){
 		System.out.println("회원가입 제어 요청됨.");
@@ -150,4 +151,17 @@ public class TourController {
 	    }
 	    return "/tour/success";
 	  }
+	
+	@RequestMapping("tour/bbsList")
+	public void boardListGet(Model model, Criteria cri) {
+		System.out.println(cri);
+		int total = bDao.getTotal();
+		PageMoveDTO pageMove = new PageMoveDTO(cri, total);
+		model.addAttribute("list", bDao.paging(cri));
+		model.addAttribute("clist", cri);
+		model.addAttribute("pageMove", pageMove);
+	}
+	
+	
+	
 }

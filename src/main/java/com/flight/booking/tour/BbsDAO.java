@@ -28,4 +28,12 @@ public class BbsDAO {
 	public List<BbsVO> bbsAll() {
 		return my.selectList("bbsMap.bbsAll");
 	}
+	
+	public List<BbsVO> paging(Criteria cri) {
+		return my.selectList("bbsMap.getListPaging", cri);
+	}
+	
+	public int getTotal() {
+		return my.selectOne("bbsMap.getTotal");
+	}
 }

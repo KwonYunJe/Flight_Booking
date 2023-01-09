@@ -1,12 +1,22 @@
 package com.flight.booking.tour;
 
 public class BbsVO {
+	private String bbsnum;
 	private String userId;
 	private String title;
 	private String bbscont;
 	private String area;
 	private String bbstime="";
-
+	
+	public BbsVO(){
+		this.bbsnum  = "";
+	}
+	public String getBbsnum() {
+		return bbsnum;
+	}
+	public void setBbsnum(String bbsnum) {
+		this.bbsnum = bbsnum;
+	}
 	public String getUserId() {
 		return userId;
 	}
@@ -39,13 +49,8 @@ public class BbsVO {
 	}
 	@Override
 	public String toString() {
-		return "BbsVO [userId=" + userId + ", title=" + title + ", bbscont=" + bbscont + ", area=" + area
-				+ ", bbstime=" + bbstime + "]";
+		return "BbsVO [userId=" + userId + ", title=" + title + ", bbscont=" + bbscont + ", area=" + area + ", bbstime="
+				+ bbstime;
 	}
-	
-	
-	
-	
-	
 	
 }

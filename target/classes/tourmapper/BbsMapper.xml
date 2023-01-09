@@ -13,5 +13,11 @@
 	<select id="bbsAll"  resultType="bbsVO" >
 		select * from BBS order by BBSTIME DESC
 	</select>
+	<select id="getTotal" resultType="int">
+		select count(*) from bbs
+	</select>
+	 <select id="getListPaging" parameterType="Criteria" resultType="bbsVO">
+        select * from BBS order by BBSTIME DESC limit #{skip},#{amount} 
+    </select>
 
 </mapper>

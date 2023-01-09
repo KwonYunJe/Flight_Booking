@@ -8,6 +8,7 @@
 		<typeAlias type="com.flight.booking.tour.BbsVO" alias="bbsVO"/>
 		<typeAlias type="com.flight.booking.tour.UserVO" alias="userVO"/>
 		<typeAlias type="com.flight.booking.tour.ReplyVO" alias="replyVO"/>
+		<typeAlias type="com.flight.booking.tour.Criteria" alias="Criteria"/>
 	</typeAliases>
 		
 	<mappers>

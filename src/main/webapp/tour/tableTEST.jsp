@@ -47,7 +47,7 @@
 	<br>
 	<hr>
 	
-	<h1>최신 게시글</h1>
+	<h1>최신 게시글</h1><form action="bbsList" method="get"><button type="submit">전체글 보기</button> </form>
 	<ol>
 		<li>
 			<a id="bbstitle1" class="recentBbs"></a>

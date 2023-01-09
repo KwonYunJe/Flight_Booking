@@ -165,6 +165,14 @@
 			<version>2.10.1</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.github.ydespreaux.spring.data/spring-data-jpa-criteria -->
+		<dependency>
+			<groupId>com.github.ydespreaux.spring.data</groupId>
+			<artifactId>spring-data-jpa-criteria</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+
+
 
 		<!-- Test -->
 		<dependency>
