@@ -20,9 +20,8 @@ public class BbsDAO {
 		my.insert("bbsMap.bbsCreate", vo);
 	}
 	
-	public void bbsOne(int oneKey) {
-		my.selectOne("bbsMap.bbsOne",oneKey);
-		System.out.println("DAO : " + oneKey);
+	public BbsVO bbsOne(int oneKey) {
+		return my.selectOne("bbsMap.bbsOne",oneKey);
 	}
 	
 	public List<BbsVO> bbsAll() {

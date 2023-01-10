@@ -15,7 +15,7 @@
 		<!-- SQL문 정의하는 파일들의 목록을 지정. -->
 		<mapper resource="tourmapper/BbsMapper.xml" />
 		<mapper resource="tourmapper/UserMapper.xml"/>
-		<mapper resource="tourmapper/ReplyMapper.xml"/>
 		<mapper resource="tourmapper/LoginMapper.xml"/>
+		<mapper resource="tourmapper/ReplyMapper.xml"/>
 	</mappers>
 </configuration>

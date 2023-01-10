@@ -103,13 +103,17 @@ public class TourController {
 		return "/tour/success";
 	}
 	@RequestMapping("tour/bbsOne")
-	public String bbsOne(int oneKey, Model model, BbsVO vo) throws Exception {
+	public String bbsOne(int oneKey, Model model, BbsVO vo, ReplyVO rVo) throws Exception {
 		System.out.println("게시판 검색 요청됨");
 		System.out.println("요청된 검색 키 : " + oneKey);
-		bDao.bbsOne(oneKey);
-		model.addAttribute("one", vo);
+		vo = bDao.bbsOne(oneKey);
 		
-		return "/tour/success";
+		System.out.println("댓글 열람 요청됨");
+		List<ReplyVO> replyList = rDao.replyList(oneKey);
+		model.addAttribute("one", vo);
+		model.addAttribute("rList", replyList);
+		
+		return "/tour/bbsView";
 	}
 	
 	@RequestMapping("tour/bbsAll")
@@ -138,6 +142,7 @@ public class TourController {
             return "/tour/fail";
         } else {
             session.setAttribute("member", uvo);
+            session.setAttribute("userId",uvo.getUserid());
             System.out.println(uvo);
             return "/tour/success";
             
@@ -162,6 +167,18 @@ public class TourController {
 		model.addAttribute("pageMove", pageMove);
 	}
 	
+	@RequestMapping("tour/writeReply")
+	public String writeReply (ReplyVO vo, int bbsnum, String userid, String recont) throws Exception {
+		vo.setBbsnum(bbsnum);
+		vo.setUserid(userid);
+		vo.setRecont(recont);
+		System.out.println("댓글작성 요청됨. 게시글 번호 : " + vo.getBbsnum());
+		System.out.println("댓글 내용" + vo);
+		rDao.create(vo);
+		String rtBbsNum = Integer.toString(vo.getBbsnum());	//댓글 작성 후 원래 게시글 새로고침용
+		
+		return "bbsView?oneKey=" + rtBbsNum;
+	}
 	
 	
 }

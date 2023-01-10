@@ -1,5 +1,7 @@
 package com.flight.booking.tour;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +13,12 @@ public class ReplyDAO {
     SqlSessionTemplate my; 
 	
 	public void create(ReplyVO vo) {
-		my.insert("tour.userCreate", vo);
+		System.out.println("댓글작성 완료");
+		my.insert("replyMap.reCreate", vo);
 	}
+	
+	public List<ReplyVO> replyList(int oneKey){
+		return my.selectList("replyMap.reList", oneKey);
+	}
+
 }

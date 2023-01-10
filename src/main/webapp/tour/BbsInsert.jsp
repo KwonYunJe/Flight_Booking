@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 작성</title>
 </head>
 <body>
 	<form action="bbsInsert">
-		userID: <input type="text" name="userId" value="yunje1"><br>
+		<input type="hidden" name="userId" value="<%=session.getAttribute("userId") %>"><br>
 		title: <input type="text" name="title"><br> contents: <input
 			type="text" name="bbscont"><br> area: <input
 			type="text" name="area"><br>

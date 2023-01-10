@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Insert title here</title>
+<title>지역커뮤니티</title>
 <style type="text/css">
 .recentBbs {
       width:100px;
