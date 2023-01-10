@@ -1,5 +1,6 @@
 package com.flight.booking.air;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import org.openqa.selenium.By;
@@ -60,8 +61,10 @@ public class FlightCrawlingService {
 		// url에 값 넣어주기
 		url ="http://tour.tmon.co.kr/flight/domestic/result?trip=OW&sch=" + departure + "_" + arrival + "_" + airdate + "&ps=" + adult + "-" + child + "-" + baby + "&seat=D";
 
-		ArrayList<FlightListVO> flightList = new ArrayList<FlightListVO>();	// 항공권 리스트
-		
+		ArrayList<FlightListVO> departList = new ArrayList<FlightListVO>();	// 출발시간순 항공권 리스트
+		ArrayList<FlightListVO> priceSort = new ArrayList<FlightListVO>();	// 최저가순 항공권 리스트
+		ArrayList<FlightListVO> timeSort = new ArrayList<FlightListVO>();	// 최단여행순 항공권 리스트
+
 		try {
 			driver.get(url);
  
@@ -73,7 +76,7 @@ public class FlightCrawlingService {
 			String depTime_crawl = "";
 			String arrTime_crawl = "";
 			
-			for(int i=1; i<11; i++) {
+			for(int i=1; i<31; i++) {
 				// 항공사 크롤링
 				element = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div/div[1]/div/div[1]/div[3]/div[2]/table/tbody/tr[" + i + "]/td[1]/span"));
 				airline_crawl = element.getText();
@@ -96,10 +99,11 @@ public class FlightCrawlingService {
 				
 				// 항공사, 가격 출력
 				System.out.println("항공사는 [" + airline_crawl + "]입니다.");
-				System.out.println("최저가는 [" + price_crawl + "]입니다.");
-				System.out.println("최저가는 [" + tour_crawl + "]입니다.");
+				System.out.println("가격은 [" + price_crawl + "]입니다.");
+				System.out.println("판매사는 [" + tour_crawl + "]입니다.");
 				System.out.println("출발시간은 [" + depTime_crawl + "]입니다.");
 				System.out.println("도착시간은 [" + arrTime_crawl + "]입니다.");
+				System.out.println();
 				
 				// FlightListVO setting
 				FlightListVO vo2 = new FlightListVO();
@@ -110,7 +114,19 @@ public class FlightCrawlingService {
 				vo2.setArrTime(arrTime_crawl);
 				
 				// arraylist에 추가
-				flightList.add(vo2);
+				departList.add(vo2);
+				priceSort.add(vo2);
+				timeSort.add(vo2);
+			}
+
+			FlightListVO tempPrice = new FlightListVO();
+			for(int i = 1 ; i < priceSort.size(); i++){
+				int j;
+				tempPrice = priceSort.get(i);
+				for(j = i; j > 0 && priceSort.get(j - 1).getPrice() > tempPrice.getPrice(); j--){
+					priceSort.set(j, priceSort.get(j - 1));
+				}
+				priceSort.set(j, tempPrice);
 			}
 			
 		} catch (Exception e) {
@@ -119,6 +135,10 @@ public class FlightCrawlingService {
 			//driver.close();
 		}
 		
-		return flightList;
+		ArrayList totalList = new ArrayList();
+		totalList.add(departList);
+		totalList.add(priceSort);
+		
+		return totalList;
 	}
 }

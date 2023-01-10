@@ -1,10 +1,10 @@
+<%@page import="org.springframework.web.bind.annotation.RequestParam"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="com.flight.booking.air.FlightListVO"%>
 <%@page import="java.time.LocalTime"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.flight.booking.air.FlightVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -116,9 +116,14 @@
 				<div>
 					<%
 					// controller에서 만든 model 가져오기
-					ArrayList<FlightListVO> flightList = (ArrayList) request.getAttribute("flightList");
 					ArrayList<FlightVO> searchList = (ArrayList) request.getAttribute("searchList");
-
+					
+					ArrayList<FlightListVO> sortDepart = (ArrayList) request.getAttribute("sortDepart");
+					ArrayList<FlightListVO> sortPrice = (ArrayList) request.getAttribute("sortPrice");
+					
+					System.out.println(sortDepart);
+					System.out.println(sortPrice);
+					
 					// 사용자가 검색한 값
 					String dep = searchList.get(0).getDeparture(); // 출발지
 					String arr = searchList.get(0).getArrival(); // 도착지	
@@ -225,16 +230,15 @@
  							<div class="col">
  								<h4>최저가</h4>
  								<%
- 								int[] priceArr = new int[flightList.size()];
- 								int minPrice = flightList.get(0).getPrice();	// minPrice(최저값)를 price 첫 값으로 임시지정
-// 								System.out.println("origin min 값 : " + minPrice);
- 								for(int i = 0; i < flightList.size(); i++){
- 									priceArr[i] = flightList.get(i).getPrice();	// price값 콤마 지우고 정수형으로 바꿔서 배열에 저장
+ 								int minPrice = sortPrice.get(0).getPrice();
+ 								/* int[] priceArr = new int[sortDepart.size()];
+ 								int minPrice = sortDepart.get(0).getPrice();	// minPrice(최저값)를 price 첫 값으로 임시지정
+ 								for(int i = 0; i < sortDepart.size(); i++){
+ 									priceArr[i] = sortDepart.get(i).getPrice();	// price값 콤마 지우고 정수형으로 바꿔서 배열에 저장
 									if(priceArr[i] < minPrice){	// price값이 minPrice보다 작다면
 										minPrice = priceArr[i];	// minPrice를 price값으로 바꿔줌
 									}
-// 									System.out.println("after min 값 : " + minPrice);
- 								}
+ 								} */
  								%>
 								<h4>￦ <fmt:formatNumber value="<%=minPrice %>" pattern="#,###"/></h4> <!-- 최저값을 #,### 형식으로 출력 -->
  							</div>
@@ -244,14 +248,15 @@
  								<div class="form-group">
  								<label>정렬 기준</label>
  								<select class="form-control" id="selectSort">
- 									<option value="minPrice">최저가순</option>
  									<option value="minDep">출발시간순</option>
+ 									<option value="minPrice">최저가순</option>
  									<option value="minTime">최단여행순</option>
  								</select>
  								</div>
  							</div>
 						</div>
 						<br>
+						
 						<!-- 정렬 기준 선택 이벤트 -->
 						<script type="text/javascript">
 							$(document).ready(function () {
@@ -259,39 +264,39 @@
 									var result = $('#selectSort option:selected').val();
 									if(result == 'minPrice'){
 										alert('최저가순')
+										$('#departSortDiv').hide();
+										$('#priceSortDiv').show();
+										$('#timeSortDiv').hide();
+										
+										
 									} else if(result == 'minDep'){
 										alert('출발시간순')
+										$('#departSortDiv').show();
+										$('#priceSortDiv').hide();
+										$('#timeSortDiv').hide();
+										
+										
 									} else{
 										alert('최단여행순')
+										$('#departSortDiv').hide();
+										$('#priceSortDiv').hide();
+										$('#timeSortDiv').show();
+									
 									}
 								})
 							})
 						</script>
-						<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
-						<!-- 가격 큰 순으로 정렬 해보기 -->
-						<!-- 일단 버블 정렬  -->
-						<%
-						/* ArrayList<FlightListVO> temp = new ArrayList<FlightListVO>();
-						for(int i = 0 ; i < flightList.size() - 1; i++){
-							for(int j = flightList.size() - 1; j > i; j--){
-								if(flightList.get(j - 1).getPrice() < flightList.get(j).getPrice()){
-									temp = flightList.get(j - 1);
-									flightList.get(j - 1) = flightList.get(j);
-									flightList.get(j) = temp;
-								}
-							}
-						} */
-						%>
-						<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
-												
+						
 						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
+						<!-- 출발시간순 -->
+						<div id="departSortDiv">
 						<%
-						for (int i = 0; i < flightList.size(); i++) {
-							String airline = flightList.get(i).getAirline();
-							int price = flightList.get(i).getPrice();
-							String tour = flightList.get(i).getTour();
-							String depT = flightList.get(i).getDepTime();
-							String arrT = flightList.get(i).getArrTime();
+						for (int i = 0; i < sortDepart.size(); i++) {
+							String airline = sortDepart.get(i).getAirline();
+							int price = sortDepart.get(i).getPrice();
+							String tour = sortDepart.get(i).getTour();
+							String depT = sortDepart.get(i).getDepTime();
+							String arrT = sortDepart.get(i).getArrTime();
 						%>
 						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
 							<div class="media-body">
@@ -363,6 +368,169 @@
 						<%
 						}
 						%>
+						</div>
+						<!-- 최저가순 -->
+						<div id="priceSortDiv" style="display: none;">
+						<%
+						for (int i = 0; i < sortPrice.size(); i++) {
+							String airline = sortPrice.get(i).getAirline();
+							int price = sortPrice.get(i).getPrice();
+							String tour = sortPrice.get(i).getTour();
+							String depT = sortPrice.get(i).getDepTime();
+							String arrT = sortPrice.get(i).getArrTime();
+						%>
+						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
+							<div class="media-body">
+								<div class="row" style="text-align: center;">
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=airline%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=depT%>
+											--<i class="fi fi-ts-plane-alt"></i>
+											<%=arrT%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=tour%></h5>
+									</div>
+									<div class="col-sm-3">
+										<h5>￦<fmt:formatNumber value="<%=price%>" pattern="#,###"/></h5>
+										<%
+										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
+										%>
+										<!-- 예약 버튼 클릭 시 항공권 예약 사이트로 이동  -->
+										<a class="cta-btn"
+											href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart%>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival%>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date%>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">예약</a>
+										<%
+										} else if (tour.equals("웹투어")) {	// 판매사가 웹투어일 경우
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://www2.webtour.com/da/da_list.asp?wItinerary=oneway&wItinerary_cnt=3&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wDepDate=<%=date%>&wArrDate=<%=date%>&wCarCode=KE%2COZ%2CLJ%2C7C%2CZE%2CTW%2CBX%2CRS%2C4H%2C4V%2CRF&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wSeatClass=All&wSeatClass_cnt=3&wSeatClass_1_txt=%C0%FC%C3%BC&wSeatClass_2_txt=%C0%CF%B9%DD%BC%AE%2F%C7%D2%C0%CE%BC%AE&wSeatClass_3_txt=%BA%F1%C1%EE%B4%CF%BD%BA%BC%AE">예약</a>
+										<%
+										} else if (tour.equals("인터파크")) {
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://sky.interpark.com/schedules/domestic/<%=depart%>-<%=arrival%>-<%=nobarDate%>?adt=<%=adult%>&chd=<%=child%>&inf=<%=baby%>&seat=ALL&pickAirLine=&pickMainFltNo=&pickSDate=">예약</a>
+										<%
+										} else if (tour.equals("제주도닷컴")) {
+										%>
+										<a class="cta-btn"
+											href="https://jejudo.com/air/list/search?City_Dep=<%=depart%>&City_Arr=<%=arrival%>&DateDep=<%=date%>&DateArr=<%=date%>&ACnt=<%=adult%>&CCnt=<%=child%>&ICnt=<%=baby%>&itinerary=OneWay">예약</a>
+										<%
+										} else if (tour.equals("하나투어")) {
+										%>
+										<a class="cta-btn"
+											href="https://wtdom2.hanatour.com/00001/DA/da_list.asp?wDepDate=<%=nobarDate%>&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wItinerary=oneway&wSeatClass=ALL&">예약</a>
+										<%
+										} else {
+										%>
+										<a class="cta-btn" href="#">예약</a>
+										<%
+										}
+										%>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+						<br>
+						<%
+						}
+						%>
+						</div>
+						<!-- 최단여행순 -->
+						<div id="timeSortDiv" style="display: none;">
+						<%
+						for (int i = 0; i < sortDepart.size(); i++) {
+							String airline = sortDepart.get(i).getAirline();
+							int price = sortDepart.get(i).getPrice();
+							String tour = sortDepart.get(i).getTour();
+							String depT = sortDepart.get(i).getDepTime();
+							String arrT = sortDepart.get(i).getArrTime();
+						%>
+						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
+							<div class="media-body">
+								<div class="row" style="text-align: center;">
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=airline%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=depT%>
+											--<i class="fi fi-ts-plane-alt"></i>
+											<%=arrT%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=tour%></h5>
+									</div>
+									<div class="col-sm-3">
+										<h5>￦<fmt:formatNumber value="<%=price%>" pattern="#,###"/></h5>
+										<%
+										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
+										%>
+										<!-- 예약 버튼 클릭 시 항공권 예약 사이트로 이동  -->
+										<a class="cta-btn"
+											href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart%>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival%>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date%>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">예약</a>
+										<%
+										} else if (tour.equals("웹투어")) {	// 판매사가 웹투어일 경우
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://www2.webtour.com/da/da_list.asp?wItinerary=oneway&wItinerary_cnt=3&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wDepDate=<%=date%>&wArrDate=<%=date%>&wCarCode=KE%2COZ%2CLJ%2C7C%2CZE%2CTW%2CBX%2CRS%2C4H%2C4V%2CRF&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wSeatClass=All&wSeatClass_cnt=3&wSeatClass_1_txt=%C0%FC%C3%BC&wSeatClass_2_txt=%C0%CF%B9%DD%BC%AE%2F%C7%D2%C0%CE%BC%AE&wSeatClass_3_txt=%BA%F1%C1%EE%B4%CF%BD%BA%BC%AE">예약</a>
+										<%
+										} else if (tour.equals("인터파크")) {
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://sky.interpark.com/schedules/domestic/<%=depart%>-<%=arrival%>-<%=nobarDate%>?adt=<%=adult%>&chd=<%=child%>&inf=<%=baby%>&seat=ALL&pickAirLine=&pickMainFltNo=&pickSDate=">예약</a>
+										<%
+										} else if (tour.equals("제주도닷컴")) {
+										%>
+										<a class="cta-btn"
+											href="https://jejudo.com/air/list/search?City_Dep=<%=depart%>&City_Arr=<%=arrival%>&DateDep=<%=date%>&DateArr=<%=date%>&ACnt=<%=adult%>&CCnt=<%=child%>&ICnt=<%=baby%>&itinerary=OneWay">예약</a>
+										<%
+										} else if (tour.equals("하나투어")) {
+										%>
+										<a class="cta-btn"
+											href="https://wtdom2.hanatour.com/00001/DA/da_list.asp?wDepDate=<%=nobarDate%>&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wItinerary=oneway&wSeatClass=ALL&">예약</a>
+										<%
+										} else {
+										%>
+										<a class="cta-btn" href="#">예약</a>
+										<%
+										}
+										%>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+						<br>
+						<%
+						}
+						%>
+						</div>
 					</div>
 				</div>
 			</div>
