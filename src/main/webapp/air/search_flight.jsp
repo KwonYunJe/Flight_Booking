@@ -359,7 +359,8 @@
   <div id="preloader">
     <div class="line"></div>
   </div>
-
+	
+	
   <!-- Vendor JS Files -->
   <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../resources/vendor/swiper/swiper-bundle.min.js"></script>

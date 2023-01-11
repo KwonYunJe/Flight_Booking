@@ -60,12 +60,22 @@ public class FlightCrawlingService {
 		// url에 값 넣어주기
 		url ="http://tour.tmon.co.kr/flight/domestic/result?trip=OW&sch=" + departure + "_" + arrival + "_" + airdate + "&ps=" + adult + "-" + child + "-" + baby + "&seat=D";
 
-		ArrayList<FlightListVO> flightList = new ArrayList<FlightListVO>();	// 항공권 리스트
+		//ArrayList<FlightListVO> flightList = new ArrayList<FlightListVO>();	// 항공권 리스트
+		
+		ArrayList<FlightListVO> departList = new ArrayList<FlightListVO>();	// 출발시간순 항공권 리스트
+		ArrayList<FlightListVO> priceSort = new ArrayList<FlightListVO>();	// 최저가순 항공권 리스트
+		
+		ArrayList<FlightListVO> airbusanList = new ArrayList<FlightListVO>();	// 에어부산 리스트
+		ArrayList<FlightListVO> asianaList = new ArrayList<FlightListVO>();	// 아시아나 리스트
+		ArrayList<FlightListVO> koreanairList = new ArrayList<FlightListVO>();	// 대한항공 리스트
+		ArrayList<FlightListVO> jinairList = new ArrayList<FlightListVO>();	// 진에어 리스트
+		ArrayList<FlightListVO> jejuairList = new ArrayList<FlightListVO>();	// 제주항공 리스트
+		
 		
 		try {
 			driver.get(url);
  
-			Thread.sleep(2000);
+			Thread.sleep(5000);
  
 			String airline_crawl = "";
 			String price_crawl = "";
@@ -73,7 +83,8 @@ public class FlightCrawlingService {
 			String depTime_crawl = "";
 			String arrTime_crawl = "";
 			
-			for(int i=1; i<11; i++) {
+			for(int i=1; i<51; i++) {
+				Thread.sleep(200);
 				// 항공사 크롤링
 				element = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div/div[1]/div/div[1]/div[3]/div[2]/table/tbody/tr[" + i + "]/td[1]/span"));
 				airline_crawl = element.getText();
@@ -110,15 +121,56 @@ public class FlightCrawlingService {
 				vo2.setArrTime(arrTime_crawl);
 				
 				// arraylist에 추가
-				flightList.add(vo2);
+				departList.add(vo2);
+				priceSort.add(vo2);
+				
+			
+				
+				if (airline_crawl.equals("에어부산")) { //에어부산 일때
+					airbusanList.add(vo2);
+				} else if (airline_crawl.equals("아시아나")) { //아시아나 일때 
+					asianaList.add(vo2);
+				} else if (airline_crawl.equals("대한항공")) { // 대한항공 일때
+					koreanairList.add(vo2);
+				} else if (airline_crawl.equals("진에어")) {
+					jinairList.add(vo2);
+				} else if (airline_crawl.equals("제주항공")) {
+					jejuairList.add(vo2);
+				}
+				
+			} //for문 끝 
+			FlightListVO tempPrice = new FlightListVO();
+			for(int i = 1 ; i < priceSort.size(); i++){
+				int j;
+				tempPrice = priceSort.get(i);
+				for(j = i; j > 0 && priceSort.get(j - 1).getPrice() > tempPrice.getPrice(); j--){
+					priceSort.set(j, priceSort.get(j - 1));
+				}
+				priceSort.set(j, tempPrice);
 			}
+			
+			
+		
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			//driver.close();
+			driver.close();
 		}
 		
-		return flightList;
+		ArrayList totalList = new ArrayList();
+		totalList.add(departList); //출발시간별 정렬
+		totalList.add(priceSort); //최저가순 정렬
+		
+		
+		
+		totalList.add(airbusanList); //에어부산
+		totalList.add(asianaList); //아시아나
+		totalList.add(koreanairList); //대한항공
+		totalList.add(jinairList); // 진에어
+		totalList.add(jejuairList); //제주에어 
+		
+		return totalList;
+	
 	}
 }
