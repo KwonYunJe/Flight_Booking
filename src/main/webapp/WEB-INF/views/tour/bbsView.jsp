@@ -21,13 +21,51 @@ String pRlist = rlist.toString();	//리스트 안에 내용이 있는지 없는�
 <head>
 <meta charset="UTF-8">
 <title><%=bbs.getTitle() %></title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+let bbsNumber = <%=bbs.getBbsnum()%>;
+let useridForDel = "<%=loginedUserId%>" ;
+	
+	$.ajax({
+			url : "roadReply",
+			type : "post",
+			data :{
+				oneKey : bbsNumber
+			},
+			dataType : 'json',
+			contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+			success : function(replyData){
+				for(var i = 0 ; i < <%=rlist.size()%> ; i++){
+					$("#replyUserId" + i).html(replyData[i].userid);
+					$("#replyCont" + i).html(replyData[i].recont);
+					$("#replyTime" + i).html(replyData[i].retime);
+					$("#replyID" + i ).html(replyData[i].reid);
+					if(useridForDel == replyData[i].userid){
+						$("#delTD" + i).html('<Button type="submit" id="delBtn" name="replyDel">삭제</Button>');
+					}
+				}
+			}
+	})
+})
+
+</script>
 </head>
 <body>
+<a id="sb"></a>
 <table style="text-align: center" width="1000px">
 	<tr>
-		<td width="15%">작성자</td>
+		<td width="10%">작성자</td>
 		<td width="65%">제목</td>
-		<td width="20%">작성시간</td>
+		<td width="15%">작성시간</td>
+		<%if(loginedUserId.equals(bbs.getUserId())){ %>
+		<td width="10%">
+		<form action="/booking/tour/bbsDelete">
+			<input type="hidden" name="delKey" value="<%=bbs.getBbsnum() %>"> 
+			<button>삭제</button>
+		</form>
+		</td>
+		<%} %>
 	</tr>
 	<tr>
 		<td><%=bbs.getUserId() %></td>
@@ -56,9 +94,11 @@ String pRlist = rlist.toString();	//리스트 안에 내용이 있는지 없는�
 		for(int i = 0 ; i < rlist.size() ; i++){
 		%>
 		<tr style="text-align: center">
-			<td width="15%"><c:out value="<%=rlist.get(0).getUserid() %>"></c:out></td>
-			<td width="65%"><c:out value="<%=rlist.get(0).getRecont() %>"></c:out></td>
-			<td width="20%"><c:out value="<%=rlist.get(0).getRetime() %>"></c:out></td>
+			<td width="10%" id="replyUserId<%=i%>"> </td>
+			<td width="65%" id="replyCont<%=i%>"></td>
+			<td width="20%" id="replyTime<%=i%>"></td>
+			<td width="5%"  id="delTD<%=i%>" class="delTDD"></td>
+			<td id="replyID<%=i%>"></td>
 		</tr>
 		<%
 			}
@@ -67,7 +107,7 @@ String pRlist = rlist.toString();	//리스트 안에 내용이 있는지 없는�
 		<%
 		} 
 		%>
-
+	
 
 <%
 		if (session.getAttribute("member") == null) {
@@ -76,17 +116,46 @@ String pRlist = rlist.toString();	//리스트 안에 내용이 있는지 없는�
 	<%
 		} else {
 	%>
-	<form action="/booking/tour/writeReply" method="post">
-		<input type="hidden"  name="userid" value="<%=loginedUserId %>">
-		<input type="hidden" value="  <%=bbs.getBbsnum() %>" name="bbsnum">
+		<input type="hidden"  id="rUserId" name="userid" value="<%=loginedUserId %>">
+		<input type="hidden" id="bbsnum" value="  <%=bbs.getBbsnum() %>" name="bbsnum">
 		작성자 : <%=session.getAttribute("userId")  %><br>
-		<input type="text" name="recont">
-		<button type="submit">댓글쓰기</button>
-	</form>
-	<%
-		}
-	%>
+		<input type="text" id="recont" name="recont">
+		<button type="button" id="sendReply">댓글쓰기</button>
 
+<%} %>
+<script type="text/javascript">
+$("#sendReply").on("click",function(){
+	let rUserID =  $("#rUserId").val();
+	let rBbsNum = <%=bbs.getBbsnum()%>
+	let rContent = $("#recont").val();
+	
+	
+	$.ajax({
+		url : "writeReply",
+		type : "post",
+		contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+		data : {
+			userid : rUserID,
+			bbsnum : rBbsNum,
+			recont : rContent
+		},
+		dataType : 'json',
+		success : function(writeResult){
+			console.log("plz")
+				document.location.href = document.location.href;
+			},
+		error : function(test){
+			console.log(test)
+		}
+	})
+	
+})
+
+$("#delBtn").on("click",function(){
+	let delKey = @("replyID").val();
+})
+
+</script>
 
 </body>
 </html>

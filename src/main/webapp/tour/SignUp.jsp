@@ -67,7 +67,7 @@
 						},
 						error : function(request, status, error) {
 							console.log("code: " + request.status)
-							console.log("message: " + request.responseText)
+							console.log("message: " + request.responseText)	
 							console.log("error: " + error);
 							alert("서버요청실패");
 						},

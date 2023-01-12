@@ -12,7 +12,7 @@
 </script>
 </head>
 <body>
-Success!
+Success!ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
 <input type="button" value="버튼" onClick="location.href='./tableTEST.jsp'"> 
 </body>
 </html>

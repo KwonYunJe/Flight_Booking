@@ -8,4 +8,8 @@
 	<select id="reList" parameterType="int" resultType="replyVO"> 
 		select * from reply where bbsnum = #{oneKey}
 	</select>
+	
+	<delete id="bbsReDel" parameterType="int">
+		delete from reply where bbsnum = #{bbsnum}
+	</delete>
 </mapper>

@@ -20,5 +20,9 @@ public class ReplyDAO {
 	public List<ReplyVO> replyList(int oneKey){
 		return my.selectList("replyMap.reList", oneKey);
 	}
+	
+	public void bbsReDel(int bbsnum) {
+		my.delete("replyMap.bbsReDel", bbsnum);
+	}
 
 }
