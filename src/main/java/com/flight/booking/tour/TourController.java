@@ -97,7 +97,6 @@ public class TourController {
 
 	@RequestMapping("tour/bbsDelete")
 	public String bbsDelete(int delKey) throws Exception {
-		rDao.bbsReDel(delKey); // 게시글 삭제 전 게시글 넘버로 검색하여 댓글을 모두 삭제 함
 		System.out.println("게시판 삭제 요청됨");
 		System.out.println("요청된 게시글 ID : " + delKey);
 		bDao.bbsDelete(delKey);
@@ -192,5 +191,39 @@ public class TourController {
 
 		return replyData;
 	}
+	
+	@RequestMapping("tour/deleteReply")
+	public String deleteReply(int reid, int bbsnum, Model model) {
+		System.out.println("댓글삭제 요청됨 요청된 게시글 ID : " + bbsnum + "요청된 댓글 id : " + reid);
+		rDao.replyDel(reid);
+		model.addAttribute("bbsnum", bbsnum);
+		return "tour/ReDelSuccess";
+	}
 
+	@RequestMapping("tour/selectUserId")
+	public @ResponseBody UserVO selectUserId(String userid) {
+		System.out.println("프로필 데이터 요청됨");
+		System.out.println("프로필 요청 된 ID : "+ userid);
+		UserVO reciveData = uDao.selectUserInfo(userid); 
+		System.out.println("프로필 데이터 가져옴");
+		return reciveData;
+	}
+	
+	@RequestMapping("tour/userBbs")
+	public @ResponseBody List<BbsVO> userBBS(String userid){
+		System.out.println("유저게시글 요청됨");
+		System.out.println("요청된 유저 ID : " + userid);
+		List<BbsVO> reciveBBS = bDao.userBbs(userid);
+
+		
+		return reciveBBS;
+	}
+	@RequestMapping("tour/userReply")
+	public @ResponseBody List<ReplyVO> userREPLY(String userid){
+		System.out.println("유저댓글 요청됨");
+		System.out.println("요청된 유저ID : " + userid);
+		List<ReplyVO> reciveReply = rDao.userReply(userid);
+		
+		return reciveReply;
+	}
 }

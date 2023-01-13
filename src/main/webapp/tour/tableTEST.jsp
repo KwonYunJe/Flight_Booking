@@ -29,6 +29,7 @@
 	<form action="logout" method="post">
 		<button type="submit">로그아웃</button>
 	</form>
+	<button type="button" onclick="location.href='/booking/tour/Profile.jsp'">프로필</button>
 	<%
 		}
 	%>

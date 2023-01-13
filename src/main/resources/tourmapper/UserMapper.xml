@@ -10,6 +10,8 @@
 	<select id="nickCheck" parameterType="userVO" resultType="userVO">
 		select * from USER where nickname = #{nickname}
 	</select>
-	
+	<select id="selectUserDATA" parameterType="String" resultType="userVO">
+		select * from USER where userid = #{userid}
+	</select>
 
 </mapper>

@@ -9,7 +9,11 @@
 		select * from reply where bbsnum = #{oneKey}
 	</select>
 	
-	<delete id="bbsReDel" parameterType="int">
-		delete from reply where bbsnum = #{bbsnum}
+	<delete id="reDel" parameterType="int">
+		delete from reply where reid = #{reid}
 	</delete>
+	
+	<select id="userReply" parameterType="String" resultType="replyVO">
+		select * from reply where userid = #{userid}
+	</select>
 </mapper>

@@ -1,9 +1,12 @@
 package com.flight.booking.tour;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+
 
 @Component
 public class UserDAO {
@@ -21,5 +24,8 @@ public class UserDAO {
 		System.out.println("DAO 작동");
 		return my.selectOne("userMap.nickCheck", vo);
 	}
-	
+	public UserVO selectUserInfo(String userid){
+		System.out.println("DAO 작동");
+		return my.selectOne("userMap.selectUserDATA",userid);
+	}
 }

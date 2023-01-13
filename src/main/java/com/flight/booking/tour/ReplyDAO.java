@@ -21,8 +21,16 @@ public class ReplyDAO {
 		return my.selectList("replyMap.reList", oneKey);
 	}
 	
-	public void bbsReDel(int bbsnum) {
-		my.delete("replyMap.bbsReDel", bbsnum);
+	public void replyDel(int reid) {
+		System.out.println();
+		if(my.delete("replyMap.reDel", reid)==1) {
+			System.out.println("댓글삭제 완료");
+		}else {
+			System.out.println("오류발생");
+		}
 	}
-
+	
+	public List<ReplyVO> userReply(String userid){
+		return my.selectList("replyMap.userReply", userid);
+	}
 }

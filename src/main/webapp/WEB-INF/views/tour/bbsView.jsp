@@ -42,12 +42,18 @@ let useridForDel = "<%=loginedUserId%>" ;
 					$("#replyTime" + i).html(replyData[i].retime);
 					$("#replyID" + i ).html(replyData[i].reid);
 					if(useridForDel == replyData[i].userid){
-						$("#delTD" + i).html('<Button type="submit" id="delBtn" name="replyDel">삭제</Button>');
+						$("#indelKey" + i).html('<button type="submit">삭제</button>'); 
+						$("#delKey" + i).attr('value' , replyData[i].reid);
+							
+					
 					}
 				}
 			}
 	})
+	
+	
 })
+
 
 </script>
 </head>
@@ -84,8 +90,8 @@ let useridForDel = "<%=loginedUserId%>" ;
 	<%if(pRlist.equals("[]")){ //담긴 문자열이 []과 동일하면 리스트가 비어있음을 의미%>
 	<div>작성된 댓글이 없습니다.</div>
 	<%}else{%>
-		<table>
-		<tr style="font-weight: bold; text-align: center" width="1000px">
+		<table style=" text-align: center" width="1000px">
+		<tr style="font-weight: bold;">
 			<td>작성자</td>
 			<td>내용</td>
 			<td>작성 시간</td>
@@ -93,13 +99,26 @@ let useridForDel = "<%=loginedUserId%>" ;
 		<%
 		for(int i = 0 ; i < rlist.size() ; i++){
 		%>
+		
 		<tr style="text-align: center">
+		
 			<td width="10%" id="replyUserId<%=i%>"> </td>
 			<td width="65%" id="replyCont<%=i%>"></td>
 			<td width="20%" id="replyTime<%=i%>"></td>
-			<td width="5%"  id="delTD<%=i%>" class="delTDD"></td>
-			<td id="replyID<%=i%>"></td>
+			<td></td>
+			<td width="5%"   id="delTD<%=i%>">
+			<%if(String.valueOf(loginedUserId).equals(String.valueOf(rlist.get(i).getUserid()))){ %>
+				<form action="deleteReply" method="post">
+					<div id="indelKey<%=i%>"></div>
+					<input type="hidden" name="reid" value="" id="delKey<%=i%>">
+					<input type="hidden" name="bbsnum" value="<%=bbs.getBbsnum()%>">
+				</form>
+			<%}%>
+			</td>
+			
+			<%-- <td id="replyID<%=i%>"></td> --%>
 		</tr>
+	
 		<%
 			}
 		%>
@@ -151,9 +170,12 @@ $("#sendReply").on("click",function(){
 	
 })
 
-$("#delBtn").on("click",function(){
-	let delKey = @("replyID").val();
-})
+$('.deleteClass').click(function(){
+	    var delReplyKey = $().attr("id");
+	    alert("clicked");
+	})
+
+$
 
 </script>
 

@@ -35,4 +35,7 @@ public class BbsDAO {
 	public int getTotal() {
 		return my.selectOne("bbsMap.getTotal");
 	}
+	public List<BbsVO> userBbs(String userid){
+		return my.selectList("bbsMap.userBBS", userid);
+	}
 }
