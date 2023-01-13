@@ -27,10 +27,10 @@ public class ApiController {
 	@Autowired
 	private CovidService covidService;
 	
-	@RequestMapping("search_tour")
+	@RequestMapping("tour/search_tour")
 	public void apiController(CovidDTO dto, Model model) {
 			
-		    ArrayList visiterList = visiService.get(dto);
+		    ArrayList visiterList = visiService.tourlist(dto);
 		    ArrayList covidList = covidService.covid19(dto);
 		
 			model.addAttribute("monthList", visiterList.get(0));
@@ -42,3 +42,5 @@ public class ApiController {
 	}
 
 }
+
+

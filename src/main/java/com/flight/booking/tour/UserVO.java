@@ -1,12 +1,13 @@
 package com.flight.booking.tour;
 
 public class UserVO {
-	String userid;
-	String password;
-	String name;
-	String tel;
-	String gender;
-	String nickname;
+	private String userid;
+	private String password;
+	private String name;
+	private String tel;
+	private String gender;
+	private String nickname;
+	
 	public String getUserid() {
 		return userid;
 	}

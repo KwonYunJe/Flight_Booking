@@ -2,21 +2,25 @@ package com.flight.booking.tour;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.openqa.selenium.Alert;
 import org.springframework.stereotype.Service;
 
 @Service
 public class VisiService {
 
-	public ArrayList get(CovidDTO dto) {
+	public ArrayList tourlist(CovidDTO dto)  {
 		String servicekey = "ULt6lDxaSjElAfIsqiV537%2F5Edn6s%2FpRmlIQOM2FwspqmUqpNXTNU%2FMLTIOCblxRV%2F2VRnTcN96B8VaG%2F%2FZNEA%3D%3D";
 		String result = "";
 
@@ -25,13 +29,16 @@ public class VisiService {
 		// 동적시간계산(2달 전으로부터 -4)
 		List<String> monthList = new ArrayList<String>();
 		for (int i = -5; i <= -2; i++) {
+			
 			// 포맷팅 정의
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMM");
 			Calendar cal1 = Calendar.getInstance();
 			cal1.add(cal1.MONTH, i);
+			
 			// 포맷팅 적용
 			String formated1 = formatter.format(cal1.getTime()); // 현재시간 포맷팅
 			monthList.add(formated1);
+			
 		}
 		// 동적시간계산 끝
 
@@ -46,8 +53,11 @@ public class VisiService {
 		case "대구":
 			menu = "대구광역시";
 			break;
-		default:
-			menu = "챗 봇>>선택한 번호는 없는 메뉴입니다.";
+		case "서울":
+			menu = "서울특별시";
+			break;
+		case "인천":
+			menu = "인천광역시";
 			break;
 		}
 		try {
@@ -72,16 +82,16 @@ public class VisiService {
 			JSONObject response = (JSONObject) jsonObject.get("response");
 			JSONObject body = (JSONObject) response.get("body");
 			JSONObject items = (JSONObject) body.get("items");
-			Object item = items.get("item");
+			JSONArray item = (JSONArray) items.get("item");
 
-			JSONArray temp = (JSONArray) item;
 
-			for (int i = 0; i < temp.size(); i++) {
-				JSONObject jsonObj = (JSONObject) temp.get(i);
+			for (int i = 0; i < item.size(); i++) {
+				JSONObject jsonObj = (JSONObject) item.get(i);
 				String areaNm = (String) jsonObj.get("areaNm");
 				String touDivNm = (String) jsonObj.get("touDivNm");
 				String baseYmd = (String) jsonObj.get("baseYmd");
-
+				
+				
 				if (areaNm.equals(menu) && (touDivNm.equals("외지인(b)") || touDivNm.equals("외국인(c)"))) {
 					if (baseYmd.contains(monthList.get(0))) {
 						total[0] = total[0] + (int) Math.round(Double.parseDouble((String) jsonObj.get("touNum")));
@@ -99,7 +109,7 @@ public class VisiService {
 				}
 
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

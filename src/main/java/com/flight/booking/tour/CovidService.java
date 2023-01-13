@@ -47,8 +47,11 @@ public class CovidService {
 		case "대구":
 			menu = "daegu";
 			break;
-		default:
-			menu = "챗 봇>>선택한 번호는 없는 메뉴입니다.";
+		case "서울":
+			menu = "seoul";
+			break;
+		case "인천":
+			menu = "incheon";
 			break;
 		}
 		try {
