@@ -6,12 +6,20 @@
 <!-- SQL문 정의할 때 VO표현을 간단하게 하고 싶은 경우. 
      별명을 지어서 사용 -->
    <typeAliases>
-   <typeAlias type="com.flight.booking.air.RecommendVO" alias="recommendVO"></typeAlias>
+   <typeAlias type="com.flight.booking.air.RecommendVO" alias="recommendVO"></typeAlias> <!-- 로그인 검색 기록 -->
+	<typeAlias type="com.flight.booking.tour.BbsVO" alias="bbsVO"/>
+		<typeAlias type="com.flight.booking.tour.UserVO" alias="userVO"/>
+		<typeAlias type="com.flight.booking.tour.ReplyVO" alias="replyVO"/>
+		<typeAlias type="com.flight.booking.tour.Criteria" alias="Criteria"/>
       
    </typeAliases>
    <mappers>
    <!-- SQL문 정의하는 파일들의 목록을 지정. -->
-   <mapper resource = "airmapper/recommendMapper.xml"></mapper>
+   <mapper resource = "airmapper/recommendMapper.xml"></mapper> <!-- 로그인 검색기록 -->
+	<mapper resource="tourmapper/BbsMapper.xml" /><!-- 게시판 -->
+		<mapper resource="tourmapper/UserMapper.xml"/> <!-- 유저 -->
+		<mapper resource="tourmapper/LoginMapper.xml"/> <!-- 로그인 -->
+		<mapper resource="tourmapper/ReplyMapper.xml"/> <!-- 댓글 -->
     
    </mappers>
 </configuration>

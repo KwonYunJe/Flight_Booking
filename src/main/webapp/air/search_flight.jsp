@@ -27,6 +27,7 @@
   <link href="../resources/vendor/aos/aos.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
+  
   <link href="../resources/css/main.css" rel="stylesheet">
 
   <!-- =======================================================
@@ -81,8 +82,22 @@
         </ul>
       </nav><!-- .navbar -->
 
-      <div class="header-social-links">
-        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+      <div class="header-social-links"><%
+		if (session.getAttribute("member") == null) {
+	%>
+		 <a href="../tour/login.jsp" class="twitter">로그인<i class="bi bi-twitter"></i></a>
+	<%
+		} else {
+			
+	%>
+	
+	<form action="logout" method="post">
+		<button type="submit">로그아웃</button>
+	</form>
+	<%
+		}
+	%>
+       
         <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
         <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
@@ -133,6 +148,7 @@
 							<option value="사천_HIN">사천</option>
 						</select>
 					</td>
+					
 					<td>
         				<select name="arrival" class="flight-input">
 							<option value="서울+(인천/김포)_SEL">서울</option>

@@ -10,7 +10,7 @@
 <h2>데이터 추가</h2>
 <hr>
 <form action="recommend_insert">
-아이디 : <input type="text" name="userid"> <br>
+
 지역 : <input type="text" name="dest"> <br>
 <button>검색 기록 추가 </button>
 </form> 

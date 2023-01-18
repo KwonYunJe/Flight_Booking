@@ -6,8 +6,22 @@
 		insert into recommend values(#{userid},#{dest},now())
 	</insert>
 	
+	<!-- 행 개수 확인 -->
+	<select id="reco_record" parameterType="recommendVO" resultType="String">
+	select count(*) from recommend where userid = #{userid}
+	</select>
+	
 	<!-- 검색 지역 삭제 -->
 	<delete id="reco_delete" parameterType="recommendVO">
-		delete from recommend order by date asc limit 1
+		delete from recommend where userid = #{userid} order by date asc limit 1
 	</delete>
+	
+	<!-- 검색 지역 확인 -->
+	<select id ="reco_dest" parameterType="recommendVO" resultType="recommendVO">
+	<!--  select max(dest) as max_dest from recommend where userid = #{userid}-->
+	select dest as max_dest,count(dest) as countdest from recommend where userid = #{userid} group by dest order by countdest desc limit 1
+	
+	</select>
+	
+	
 </mapper>

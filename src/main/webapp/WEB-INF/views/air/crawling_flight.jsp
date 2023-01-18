@@ -61,7 +61,7 @@
         left: 0;
 
         width: 100%;
-        height: 130%;
+        height: 140%;
 
         display: none;
 
@@ -224,6 +224,13 @@
 					</div>
 				</div>
 				<br>
+				<% if (session.getAttribute("member") != null) {
+	%>
+		 	${username}님이 가장 많이 검색하신 여행지는 ${dest.max_dest}입니다.
+	<%
+	}
+	%>
+			
 				<hr>
 				<br>
 				<div class="row">

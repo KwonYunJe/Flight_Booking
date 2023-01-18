@@ -11,8 +11,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="../resources/img/favicon.png" rel="icon">
-  <link href="../resources/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/booking/resources/img/favicon.png" rel="icon">
+  <link href="/booking/resources/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,14 +20,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="../resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="../resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="../resources/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/booking/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/booking/resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/booking/resources/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="/booking/resources/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/booking/resources/vendor/aos/aos.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="../resources/css/main.css" rel="stylesheet">
+  <link href="/booking/resources/css/main.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: PhotoFolio - v1.2.0
@@ -52,7 +52,7 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="MainView.jsp">About</a></li>
           <li class="dropdown"><a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="gallery.html">Nature</a></li>
@@ -62,11 +62,11 @@
               <li><a href="gallery.html">Sports</a></li>
               <li><a href="gallery.html">Travel</a></li>
               <li class="dropdown"><a href="#"><span>Sub Menu</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
+              <!--   <ul>
                   <li><a href="#">Sub Menu 1</a></li>
                   <li><a href="#">Sub Menu 2</a></li>
                   <li><a href="#">Sub Menu 3</a></li>
-                </ul>
+                </ul> -->
               </li>
             </ul>
           </li>
@@ -282,13 +282,13 @@
   </div>
 
   <!-- Vendor JS Files -->
-  <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../resources/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="../resources/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="../resources/vendor/aos/aos.js"></script>
-  <script src="../resources/vendor/php-email-form/validate.js"></script>
+  <script src="/booking/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/booking/resources/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/booking/resources/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/booking/resources/vendor/aos/aos.js"></script>
+  <script src="/booking/resources/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="../resources/js/main.js"></script>
+  <script src="/booking/resources/js/main.js"></script>
 </body>
 </html>
