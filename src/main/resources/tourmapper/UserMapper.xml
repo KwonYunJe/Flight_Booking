@@ -13,5 +13,11 @@
 	<select id="selectUserDATA" parameterType="String" resultType="userVO">
 		select * from USER where userid = #{userid}
 	</select>
+<<<<<<< Updated upstream
 
+=======
+	<update id="byuingUpdate" parameterType="String" >
+		update USER set BUYING = 1 where userid = #{userid} 
+	</update>
+>>>>>>> Stashed changes
 </mapper>

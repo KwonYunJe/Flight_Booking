@@ -10,8 +10,8 @@
 	<select id="bbsOne" parameterType="int" resultType="bbsVO">
 		select * from BBS where bbsnum = #{oneKey}
 	</select>
-	<select id="bbsAll"  resultType="bbsVO" >
-		select * from BBS order by BBSTIME DESC
+	<select id="bbsAll"  parameterType="String" resultType="bbsVO" >
+		select * from BBS where area = #{area} order by BBSTIME DESC limit 5
 	</select>
 	<select id="getTotal" resultType="int">
 		select count(*) from bbs
@@ -21,6 +21,12 @@
     </select>
     <select id="userBBS" parameterType="String" resultType="bbsVO">
     	select * from BBS where userid = #{userid} order by BBSTIME DESC
+    </select>
+    <select id="userBBS" parameterType="String" resultType="bbsVO">
+    	select * from BBS where userid = #{userid} order by BBSTIME DESC
+    </select>
+    <select id= "searchAllArea" parameterType="hashmap" resultType="bbsVO">
+    	select * from BBS where <foreach collection="sArr"  index='index' item='search' separator='or'>TITLE like '%${search}%'</foreach>
     </select>
 
 </mapper>

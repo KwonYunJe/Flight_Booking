@@ -16,4 +16,8 @@
 	<select id="userReply" parameterType="String" resultType="replyVO">
 		select * from reply where userid = #{userid}
 	</select>
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 </mapper>

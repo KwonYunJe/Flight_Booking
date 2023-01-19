@@ -6,11 +6,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.mysql.cj.Session;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -87,7 +91,11 @@ public class TourController {
 	}
 
 	@RequestMapping("tour/bbsInsert")
+<<<<<<< Updated upstream
 	public String bbsInsert(BbsVO vo) throws Exception {
+=======
+	public String bbsInsert(BbsVO vo, HttpServletRequest req){
+>>>>>>> Stashed changes
 		System.out.println("게시판 생성 요청됨");
 		System.out.println("요청된 게시글 정보 : " + vo);
 		bDao.bbsInsert(vo);
@@ -96,7 +104,11 @@ public class TourController {
 	}
 
 	@RequestMapping("tour/bbsDelete")
+<<<<<<< Updated upstream
 	public String bbsDelete(int delKey) throws Exception {
+=======
+	public String bbsDelete(int delKey) {
+>>>>>>> Stashed changes
 		System.out.println("게시판 삭제 요청됨");
 		System.out.println("요청된 게시글 ID : " + delKey);
 		bDao.bbsDelete(delKey);
@@ -105,6 +117,7 @@ public class TourController {
 	}
 
 	@RequestMapping("tour/bbsOne")
+<<<<<<< Updated upstream
 	public String bbsOne(int oneKey, Model model, BbsVO vo, ReplyVO rVo) throws Exception {
 		System.out.println("게시판 검색 요청됨");
 		System.out.println("요청된 검색 키 : " + oneKey);
@@ -116,11 +129,31 @@ public class TourController {
 		model.addAttribute("rList", replyList);
 
 		return "/tour/bbsView";
+=======
+	public String bbsOne(int oneKey, Model model, BbsVO vo, ReplyVO rVo) {
+		try {
+			System.out.println("게시판 검색 요청됨");
+			System.out.println("요청된 검색 키 : " + oneKey);
+			vo = bDao.bbsOne(oneKey);
+			
+			System.out.println("댓글 열람 요청됨");
+			List<ReplyVO> replyList = rDao.replyList(oneKey);
+			model.addAttribute("one", vo);
+			model.addAttribute("rList", replyList);
+			
+			return "/tour/bbsView";
+		}
+		catch(Exception e) {
+			System.out.println("오류발생 : " + e);
+			model.addAttribute("error", e);
+			return "/tour/error";
+		}
+>>>>>>> Stashed changes
 	}
 
 	@RequestMapping("tour/bbsAll")
-	public @ResponseBody List bbsAll(Model model) {
-		List<BbsVO> list = bDao.bbsAll();
+	public @ResponseBody List bbsAll(Model model, String area) {
+		List<BbsVO> list = bDao.bbsAll(area);
 		System.out.println(list.size());
 		model.addAttribute("list", list);
 
@@ -128,14 +161,20 @@ public class TourController {
 	}
 
 	@RequestMapping("tour/login")
+<<<<<<< Updated upstream
 	public String userLogin(UserVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
 
+=======
+	public String userLogin(UserVO vo, HttpServletRequest req, RedirectAttributes rttr){
+		
+>>>>>>> Stashed changes
 		HttpSession session = req.getSession();
 
 		System.out.println(vo.getUserid() + " " + vo.getPassword());
 		System.out.println("---------------------------------------");
 		UserVO uvo = lDao.login(vo);
 		System.out.println(uvo);
+<<<<<<< Updated upstream
 
 		if (uvo == null) {
 			session.setAttribute("member", null);
@@ -149,6 +188,23 @@ public class TourController {
 			return "/tour/success";
 
 		}
+=======
+		
+		if(uvo == null) {
+            session.setAttribute("member", null);
+            rttr.addFlashAttribute("msg", false);
+            System.out.println(uvo);
+            return "/tour/fail";
+        } else {
+            session.setAttribute("member", uvo.getNickname());
+            System.out.println(uvo.getUserid());
+            session.setAttribute("userid", uvo.getUserid());
+            System.out.println(uvo);
+            session.setAttribute("buying", uvo.getBuying());
+            return "/tour/success";
+            
+        }
+>>>>>>> Stashed changes
 	}
 
 	@PostMapping("tour/logout")
@@ -162,12 +218,53 @@ public class TourController {
 
 	@RequestMapping("tour/bbsList")
 	public void boardListGet(Model model, Criteria cri) {
-		System.out.println(cri);
-		int total = bDao.getTotal();
-		PageMoveDTO pageMove = new PageMoveDTO(cri, total);
-		model.addAttribute("list", bDao.paging(cri));
-		model.addAttribute("clist", cri);
-		model.addAttribute("pageMove", pageMove);
+		try {
+			System.out.println(cri);
+			int total = bDao.getTotal();
+			PageMoveDTO pageMove = new PageMoveDTO(cri, total);
+			model.addAttribute("list", bDao.paging(cri));
+			model.addAttribute("clist", cri);
+			model.addAttribute("pageMove", pageMove);
+		}
+		catch(NullPointerException ne){
+			System.out.println("오류 발생 : " + ne);
+			model.addAttribute("list", "NullList");
+		}
+	}
+	@RequestMapping("tour/searchBBS")
+	public String searchBbs(BbsVO vo, String searchType, String searchValue, Model model, Criteria cri) {
+		try {
+			System.out.println("게시판 검색 요청됨");
+			System.out.println("요청된 지역 : "+searchType);
+			System.out.println("요청된 검색어 : "+searchValue);
+			
+			String[] searchArray = searchValue.split("\\s");																		//검색된 문장에서 띄어쓰기를 기준으로 문자열을 각각 배열에 저장
+			System.out.println("검색어 배열" + searchArray[0]);
+			
+			if(searchType.equals("none")) {																								//지역이 설정되지 않고 검색되면 모든 게시글에서 검색
+				List<BbsVO> result = bDao.searchAllArea(searchArray);
+				System.out.println("전체지역 검색결과" + result);
+				model.addAttribute("searchResult", result);
+
+			}else {																																					//지역이 설정된다면 지역과 게시글을 같이 검색
+				List<BbsVO> result = bDao.searchAllArea(searchArray);
+				System.out.println("지역검색 리스트 크기 : " + result.size());
+				for(int i = (int)result.size() - 1 ; i >= 0; i --) {																						//List에서 하나씩 지우는데 0번부터 시작하면 중복된 번호 처리가 문제될 것 같아서 거꾸로 내려옴
+					if( !result.get(i).getArea().equals(searchType) ) {														//List의 해당번째의 area가 검색한 조건과 일치하지 않으면
+						result.remove(i);																													//그 값을 List에서 지워라. 
+						System.out.println(searchType + "지역별 검색 결과" + result);
+						model.addAttribute("searchResult", result);	
+					}
+				}
+			}
+			
+			return"/tour/bbsSearch";
+		}
+		catch(NullPointerException e){
+			model.addAttribute("searchResult", "NullList");
+			return "/tour/bbsSearch";
+		}
+		
 	}
 
 	@RequestMapping("tour/writeReply")
@@ -191,7 +288,24 @@ public class TourController {
 
 		return replyData;
 	}
+	@RequestMapping("tour/deleteReply")
+	public String deleteReply(int reid, int bbsnum, Model model) {
+		System.out.println("댓글삭제 요청됨 요청된 게시글 ID : " + bbsnum + "요청된 댓글 id : " + reid);
+		rDao.replyDel(reid);
+		model.addAttribute("bbsnum", bbsnum);
+		return "tour/ReDelSuccess";
+	}
+
+	@RequestMapping("tour/selectUserId")
+	public @ResponseBody UserVO selectUserId(String userid) {
+		System.out.println("프로필 데이터 요청됨");
+		System.out.println("프로필 요청 된 ID : "+ userid);
+		UserVO reciveData = uDao.selectUserInfo(userid); 
+		System.out.println("프로필 데이터 가져옴");
+		return reciveData;
+	}
 	
+<<<<<<< Updated upstream
 	@RequestMapping("tour/deleteReply")
 	public String deleteReply(int reid, int bbsnum, Model model) {
 		System.out.println("댓글삭제 요청됨 요청된 게시글 ID : " + bbsnum + "요청된 댓글 id : " + reid);
@@ -225,5 +339,38 @@ public class TourController {
 		List<ReplyVO> reciveReply = rDao.userReply(userid);
 		
 		return reciveReply;
+=======
+	@RequestMapping("tour/userBbs")
+	public @ResponseBody List<BbsVO> userBBS(String userid){
+		System.out.println("유저게시글 요청됨");
+		System.out.println("요청된 유저 ID : " + userid);
+		List<BbsVO> reciveBBS = bDao.userBbs(userid);
+
+		
+		return reciveBBS;
+	}
+	@RequestMapping("tour/userReply")
+	public @ResponseBody List<ReplyVO> userREPLY(String userid){
+		System.out.println("유저댓글 요청됨");
+		System.out.println("요청된 유저ID : " + userid);
+		List<ReplyVO> reciveReply = rDao.userReply(userid);
+		
+		return reciveReply;
+	}
+	
+	@RequestMapping("tour/buying")
+	public @ResponseBody String buying(String userid, HttpServletRequest req, RedirectAttributes rttr) {
+		HttpSession session = req.getSession();
+		
+		System.out.println("티켓 구매 완료됨. 구매유저 ID : " + userid);
+		int buyingResult = uDao.buyingUpdate(userid);
+		System.out.println("controller결과 : "+Integer.toString(buyingResult));
+		
+		UserVO uvo = uDao.selectUserInfo(userid);
+		
+		session.setAttribute("buying", uvo.getBuying());
+		
+		return Integer.toString(buyingResult);
+>>>>>>> Stashed changes
 	}
 }

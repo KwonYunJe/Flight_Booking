@@ -1,5 +1,7 @@
 package com.flight.booking.tour;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -24,8 +26,8 @@ public class BbsDAO {
 		return my.selectOne("bbsMap.bbsOne",oneKey);
 	}
 	
-	public List<BbsVO> bbsAll() {
-		return my.selectList("bbsMap.bbsAll");
+	public List<BbsVO> bbsAll(String area) {
+		return my.selectList("bbsMap.bbsAll", area);
 	}
 	
 	public List<BbsVO> paging(Criteria cri) {
@@ -35,7 +37,21 @@ public class BbsDAO {
 	public int getTotal() {
 		return my.selectOne("bbsMap.getTotal");
 	}
+<<<<<<< Updated upstream
 	public List<BbsVO> userBbs(String userid){
 		return my.selectList("bbsMap.userBBS", userid);
 	}
+=======
+	
+	public List<BbsVO> userBbs(String userid){		//유저 프로필에 보여질 게시글
+		return my.selectList("bbsMap.userBBS", userid);
+	}
+	
+	public List<BbsVO> searchAllArea(String[] searchArray){		//유저가 모든지역의 게시글 검색
+		HashMap hm = new HashMap();
+		hm.put("sArr", searchArray);
+		System.out.println("DAO에서 배열 검사 : " + searchArray[0]);
+		return my.selectList("bbsMap.searchAllArea", hm);
+	}
+>>>>>>> Stashed changes
 }
