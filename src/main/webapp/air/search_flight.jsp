@@ -43,6 +43,17 @@
 		width: 200px;
 	}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$.ajax({
+			url : "map_reduce",
+			success : function(x){
+				$('#ranking').html(x)
+			}
+		})
+	})
+</script>
 <body>
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center fixed-top">
@@ -170,6 +181,7 @@
         </div>
         <br>
         <div class="row justify-content-center">
+        <!-- <div id="ranking"></div> -->
         	<div class="col-lg-6 text-center">
 	        	<button type="submit" class="btn-get-started" style="width: 250px;">항공권 검색</button>
         	</div>
@@ -180,7 +192,6 @@
   </section><!-- End Hero Section -->
 
   <main id="main" data-aos="fade" data-aos-delay="1500">
-
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery">
       <div class="container-fluid">

@@ -76,7 +76,7 @@ public class FlightCrawlingService {
 			String depTime_crawl = "";
 			String arrTime_crawl = "";
 			
-			for(int i=1; i<31; i++) {
+			for(int i=1; i<51; i++) {
 				// 항공사 크롤링
 				element = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div/div[1]/div/div[1]/div[3]/div[2]/table/tbody/tr[" + i + "]/td[1]/span"));
 				airline_crawl = element.getText();
@@ -128,7 +128,7 @@ public class FlightCrawlingService {
 				}
 				priceSort.set(j, tempPrice);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

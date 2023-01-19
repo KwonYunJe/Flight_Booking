@@ -121,9 +121,6 @@
 					ArrayList<FlightListVO> sortDepart = (ArrayList) request.getAttribute("sortDepart");
 					ArrayList<FlightListVO> sortPrice = (ArrayList) request.getAttribute("sortPrice");
 					
-					System.out.println(sortDepart);
-					System.out.println(sortPrice);
-					
 					// 사용자가 검색한 값
 					String dep = searchList.get(0).getDeparture(); // 출발지
 					String arr = searchList.get(0).getArrival(); // 도착지	
@@ -250,7 +247,7 @@
  								<select class="form-control" id="selectSort">
  									<option value="minDep">출발시간순</option>
  									<option value="minPrice">최저가순</option>
- 									<option value="minTime">최단여행순</option>
+ 									<!-- <option value="minTime">최단여행순</option> -->
  								</select>
  								</div>
  							</div>
@@ -263,24 +260,22 @@
 								$('#selectSort').change(function () {
 									var result = $('#selectSort option:selected').val();
 									if(result == 'minPrice'){
-										alert('최저가순')
 										$('#departSortDiv').hide();
 										$('#priceSortDiv').show();
 										$('#timeSortDiv').hide();
 										
 										
 									} else if(result == 'minDep'){
-										alert('출발시간순')
 										$('#departSortDiv').show();
 										$('#priceSortDiv').hide();
 										$('#timeSortDiv').hide();
 										
 										
 									} else{
-										alert('최단여행순')
+										/* alert('최단여행순')
 										$('#departSortDiv').hide();
 										$('#priceSortDiv').hide();
-										$('#timeSortDiv').show();
+										$('#timeSortDiv').show(); */
 									
 									}
 								})
@@ -451,14 +446,14 @@
 						%>
 						</div>
 						<!-- 최단여행순 -->
-						<div id="timeSortDiv" style="display: none;">
+<%-- 						<div id="timeSortDiv" style="display: none;">
 						<%
-						for (int i = 0; i < sortDepart.size(); i++) {
-							String airline = sortDepart.get(i).getAirline();
-							int price = sortDepart.get(i).getPrice();
-							String tour = sortDepart.get(i).getTour();
-							String depT = sortDepart.get(i).getDepTime();
-							String arrT = sortDepart.get(i).getArrTime();
+						for (int i = 0; i < sortTime.size(); i++) {
+							String airline = sortTime.get(i).getAirline();
+							int price = sortTime.get(i).getPrice();
+							String tour = sortTime.get(i).getTour();
+							String depT = sortTime.get(i).getDepTime();
+							String arrT = sortTime.get(i).getArrTime();
 						%>
 						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
 							<div class="media-body">
@@ -530,7 +525,7 @@
 						<%
 						}
 						%>
-						</div>
+						</div> --%>
 					</div>
 				</div>
 			</div>
