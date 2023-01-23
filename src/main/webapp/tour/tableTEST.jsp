@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>지역커뮤니티</title>
+<title>Insert title here</title>
 <style type="text/css">
 .recentBbs {
       width:100px;
@@ -26,13 +26,14 @@
 		} else {
 	%>
 	<a href="BbsInsert.jsp">게시글 작성</a>
-	<form action="logout" method="post">
+	 <a href="../air/search_flight.jsp" class="twitter">항공권예약</a>
+	<form action="logout1" method="post">
 		<button type="submit">로그아웃</button>
 	</form>
 	<%
 		}
 	%>
-	<a href="../air/search_flight.jsp">항공권 예약</a>
+	
 	<h1>BBS DELETE</h1>
 	<form action="bbsDelete">
 		Del ID : <input type="text" name="delKey"><br>
@@ -47,7 +48,7 @@
 	<br>
 	<hr>
 	
-	<h1>최신 게시글</h1><form action="bbsList" method="get"><button type="submit">전체글 보기</button> </form>
+	<h1><%= session.getAttribute("member")%>최신 게시글</h1><form action="bbsList" method="get"><button type="submit">전체글 보기</button> </form>
 	<ol>
 		<li>
 			<a id="bbstitle1" class="recentBbs"></a>
@@ -85,14 +86,7 @@
 		  type : "post",
 		  
 		  success : function(data) {
-			  for(var i = 0 ;i < 5; i++){
-				  $("#bbstitle1").html(data[i].title);
-				  console.log(data[i].userId);
-				  console.log(data[i].title);
-				  console.log(data[i].bbscont);
-				  console.log(data[i].area);
-				  console.log(data[i].bbstime);
-			  };
+			  
 			  $("#bbstitle1").html(data[0].title);
 			  $("#userid1").html(data[0].userId);
 			  $("#bbscont1").html(data[0].bbscont);

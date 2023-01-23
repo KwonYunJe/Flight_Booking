@@ -8,4 +8,5 @@
 	<select id="reList" parameterType="int" resultType="replyVO"> 
 		select * from reply where bbsnum = #{oneKey}
 	</select>
+
 </mapper>

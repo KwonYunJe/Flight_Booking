@@ -4,7 +4,7 @@ public class RecommendVO {
 	private String userid;
 	private String dest;
 	private String date;
-	private String max_dest;
+	
 	
 	public String getUserid()
 	
@@ -26,15 +26,10 @@ public class RecommendVO {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getMax_dest() {
-		return max_dest;
-	}
-	public void setMax_dest(String max_dest) {
-		this.max_dest = max_dest;
-	}
+
 	@Override
 	public String toString() {
-		return "RecommendVO [userid=" + userid + ", dest=" + dest + ", date=" + date + ", max_dest=" + max_dest + "]";
+		return "RecommendVO [userid=" + userid + ", dest=" + dest + ", date=" + date +"]";
 	}
 	
 	

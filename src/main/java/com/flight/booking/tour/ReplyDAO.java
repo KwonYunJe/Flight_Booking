@@ -24,5 +24,4 @@ public class ReplyDAO {
 	public void bbsReDel(int bbsnum) {
 		my.delete("replyMap.bbsReDel", bbsnum);
 	}
-
 }

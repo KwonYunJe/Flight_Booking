@@ -17,10 +17,8 @@
 	</delete>
 	
 	<!-- 검색 지역 확인 -->
-	<select id ="reco_dest" parameterType="recommendVO" resultType="recommendVO">
-	<!--  select max(dest) as max_dest from recommend where userid = #{userid}-->
-	select dest as max_dest,count(dest) as countdest from recommend where userid = #{userid} group by dest order by countdest desc limit 1
-	
+	<select id ="reco_dest" parameterType="String" resultType="String">
+	select dest from recommend where userid = #{userid} group by dest order by count(dest) desc limit 1
 	</select>
 	
 	

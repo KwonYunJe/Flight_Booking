@@ -7,19 +7,17 @@
 	<insert id="bbsDelete" parameterType="int">
 		delete from BBS  where bbsnum = #{delKey}
 	</insert>
-	
 	<select id="bbsOne" parameterType="int" resultType="bbsVO">
 		select * from BBS where bbsnum = #{oneKey}
 	</select>
 	<select id="bbsAll"  resultType="bbsVO" >
 		select * from BBS order by BBSTIME DESC
 	</select>
-	
 	<select id="getTotal" resultType="int">
 		select count(*) from bbs
 	</select>
 	 <select id="getListPaging" parameterType="Criteria" resultType="bbsVO">
-        select * from BBS order by BBSTIME DESC limit #{skip},#{amount} 
+        select * from BBS order by BBSNUM DESC limit #{skip},#{amount} 
     </select>
 
 </mapper>

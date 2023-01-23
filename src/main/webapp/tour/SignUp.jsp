@@ -19,8 +19,7 @@
 			value="YUEIS"><font id="nick_feedback" size="2"></font> <br>
 		<button type="submit" id="signUpBtn" disabled="disabled">회원가입</button>
 	</form>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript">
 			var idCheckResult = "false";
 			var nickCheckResult = "false";
@@ -67,7 +66,7 @@
 						},
 						error : function(request, status, error) {
 							console.log("code: " + request.status)
-							console.log("message: " + request.responseText)	
+							console.log("message: " + request.responseText)
 							console.log("error: " + error);
 							alert("서버요청실패");
 						},

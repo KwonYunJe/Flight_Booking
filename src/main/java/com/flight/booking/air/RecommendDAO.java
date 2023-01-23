@@ -36,7 +36,7 @@ public class RecommendDAO {
 		 
 		 String arrival = flightvo.getArrival();
 		
-		 revo.setUserid((String) session.getAttribute("userId"));
+		revo.setUserid((String) session.getAttribute("userId"));
 		revo.setDest(arrival);
 		 String search_count2 = my.selectOne("reco_record",revo);
 		 return search_count2;
@@ -54,13 +54,13 @@ public class RecommendDAO {
 	}
 	
 	//지역 최댓값 조회 
-		public RecommendVO maxdest(RecommendVO revo,FlightVO flightvo, HttpServletRequest req)throws Exception {
+		public String maxdest(HttpServletRequest req)throws Exception {
 			 HttpSession session = req.getSession();
-			 String arrival = flightvo.getArrival();
-		
-			revo.setUserid((String) session.getAttribute("userId"));
-			revo.setDest(arrival);
-			return my.selectOne("recommend.reco_dest",revo);
+			// String arrival = flightvo.getArrival();
+			
+			String userid = (String)session.getAttribute("userId");
+			//revo.setDest(arrival);
+			return my.selectOne("recommend.reco_dest",userid);
 			
 		}
 	

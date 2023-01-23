@@ -70,6 +70,7 @@ public class FlightCrawlingService {
 		ArrayList<FlightListVO> koreanairList = new ArrayList<FlightListVO>();	// 대한항공 리스트
 		ArrayList<FlightListVO> jinairList = new ArrayList<FlightListVO>();	// 진에어 리스트
 		ArrayList<FlightListVO> jejuairList = new ArrayList<FlightListVO>();	// 제주항공 리스트
+		ArrayList<FlightListVO> twayairList = new ArrayList<FlightListVO>();	// 티웨이항공 리스트
 		
 		
 		try {
@@ -136,6 +137,8 @@ public class FlightCrawlingService {
 					jinairList.add(vo2);
 				} else if (airline_crawl.equals("제주항공")) {
 					jejuairList.add(vo2);
+				} else if (airline_crawl.equals("티웨이항공")) {
+					twayairList.add(vo2);
 				}
 				
 			} //for문 끝 
@@ -169,6 +172,7 @@ public class FlightCrawlingService {
 		totalList.add(koreanairList); //대한항공
 		totalList.add(jinairList); // 진에어
 		totalList.add(jejuairList); //제주에어 
+		totalList.add(twayairList); //티웨이항공 
 		
 		return totalList;
 	

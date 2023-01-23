@@ -7,12 +7,14 @@
 <title>Insert title here</title>
 
 <script language="javascript">
+	//location.href="tour_main.jsp"
 	location.href="tableTEST.jsp"
-
+		
+	
 </script>
+
 </head>
 <body>
 Success!
-<input type="button" value="버튼" onClick="location.href='./tableTEST.jsp'"> 
 </body>
 </html>
