@@ -53,7 +53,6 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <body>
 	<!-- ======= Header ======= -->
@@ -264,19 +263,11 @@
 										$('#priceSortDiv').show();
 										$('#timeSortDiv').hide();
 										
-										
 									} else if(result == 'minDep'){
 										$('#departSortDiv').show();
 										$('#priceSortDiv').hide();
 										$('#timeSortDiv').hide();
 										
-										
-									} else{
-										/* alert('최단여행순')
-										$('#departSortDiv').hide();
-										$('#priceSortDiv').hide();
-										$('#timeSortDiv').show(); */
-									
 									}
 								})
 							})

@@ -30,7 +30,8 @@ public class FlightController {
 		model.addAttribute("sortPrice", totalList.get(1));
 		
 		// 검색한 도착지 mongoDB에 넣기
-		vo2.setDrank(vo.getArrival());
+		String arrival = vo.getArrival().substring(0, 2);
+		vo2.setDrank(arrival);
 		dao.insert(vo2);
 	}
 	

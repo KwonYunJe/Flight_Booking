@@ -37,6 +37,7 @@
   ======================================================== -->
 
 </head>
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 <style>
 	.flight-input{
 		height: 50px;
@@ -181,7 +182,6 @@
         </div>
         <br>
         <div class="row justify-content-center">
-        <!-- <div id="ranking"></div> -->
         	<div class="col-lg-6 text-center">
 	        	<button type="submit" class="btn-get-started" style="width: 250px;">항공권 검색</button>
         	</div>
@@ -192,160 +192,105 @@
   </section><!-- End Hero Section -->
 
   <main id="main" data-aos="fade" data-aos-delay="1500">
-    <!-- ======= Gallery Section ======= -->
-    <section id="gallery" class="gallery">
-      <div class="container-fluid">
+  	<div class="container">
+    	<div>
+    		<!-- 개인별 지역 검색 -->
+    		<br>apple1234님은 부산을 제일 많이 검색하셨군요 ~!<hr>
+    	</div>
+    	<div>
+    		<div class="row">
+				<br><div class="col-sm-8">
+				<div class="slides-3 swiper">
+          <div class="swiper-wrapper">
 
-        <div class="row gy-4 justify-content-center">
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-1.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-1.jpg" title="Gallery 1" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                  <h3>Saul Goodman</h3>
+                  <h4>Ceo &amp; Founder</h4>
+                </div>
               </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-2.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-2.jpg" title="Gallery 2" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-3.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-3.jpg" title="Gallery 3" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-4.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-4.jpg" title="Gallery 4" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-5.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-5.jpg" title="Gallery 5" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-6.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-6.jpg" title="Gallery 6" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-7.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-7.jpg" title="Gallery 7" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-8.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-8.jpg" title="Gallery 8" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-9.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-9.jpg" title="Gallery 9" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-10.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-10.jpg" title="Gallery 10" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-11.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-11.jpg" title="Gallery 11" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-12.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-12.jpg" title="Gallery 12" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-13.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-13.jpg" title="Gallery 13" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-14.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-14.jpg" title="Gallery 14" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-15.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-15.jpg" title="Gallery 15" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-16.jpg" class="img-fluid" alt="">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-16.jpg" title="Gallery 16" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
+            </div><!-- End testimonial item -->
 
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                  <h3>Sara Wilsson</h3>
+                  <h4>Designer</h4>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                  <h3>Jena Karlis</h3>
+                  <h4>Store Owner</h4>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                  <h3>Matt Brandon</h3>
+                  <h4>Freelancer</h4>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                  <h3>John Larson</h3>
+                  <h4>Entrepreneur</h4>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
         </div>
-
-      </div>
-    </section><!-- End Gallery Section -->
+				</div><br>
+		    	<div class="col-sm-4" id="ranking" style="text-align: center;"></div>
+    		</div>
+    	</div>
+  	</div>
 
   </main><!-- End #main -->
 
