@@ -265,7 +265,7 @@
 									<li><a href="#">경상북도</a></li>
 								</ul></li>
 						</ul></li>
-					<li><a href="bbsList?pageNum=1&amount=10" class="active">동행찾기</a></li>
+					<li><a href="bbsList?pageNum=1&amount=10" class="active">게시판</a></li>
 				</ul>
 			</nav>
 			<!-- .navbar -->
@@ -284,7 +284,7 @@
 				<li class="dropdown"><a href="#"><span><%= session.getAttribute("member")%>님 안녕하세요!</span> <i
 							class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
-							<li><a href="gallery.html">프로필</a></li>
+							<li><a href="Profile.jsp">프로필</a></li>
 							<form id="logout" action="logout" method="post">
 								<li><a href="#" onclick="return chk_form()">로그아웃</a></li>
 							</form>
@@ -309,7 +309,19 @@
 	<main id="main" data-aos="fade" data-aos-delay="1500">
 		<section id="services" class="page-header" style="margin-top: 10px;">
 			<!-- 게시판 시작 -->
-
+			<%if(session.getAttribute("member") == null){%>
+			<div style="text-align: center">
+			로그인이 필요한 기능입니다. 
+			</div>
+		<%}else{ 
+					if((int)session.getAttribute("buying") == 0){
+		%>
+			<div style="text-align: center">
+			티켓을 구입한 뒤 게시판을 사용하실 수 있습니다.
+			</div>
+		<%
+					}else{
+		%>
 			<div class="container">
 				<div class="row">
         			<div class="card card-margin search-form">
@@ -353,6 +365,9 @@
     			</div>
 				<hr/>
 				<%
+				if(request.getAttribute("list").equals("NullList")){%>
+					작성된 게시글이 없습니다.
+				<%}else{
 				List<BbsVO> pagingList = (List<BbsVO>) request.getAttribute("list");
 				Criteria cri = (Criteria) request.getAttribute("clist");
 				PageMoveDTO pageMove = (PageMoveDTO) request.getAttribute("pageMove");
@@ -377,6 +392,7 @@
 						<td><c:out value="${list.bbstime}"></c:out></td>
 					</tr>
 					</c:forEach>
+					
 					</tbody>
 				</table>
 				<hr/>
@@ -433,11 +449,15 @@
 
 					});
 				</script>
+				<%
+						}
+					} 
+				%>
 			</div>
 		</section>
 	</main>
-	<!-- End #main -->
-
+	<!-- End #게시판-->
+<%} %>
 	<!-- ======= Footer ======= -->
 	<footer id="footer" class="footer">
 		<div class="container">

@@ -9,12 +9,6 @@ public class UserVO {
 	private String nickname;
 	private int buying;
 	
-	public int getBuying() {
-		return buying;
-	}
-	public void setBuying(int buying) {
-		this.buying = buying;
-	}
 	public String getUserid() {
 		return userid;
 	}
@@ -51,9 +45,16 @@ public class UserVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	public int getBuying() {
+		return buying;
+	}
+	public void setBuying(int buying) {
+		this.buying = buying;
+	}
 	@Override
 	public String toString() {
 		return "UserVO [userid=" + userid + ", password=" + password + ", name=" + name + ", tel=" + tel + ", gender="
-				+ gender + ", nickname=" + nickname + "]";
+				+ gender + ", nickname=" + nickname + ", buying=" + buying + "]";
 	}
+	
 }

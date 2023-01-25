@@ -10,6 +10,7 @@
 <%
 	BbsVO bbs = (BbsVO) request.getAttribute("one");
 	String loginedUserId = String.valueOf(session.getAttribute("member"));
+	String loginedUser = String.valueOf(session.getAttribute("userid"));
 %>
 <%
 	List<ReplyVO> rlist = (List<ReplyVO>) request.getAttribute("rList");
@@ -27,7 +28,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 let bbsNumber = <%=bbs.getBbsnum()%>;
-let useridForDel = "<%=loginedUserId%>" ;
+let useridForDel = "<%=loginedUser%>" ;
 	
 	$.ajax({
 			url : "roadReply",
@@ -44,7 +45,9 @@ let useridForDel = "<%=loginedUserId%>" ;
 					$("#replyTime" + i).html(replyData[i].retime);
 					$("#replyID" + i ).html(replyData[i].reid);
 					if(useridForDel == replyData[i].userid){
-						$("#delTD" + i).html('<Button type="submit" id="delBtn" class="btn btn-primary" name="replyDel">삭제</Button>');
+						$("#indelKey" + i).html('<button type="submit">삭제</button>'); 
+						//$("#delTD" + i).html('<Button type="submit" id="delBtn" class="btn btn-primary" name="replyDel">삭제</Button>');
+						$("#delKey" + i).attr('value' , replyData[i].reid);
 					}
 				}
 			}
@@ -234,7 +237,7 @@ let useridForDel = "<%=loginedUserId%>" ;
 									<li><a href="#">경상북도</a></li>
 								</ul></li>
 						</ul></li>
-					<li><a href="bbsList?pageNum=1&amount=10" class="active">동행찾기</a></li>
+					<li><a href="bbsList?pageNum=1&amount=10" class="active">게시판</a></li>
 				</ul>
 			</nav>
 			<!-- .navbar -->
@@ -287,13 +290,20 @@ let useridForDel = "<%=loginedUserId%>" ;
                         <thead>
                             <tr align="center">
                                 <th width="10%">제목</th>
-                                <th width="90%"><%=bbs.getTitle() %></th>
+                                <th width="85%"><%=bbs.getTitle() %></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>작성일</td>
                                 <td><%=bbs.getBbstime() %></td>
+                                <%if(loginedUserId.equals(bbs.getUserId())){ %>
+                                <td>
+                                	<form action="bbsDelete">
+                                		<input type="hidden" value=" <%= bbs.getBbsnum()%>" name="delKey">
+                                		<button type="submit">삭제</button>
+                                	</form>
+                                </td> <%} %>
                             </tr>
                             <tr>
                                 <td>글쓴이</td>
@@ -309,12 +319,12 @@ let useridForDel = "<%=loginedUserId%>" ;
                             </tr>
                         </tbody>
                     </table>
-                    <table id="commentTable" class="table table-condensed"></table>
                     
                     <%if(pRlist.equals("[]")){ //담긴 문자열이 []과 동일하면 리스트가 비어있음을 의미%>
 					<div>작성된 댓글이 없습니다.</div>
 					<%}else{%>
 					
+                    <table id="commentTable" class="table table-condensed"></table>
                     <table class="table table-condensed">
                         <tr align="center">
                                 <th width="5%">no</th>
@@ -331,15 +341,21 @@ let useridForDel = "<%=loginedUserId%>" ;
 							<td id="replyUserId<%=i%>"> </td>
 							<td id="replyCont<%=i%>"></td>
 							<td id="replyTime<%=i%>"></td>
-							<td id="delTD<%=i%>" class="delTDD"></td>
+							<td width="5%"   id="delTD<%=i%>">
+							<%if(String.valueOf(loginedUser).equals(String.valueOf(rlist.get(i).getUserid()))){ %>
+								<form action="deleteReply" method="post">
+									<div id="indelKey<%=i%>"></div>
+									<input type="hidden" name="reid" value="" id="delKey<%=i%>">
+									<input type="hidden" name="bbsnum" value="<%=bbs.getBbsnum()%>">
+								</form>
+							<%}%>
+							</td>
 							
 						</tr>
 						<%
 							}
 						%>
-					</table>
-						
-                    
+                    </table>
                     <%
 						} 
 					%>
@@ -352,39 +368,23 @@ let useridForDel = "<%=loginedUserId%>" ;
 					<%
 						} else {
 					%>
-					
-					
-					<table class="table table-condensed">
-					<tr>
-						<td>
-							<span class="form-inline" role="form">
-						 	<p>
-						 		<div class="form-group">
-						 			<input type="hidden"  id="rUserId" name="userid" value="<%=loginedUserId %>">
-									<input type="hidden" id="bbsnum" value="  <%=bbs.getBbsnum() %>" name="bbsnum">
-									작성자 : <%=session.getAttribute("member") %>
-						 		</div>
-						 	</p>
-								<textarea id="recont" name="recont" class="form-control col-lg-12" style="width:100%" rows="5"></textarea>						 
-							</span>
-					
-					
-						</td>
-					</tr>
-					</table>
-						
-						
-						
+						<input type="hidden"  id="rUserId" name="userid" value="<%=loginedUserId %>">
+						<input type="hidden" id="bbsnum" value="  <%=bbs.getBbsnum() %>" name="bbsnum">
+						작성자 : <%=session.getAttribute("member") %><br>
+						<textarea id="recont" name="recont" class="form-control col-lg-12" style="width:100%" rows="5"></textarea>
 						<table class="table table-condensed">
                         <thead>
                             <tr>
                                 <td>
-                                	<span style='float:left'>
-                                        <button type="button" id="list" class="btn btn-primary">목록</button>                                		
-                                	</span>
                                     <span style='float:right'>
+                                        <button type="button" id="list" class="btn btn-primary">목록</button>
                                         <button type="button" id="modify" class="btn btn-primary">수정</button>
-                                      
+                                        <%if(loginedUserId.equals(bbs.getUserId())){ %>
+                                        <form action="/booking/tour/bbsDelete">
+											<input type="hidden" name="delKey" value="<%=bbs.getBbsnum() %>"> 
+                                        	<button type="button" id="delete" class="btn btn-primary">삭제</button>
+                                        </form>
+                                        <%} %>
                                         <button type="button" id="sendReply" class="btn btn-primary">글쓰기</button>
                                     </span>
                                 </td>
@@ -460,13 +460,6 @@ let useridForDel = "<%=loginedUserId%>" ;
 
 	<!-- Template Main JS File -->
 	<script src="../resources/js/main.js"></script>
-	
-	<!-- 로그아웃 정보 전송 -->
-	<script type="text/javascript">
-		function chk_form() {
-			document.getElementById('logout').submit();
-		}
-	</script>
 	
 </body>
 </html>

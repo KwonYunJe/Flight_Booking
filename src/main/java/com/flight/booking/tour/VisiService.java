@@ -18,9 +18,8 @@ import org.openqa.selenium.Alert;
 import org.springframework.stereotype.Service;
 
 @Service
-public class VisiService implements VisiServiceInter {
+public class VisiService {
 
-	@Override
 	public ArrayList tourlist(CovidDTO dto)  {
 		String servicekey = "ULt6lDxaSjElAfIsqiV537%2F5Edn6s%2FpRmlIQOM2FwspqmUqpNXTNU%2FMLTIOCblxRV%2F2VRnTcN96B8VaG%2F%2FZNEA%3D%3D";
 		String result = "";

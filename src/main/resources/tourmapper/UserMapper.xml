@@ -10,9 +10,10 @@
 	<select id="nickCheck" parameterType="userVO" resultType="userVO">
 		select * from USER where nickname = #{nickname}
 	</select>
-	
+	<select id="selectUserDATA" parameterType="String" resultType="userVO">
+		select * from USER where userid = #{userid}
+	</select>
 	<update id="byuingUpdate" parameterType="String" >
-		update USER set BUYING = 1 where userid = #{userid}
+		update USER set BUYING = 1 where userid = #{userid} 
 	</update>
-
 </mapper>

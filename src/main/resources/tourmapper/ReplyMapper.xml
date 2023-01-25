@@ -8,5 +8,12 @@
 	<select id="reList" parameterType="int" resultType="replyVO"> 
 		select * from reply where bbsnum = #{oneKey}
 	</select>
+	
+	<select id="userReply" parameterType="String" resultType="replyVO">
+		select * from reply where userid = #{userid}
+	</select>
 
+	<delete id="reDel" parameterType="int">
+		delete from reply where reid = #{reid}
+	</delete>
 </mapper>
