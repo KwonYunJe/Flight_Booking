@@ -130,6 +130,35 @@ public class TourController {
 		}
 	}
 	
+	@RequestMapping("tour/BbsEdit")
+	public String bbsEdit(int oneKey, Model model, BbsVO vo) {
+		try {
+			System.out.println("게시판 수정 요청됨");
+			System.out.println("요청된 검색 키 : " + oneKey);
+			vo = bDao.bbsOne(oneKey);
+			
+			model.addAttribute("one", vo);
+			
+			return "/tour/BbsEdit";
+		}
+		catch(Exception e) {
+			System.out.println("오류발생 : " + e);
+			model.addAttribute("error", e);
+			return "/tour/error";
+		}
+	}
+	
+	@RequestMapping("tour/bbsUpdate")
+	public String bbsUpdate(BbsVO vo, HttpServletRequest req){
+		System.out.println("게시판 업데이트 요청됨");
+		System.out.println("요청된 게시글 정보 : " + vo);
+		HttpSession session = req.getSession();
+		vo.setUserId((String) session.getAttribute("member"));
+		bDao.bbsUpdate(vo);
+		
+		return "/tour/bbs_success";
+	}
+	
 	
 	@RequestMapping("tour/bbsAll")
 	public @ResponseBody List bbsAll(Model model, String area) {

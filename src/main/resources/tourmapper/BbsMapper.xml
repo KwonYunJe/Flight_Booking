@@ -7,6 +7,9 @@
 	<insert id="bbsDelete" parameterType="int">
 		delete from BBS  where bbsnum = #{delKey}
 	</insert>
+	<update id="bbsUpdate" parameterType="bbsVO" >
+		update BBS set title = #{title}, bbscont = #{bbscont}, area = #{area} where bbsnum = #{bbsnum}
+	</update>
 	<select id="bbsOne" parameterType="int" resultType="bbsVO">
 		select * from BBS where bbsnum = #{oneKey}
 	</select>

@@ -26,6 +26,11 @@ public class BbsDAO {
 		return my.selectOne("bbsMap.bbsOne",oneKey);
 	}
 	
+	public int bbsUpdate(BbsVO vo) {
+		my.update("bbsMap.bbsUpdate", vo);
+		return 1;
+	}
+	
 	public List<BbsVO> bbsAll(String area) {
 		return my.selectList("bbsMap.bbsAll", area);
 	}

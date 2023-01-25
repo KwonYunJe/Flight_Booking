@@ -290,20 +290,13 @@ let useridForDel = "<%=loginedUser%>" ;
                         <thead>
                             <tr align="center">
                                 <th width="10%">제목</th>
-                                <th width="85%"><%=bbs.getTitle() %></th>
+                                <th width="90%"><%=bbs.getTitle() %></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>작성일</td>
                                 <td><%=bbs.getBbstime() %></td>
-                                <%if(loginedUserId.equals(bbs.getUserId())){ %>
-                                <td>
-                                	<form action="bbsDelete">
-                                		<input type="hidden" value=" <%= bbs.getBbsnum()%>" name="delKey">
-                                		<button type="submit">삭제</button>
-                                	</form>
-                                </td> <%} %>
                             </tr>
                             <tr>
                                 <td>글쓴이</td>
@@ -368,6 +361,7 @@ let useridForDel = "<%=loginedUser%>" ;
 					<%
 						} else {
 					%>
+					 <%if(loginedUserId.equals(bbs.getUserId())){ %>
 						<input type="hidden"  id="rUserId" name="userid" value="<%=loginedUserId %>">
 						<input type="hidden" id="bbsnum" value="  <%=bbs.getBbsnum() %>" name="bbsnum">
 						작성자 : <%=session.getAttribute("member") %><br>
@@ -377,20 +371,24 @@ let useridForDel = "<%=loginedUser%>" ;
                             <tr>
                                 <td>
                                     <span style='float:right'>
-                                        <button type="button" id="list" class="btn btn-primary">목록</button>
-                                        <button type="button" id="modify" class="btn btn-primary">수정</button>
-                                        <%if(loginedUserId.equals(bbs.getUserId())){ %>
-                                        <form action="/booking/tour/bbsDelete">
-											<input type="hidden" name="delKey" value="<%=bbs.getBbsnum() %>"> 
-                                        	<button type="button" id="delete" class="btn btn-primary">삭제</button>
+                                        <button type="button" id="list" class="btn btn-primary"  onclick = "location.href = 'http://localhost:8080/booking/tour/bbsList' ">목록</button>
+                                        <form action="BbsEdit">
+                                        <input type="hidden" value=" <%=bbs.getBbsnum()%> " name="oneKey">
+                                        	<button type="submit" id="modify" class="btn btn-primary" >수정</button>
                                         </form>
-                                        <%} %>
-                                        <button type="button" id="sendReply" class="btn btn-primary">글쓰기</button>
+                                       
+		                                	<form action="bbsDelete">
+		                                		<input type="hidden" value=" <%= bbs.getBbsnum()%>" name="delKey">
+		                                		<button type="submit" class="btn btn-primary" id="delete">삭제</button>
+		                                	</form>
+		                                 
+                                        <button type="button" id="sendReply" class="btn btn-primary"  onclick = "location.href = 'http://localhost:8080/booking/tour/BbsInsert.jsp' ">글쓰기</button>
                                     </span>
                                 </td>
                             </tr>
                         </thead>
                     </table>
+                    <%} %>
 					<%
 						}
 					%>
