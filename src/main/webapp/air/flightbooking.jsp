@@ -7,16 +7,10 @@
 <title>WITH US</title>
 </head>
 <body>
-<form action="test">
-출발지 : <input type="text" name="departure" id="departure"><br>
-목적지 : <input type="text" name="arrival" id="arrival"><br>
-날짜 : <input type="text" name="airdate" id="airdate"><br>
-성인 : <input type="text" name="adult" id="adult"><br>
-소아 : <input type="text" name="child" id="child"><br>
-유아 : <input type="text" name="baby" id="baby">
+<form action="test2">
+
 <button>항공권 검색</button>
 </form>
-
 
 </body>
 </html>

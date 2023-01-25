@@ -93,7 +93,7 @@ h6 {
 }
 
 .page-header h2 {
-  font-size: 56px;
+  font-size: 30px;
   font-weight: 500;
   color: #fff;
   font-family: var(--font-secondary);
@@ -164,7 +164,7 @@ h6 {
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
-#preloader {
+/* #preloader {
   display: flex;
   position: fixed;
   inset: 0;
@@ -241,8 +241,9 @@ h6 {
   -webkit-animation: preloaderfinish 300ms ease-in-out 500ms forwards;
   animation: preloaderfinish 300ms ease-in-out 500ms forwards;
 }
+*/ 
 
-@-webkit-keyframes lineincrease {
+ /* @-webkit-keyframes lineincrease {
   0% {
     height: 0%;
   }
@@ -300,8 +301,8 @@ h6 {
   100% {
     width: 0%;
   }
-}
-
+} */
+ 
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -345,28 +346,8 @@ h6 {
   }
 }
 
-.header .header-social-links {
-  padding-right: 15px;
-}
 
-.header .header-social-links a {
-  color: rgba(255, 255, 255, 0.5);
-  padding-left: 15px;
-  display: inline-block;
-  line-height: 0px;
-  transition: 0.3s;
-  font-size: 16px;
-}
 
-.header .header-social-links a:hover {
-  color: #000;
-}
-
-@media (max-width: 575px) {
-  .header .header-social-links a {
-    padding-left: 5px;
-  }
-}
 
 /*--------------------------------------------------------------
 # Desktop Navigation
@@ -394,7 +375,7 @@ h6 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0 10px 30px;
+    padding: 10px 0 10px 30px;`
     font-family: var(--font-primary);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -496,6 +477,8 @@ h6 {
     display: none;
   }
 }
+
+
 
 /*--------------------------------------------------------------
 # Mobile Navigation
@@ -748,7 +731,7 @@ h6 {
 
 .gallery .gallery-item img {
   transition: 0.3s;
-}
+ }
 
 .gallery .gallery-links {
   position: absolute;
@@ -1215,7 +1198,6 @@ h6 {
 --------------------------------------------------------------*/
 .hero {
   width: 100%;
-  min-height: 30vh;
   background-image: url("../img/regionTitle.webp");
   background-size: cover;
   position: relative;
@@ -1228,6 +1210,7 @@ h6 {
   font-weight: 700;
   color: #fff;
   font-family: var(--font-secondary);
+  transition: 0.3s;
 }
 
 .hero h2 span {
@@ -1235,6 +1218,7 @@ h6 {
   z-index: 1;
   padding: 0 5px;
   display: inline-block;
+  transition: 0.3s;
 }
 
 .hero h2 span:before {
@@ -1246,18 +1230,20 @@ h6 {
   right: 0;
   background: var(--color-primary);
   z-index: -1;
+  transition: 0.3s;
 }
 
 .hero p {
   color: rgba(255, 255, 255, 0.6);
   margin-bottom: 30px;
   font-size: 18px;
+  transition: 0.3s;
 }
 
-.hero .btn-get-started {
+.hero .fly_btn {
   font-family: var(--font-primary);
   font-weight: 400;
-  font-size: 14px;
+  font-size: 17x;
   display: inline-block;
   padding: 12px 40px;
   border-radius: 4px;

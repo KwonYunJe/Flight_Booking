@@ -2,21 +2,24 @@ package com.flight.booking.tour;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Component
 public class UserDAO {
 	@Autowired
-	SqlSessionTemplate my;
+    SqlSessionTemplate my; 
 	
-	public void insert(UserVO bag) {
-		System.out.println("전달받은 값 :" + bag.getUserid());
-		System.out.println("전달받은 값 :" + bag.getPassword());
-		my.insert("user.insert", bag);
+	public void create(UserVO vo) {
+		my.insert("userMap.userCreate", vo);
+	}
+	public UserVO idcheck(UserVO vo) {
+		System.out.println("DAO 작동");
+		return my.selectOne("userMap.idCheck", vo);
+	}
+	public UserVO nickcheck(UserVO vo) {
+		System.out.println("DAO 작동");
+		return my.selectOne("userMap.nickCheck", vo);
 	}
 	
-	public void delete(UserVO bag) {
-		System.out.println("삭제 되는 값 :" + bag.getUserid());
-		my.delete("user.delete", bag);
-	}
 }

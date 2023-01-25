@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -22,15 +24,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ApiController {
 	@Autowired
-	private VisiService visiService;
+	private VisiServiceInter visiService;
 	
 	@Autowired
-	private CovidService covidService;
+	private CovidServiceInter covidService;
 	
-	@RequestMapping("search_tour")
+	@RequestMapping("tour/search_tour")
 	public void apiController(CovidDTO dto, Model model) {
 			
-		    ArrayList visiterList = visiService.get(dto);
+		    ArrayList visiterList = visiService.tourlist(dto);
 		    ArrayList covidList = covidService.covid19(dto);
 		
 			model.addAttribute("monthList", visiterList.get(0));
@@ -40,5 +42,22 @@ public class ApiController {
 			
 			
 	}
+	
+	@RequestMapping("/result")
+	public void recommend(HttpServletRequest httpServletRequest, Model model) {
+		String survaylist = "";
+		
+		for (int i = 1; i < 20; i++) {
+			String survay = httpServletRequest.getParameter("survay" + i);
+			survaylist = survaylist + survay;
+		}
+		System.out.println(survaylist);
+		model.addAttribute("survaylist", survaylist);
+		 
+	}
+	
+	
 
 }
+
+

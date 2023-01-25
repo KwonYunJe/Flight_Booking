@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bbsMap">
+	<insert id="bbsCreate" parameterType="bbsVO">
+		insert into BBS (userid, title, bbscont, area, bbstime) values (#{userId},#{title},#{bbscont},#{area},now())
+	</insert>
+	<insert id="bbsDelete" parameterType="int">
+		delete from BBS  where bbsnum = #{delKey}
+	</insert>
+	<select id="bbsOne" parameterType="int" resultType="bbsVO">
+		select * from BBS where bbsnum = #{oneKey}
+	</select>
+	<select id="bbsAll"  resultType="bbsVO" >
+		select * from BBS order by BBSTIME DESC
+	</select>
+	<select id="getTotal" resultType="int">
+		select count(*) from bbs
+	</select>
+	 <select id="getListPaging" parameterType="Criteria" resultType="bbsVO">
+        select * from BBS order by BBSNUM DESC limit #{skip},#{amount} 
+    </select>
+    
+    <select id= "searchAllArea" parameterType="hashmap" resultType="bbsVO">
+    	select * from BBS where <foreach collection="sArr"  index='index' item='search' separator='or'>TITLE like '%${search}%'</foreach>
+    </select>
+
+</mapper>

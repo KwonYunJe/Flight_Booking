@@ -44,5 +44,10 @@ public class FlightVO {
 	public void setBaby(String baby) {
 		this.baby = baby;
 	}
+	@Override
+	public String toString() {
+		return "FlightVO [departure=" + departure + ", arrival=" + arrival + ", airdate=" + airdate + ", adult=" + adult
+				+ ", child=" + child + ", baby=" + baby + "]";
+	}
 	
 }
