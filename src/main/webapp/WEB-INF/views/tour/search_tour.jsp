@@ -309,6 +309,103 @@
 			<!-- 방문자추이 그래프 끝 -->
 		</div>
 		</section>
+		<section id="recentBBS">
+		<h1>최신 게시글</h1><form action="bbsList" method="get"><button type="submit">전체글 보기</button> </form>
+		<ol>
+			<li>
+				<a id="bbstitle1" class="recentBbs"></a>
+				<a id="userid1" class="recentBbs"></a>
+				<a id = "bbsarea1" class="recentBbs"></a>
+			</li>
+			<li>
+				<a id="bbstitle2" class="recentBbs"></a>
+				<a id="userid2" class="recentBbs"></a>
+				<a id = "bbsarea2" class="recentBbs"></a>
+			</li>
+			<li>
+				<a id="bbstitle3" class="recentBbs"></a>
+				<a id="userid3" class="recentBbs"></a>
+				<a id = "bbsarea3" class="recentBbs"></a>
+			</li>
+			<li>
+				<a id="bbstitle4" class="recentBbs"></a>
+				<a id="userid4" class="recentBbs"></a>
+				<a id = "bbsarea4" class="recentBbs"></a>
+			</li>
+			<li>
+				<a id="bbstitle5" class="recentBbs"></a>
+				<a id="userid5" class="recentBbs"></a>
+				<a id = "bbsarea5" class="recentBbs"></a>
+			</li>
+		</ol>
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$.ajax({
+					  url : "bbsAll",
+					  type : "post",
+					  data : {
+						  area : '<%=request.getAttribute("region")%>'
+					  },
+					  
+					  success : function(data) {
+						  if(data.length == 0){
+							  $("#recentBBS").html('<div style="text-align : center;">해당 지역에 작성된 게시글이 존재하지 않습니다.</div>')
+						  }
+						  for(var i = 0 ;i < data.length ; i++){
+							  $("#bbstitle1").html(data[i].title);
+							  console.log(data[i].userId);
+							  console.log(data[i].title);
+							  console.log(data[i].bbscont);
+							  console.log(data[i].area);
+							  console.log(data[i].bbstime);
+							  
+							  $("#bbstitle" + i).html(data[i].title);
+							  $("#userid" + i).html(data[i].userId);
+							  $("#bbscont" + i).html(data[i].bbscont);
+							  $("#bbsarea" + i).html(data[i].area);
+							  $("#bbstime" + i).html(data[i].bbstime);
+						  };
+						  
+						  
+						  /* $("#bbstitle1").html(data[0].title);
+						  $("#userid1").html(data[0].userId);
+						  $("#bbscont1").html(data[0].bbscont);
+						  $("#bbsarea1").html(data[0].area);
+						  $("#bbstime1").html(data[0].bbstime);
+						  
+						  $("#bbstitle2").html(data[1].title);
+						  $("#userid2").html(data[1].userId);
+						  $("#bbscont2").html(data[1].bbscont);
+						  $("#bbsarea2").html(data[1].area);
+						  $("#bbstime2").html(data[1].bbstime);
+						  
+						  $("#bbstitle3").html(data[2].title);
+						  $("#userid3").html(data[2].userId);
+						  $("#bbscont3").html(data[2].bbscont);
+						  $("#bbsarea3").html(data[2].area);
+						  $("#bbstime3").html(data[2].bbstime);
+						  
+						  $("#bbstitle4").html(data[3].title);
+						  $("#userid4").html(data[3].userId);
+						  $("#bbscont4").html(data[3].bbscont);
+						  $("#bbsarea4").html(data[3].area);
+						  $("#bbstime4").html(data[3].bbstime);
+						  
+						  $("#bbstitle5").html(data[4].title);
+						  $("#userid5").html(data[4].userId);
+						  $("#bbscont5").html(data[4].bbscont);
+						  $("#bbsarea5").html(data[4].area);
+						  $("#bbstime5").html(data[4].bbstime); */
+					  },
+					  error : function() {
+					  	alert("error");
+					  }
+					})
+		    });
+			
+			</script>
+			
+		</section>
 	</main>
 	<!-- End #main -->
 

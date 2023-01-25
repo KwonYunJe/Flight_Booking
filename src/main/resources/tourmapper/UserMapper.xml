@@ -11,5 +11,8 @@
 		select * from USER where nickname = #{nickname}
 	</select>
 	
+	<update id="byuingUpdate" parameterType="String" >
+		update USER set BUYING = 1 where userid = #{userid}
+	</update>
 
 </mapper>

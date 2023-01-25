@@ -69,7 +69,7 @@ public class FlightCrawlingService {
 		try {
 			driver.get(url);
  
-			Thread.sleep(5000);
+			Thread.sleep(7000);
  
 			String airline_crawl = "";
 			String price_crawl = "";
@@ -78,7 +78,7 @@ public class FlightCrawlingService {
 			String arrTime_crawl = "";
 			
 			for(int i=1; i<31; i++) {
-				Thread.sleep(200);
+				Thread.sleep(500);
 				// 항공사 크롤링
 				element = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div/div[1]/div/div[1]/div[3]/div[2]/table/tbody/tr[" + i + "]/td[1]/span"));
 				airline_crawl = element.getText();

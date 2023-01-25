@@ -93,7 +93,7 @@
 
       .modal_body {
         position: absolute;
-        top: 14%;
+        top: 8%;
         left: 50%;
 		padding-left: 40px;
 		padding-top: 20px;
@@ -111,6 +111,104 @@
         height: 80%;
         padding: 10px;
       }
+      
+      .header .header-user {
+  padding-right: 30px;
+  list-style-type: none;
+  
+  
+}
+
+.header .header-user a {
+  color: white;
+  padding-left: 15px;
+  display: inline-block;
+  line-height: 0px;
+  transition: 0.3s;
+  font-size: 18px;
+}
+
+.header .header-user a:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 575px) {
+  .header .header-user a {
+    padding-left: 5px;
+  }
+}
+
+.header-user .dropdown ul {
+    display: block;
+    position: absolute;
+    list-style-type: none;
+    left: 14px;
+    top: calc(100% + 30px);
+    margin: 0;
+    padding: 10px 0;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    background: var(--color-secondary);
+    transition: 0.3s;
+    border-radius: 4px;
+    background-color: #F2F2F2;
+  }
+
+.header-user .dropdown ul li {
+    min-width: 150px;
+    background-color: #F2F2F2;
+  }
+
+.header-user .dropdown ul a {
+    padding: 10px 20px;
+    font-size: 15px;
+    text-transform: none;
+    font-weight: 400;
+    color: #585858;
+    background-color: #F2F2F2;
+  }
+
+.header-user .dropdown ul a i {
+    font-size: 12px;
+  }
+
+.header-user .dropdown ul a:hover,
+.header-user .dropdown ul .active:hover,
+.header-user .dropdown ul li:hover>a {
+    color: #2D8CFF;
+  }
+
+.header-user .dropdown:hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+
+ .header-user .dropdown .dropdown ul {
+    top: 0;
+    left: calc(100% - 30px);
+    visibility: hidden;
+  }
+
+.header-user .dropdown .dropdown:hover>ul {
+    opacity: 1;
+    top: 0;
+    left: 100%;
+    visibility: visible;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1366px) {
+.header-user .dropdown .dropdown ul {
+    left: -90%;
+  }
+
+.header-user .dropdown .dropdown:hover>ul {
+    left: -100%;
+  }
+}
+      
 </style>
 
 </head>
@@ -156,12 +254,32 @@
 			</nav>
 			<!-- .navbar -->
 
-			<div class="header-social-links">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+				<%
+		if (session.getAttribute("member") == null) {
+		%>
+			<div class="header-user">
+				<li><a href="../tour/login.jsp" >로그인</a></li>
 			</div>
+			
+		<%
+		} else {
+		%>
+			<div class="header-user">
+				<li class="dropdown"><a href="#"><span><%= session.getAttribute("member")%>님 안녕하세요!</span> <i
+							class="bi bi-chevron-down dropdown-indicator"></i></a>
+						<ul>
+							<li><a href="gallery.html">프로필</a></li>
+							<form id="logout" action="logout" method="post">
+								<li><a href="#" onclick="return chk_form()">로그아웃</a></li>
+							</form>
+						</ul>
+				</li>
+				
+			</div>
+						
+		<%
+		}
+		%>
 			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i> <i
 				class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -570,6 +688,13 @@
 
 	<!-- Template main JS File -->
 	<script src="../resources/js/main.js"></script>
+	
+	<!-- 로그아웃 정보 전송 -->
+	<script type="text/javascript">
+		function chk_form() {
+			document.getElementById('logout').submit();
+		}
+	</script>
 
 </body>
 </html>

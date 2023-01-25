@@ -106,10 +106,10 @@ public class FlightChangeService {
 			//달력펼치는 xpath 경로
 			WebElement webelement = driver.findElement(By.xpath("/html/body/c-wiz[2]/div/div[2]/c-wiz/div[1]/c-wiz/div[2]/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/div[1]/div/div[1]/div/input"));
 			webelement.click(); // 달력 클릭
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 			// 6주만큼반복
 			for(int i = 1; i <6; i++) {	
-				Thread.sleep(500);
+				Thread.sleep(1000);
 				// 7일만큼 반복
 				for(int j = 1; j<8; j++) { // 해당 월 최저가 가져옴 
 					element = driver.findElement(By.xpath("/html/body/c-wiz[2]/div/div[2]/c-wiz/div[1]/c-wiz/div[2]/div[1]/div/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div/div[1]/div[3]/div["+i+"]/div["+j+"]/div/div[2]"));

@@ -7,7 +7,14 @@ public class UserVO {
 	private String tel;
 	private String gender;
 	private String nickname;
+	private int buying;
 	
+	public int getBuying() {
+		return buying;
+	}
+	public void setBuying(int buying) {
+		this.buying = buying;
+	}
 	public String getUserid() {
 		return userid;
 	}

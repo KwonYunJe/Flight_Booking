@@ -20,10 +20,10 @@ public class TourController {
 	UserDAO uDao;
 	
 	@Autowired
-	BbsDAO bDao;
+	BbsDAOInter bDao;
 	
 	@Autowired
-	ReplyDAO rDao;
+	ReplyDAOInter rDao;
 	
 	@Autowired
 	LoginDAO lDao;
@@ -193,6 +193,39 @@ public class TourController {
 		return replyData;
 	}
 	
-	
+	@RequestMapping("tour/searchBBS")
+	public String searchBbs(BbsVO vo, String searchType, String searchValue, Model model, Criteria cri) {
+		try {
+			System.out.println("게시판 검색 요청됨");
+			System.out.println("요청된 지역 : "+searchType);
+			System.out.println("요청된 검색어 : "+searchValue);
+			
+			String[] searchArray = searchValue.split("\\s");																		//검색된 문장에서 띄어쓰기를 기준으로 문자열을 각각 배열에 저장
+			System.out.println("검색어 배열" + searchArray[0]);
+			
+			if(searchType.equals("none")) {																								//지역이 설정되지 않고 검색되면 모든 게시글에서 검색
+				List<BbsVO> result = bDao.searchAllArea(searchArray);
+				System.out.println("전체지역 검색결과" + result);
+				model.addAttribute("searchResult", result);
+			}else {																																					//지역이 설정된다면 지역과 게시글을 같이 검색
+				List<BbsVO> result = bDao.searchAllArea(searchArray);
+				System.out.println("지역검색 리스트 크기 : " + result.size());
+				for(int i = (int)result.size() - 1 ; i >= 0; i --) {																						//List에서 하나씩 지우는데 0번부터 시작하면 중복된 번호 처리가 문제될 것 같아서 거꾸로 내려옴
+					if( !result.get(i).getArea().equals(searchType) ) {														//List의 해당번째의 area가 검색한 조건과 일치하지 않으면
+						result.remove(i);																													//그 값을 List에서 지워라.
+						System.out.println(searchType + "지역별 검색 결과" + result);
+						model.addAttribute("searchResult", result);	
+					}
+				}
+			}
+			
+			return"/tour/bbsSearch";
+		}
+		catch(NullPointerException e){
+			model.addAttribute("searchResult", "NullList");
+			return "/tour/bbsSearch";
+		}
+		
+	}
 	
 }

@@ -265,7 +265,7 @@
 									<li><a href="#">경상북도</a></li>
 								</ul></li>
 						</ul></li>
-					<li><a href="bbsList?pageNum=1&amount=10" class="active">게시판</a></li>
+					<li><a href="bbsList?pageNum=1&amount=10" class="active">동행찾기</a></li>
 				</ul>
 			</nav>
 			<!-- .navbar -->
@@ -314,7 +314,7 @@
 				<div class="row">
         			<div class="card card-margin search-form">
             			<div class="card-body p-0">
-                			<form id="search-form">
+                			<form id="search-form" action="searchBBS">
                     			<div class="row">
                         			<div class="col-12">
                             			<div class="row no-gutters">
@@ -377,19 +377,6 @@
 						<td><c:out value="${list.bbstime}"></c:out></td>
 					</tr>
 					</c:forEach>
-					<tr>
-						<td>164</td>
-						<td>Bootstrap 강좌 입니다.</td>
-						<td>관리자</td>
-						<td>2023.01.09</td>
-					</tr>
-					
-					<tr>
-						<td>163</td>
-						<td>2022년을 지나 2023년 새해로.</td>
-						<td>뚱이</td>
-						<td>2023.01.08</td>
-					</tr>
 					</tbody>
 				</table>
 				<hr/>

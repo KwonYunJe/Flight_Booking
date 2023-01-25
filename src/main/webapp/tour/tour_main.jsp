@@ -215,7 +215,7 @@
 				<li class="dropdown"><a href="#"><span><%= session.getAttribute("member")%>님 안녕하세요!</span> <i
 							class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
-							<li><a href="gallery.html">프로필</a></li>
+							<li><a href="Profile.jsp">프로필</a></li>
 							<form id="logout" action="logout" method="post">
 								<li><a href="#" onclick="return chk_form()">로그아웃</a></li>
 							</form>

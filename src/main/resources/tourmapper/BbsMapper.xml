@@ -19,5 +19,9 @@
 	 <select id="getListPaging" parameterType="Criteria" resultType="bbsVO">
         select * from BBS order by BBSNUM DESC limit #{skip},#{amount} 
     </select>
+    
+    <select id= "searchAllArea" parameterType="hashmap" resultType="bbsVO">
+    	select * from BBS where <foreach collection="sArr"  index='index' item='search' separator='or'>TITLE like '%${search}%'</foreach>
+    </select>
 
 </mapper>

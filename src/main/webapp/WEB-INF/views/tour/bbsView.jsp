@@ -234,7 +234,7 @@ let useridForDel = "<%=loginedUserId%>" ;
 									<li><a href="#">경상북도</a></li>
 								</ul></li>
 						</ul></li>
-					<li><a href="bbsList?pageNum=1&amount=10" class="active">게시판</a></li>
+					<li><a href="bbsList?pageNum=1&amount=10" class="active">동행찾기</a></li>
 				</ul>
 			</nav>
 			<!-- .navbar -->
@@ -309,12 +309,12 @@ let useridForDel = "<%=loginedUserId%>" ;
                             </tr>
                         </tbody>
                     </table>
+                    <table id="commentTable" class="table table-condensed"></table>
                     
                     <%if(pRlist.equals("[]")){ //담긴 문자열이 []과 동일하면 리스트가 비어있음을 의미%>
 					<div>작성된 댓글이 없습니다.</div>
 					<%}else{%>
 					
-                    <table id="commentTable" class="table table-condensed"></table>
                     <table class="table table-condensed">
                         <tr align="center">
                                 <th width="5%">no</th>
@@ -337,7 +337,9 @@ let useridForDel = "<%=loginedUserId%>" ;
 						<%
 							}
 						%>
-                    </table>
+					</table>
+						
+                    
                     <%
 						} 
 					%>
@@ -350,23 +352,39 @@ let useridForDel = "<%=loginedUserId%>" ;
 					<%
 						} else {
 					%>
-						<input type="hidden"  id="rUserId" name="userid" value="<%=loginedUserId %>">
-						<input type="hidden" id="bbsnum" value="  <%=bbs.getBbsnum() %>" name="bbsnum">
-						작성자 : <%=session.getAttribute("member") %><br>
-						<textarea id="recont" name="recont" class="form-control col-lg-12" style="width:100%" rows="5"></textarea>
+					
+					
+					<table class="table table-condensed">
+					<tr>
+						<td>
+							<span class="form-inline" role="form">
+						 	<p>
+						 		<div class="form-group">
+						 			<input type="hidden"  id="rUserId" name="userid" value="<%=loginedUserId %>">
+									<input type="hidden" id="bbsnum" value="  <%=bbs.getBbsnum() %>" name="bbsnum">
+									작성자 : <%=session.getAttribute("member") %>
+						 		</div>
+						 	</p>
+								<textarea id="recont" name="recont" class="form-control col-lg-12" style="width:100%" rows="5"></textarea>						 
+							</span>
+					
+					
+						</td>
+					</tr>
+					</table>
+						
+						
+						
 						<table class="table table-condensed">
                         <thead>
                             <tr>
                                 <td>
+                                	<span style='float:left'>
+                                        <button type="button" id="list" class="btn btn-primary">목록</button>                                		
+                                	</span>
                                     <span style='float:right'>
-                                        <button type="button" id="list" class="btn btn-primary">목록</button>
                                         <button type="button" id="modify" class="btn btn-primary">수정</button>
-                                        <%if(loginedUserId.equals(bbs.getUserId())){ %>
-                                        <form action="/booking/tour/bbsDelete">
-											<input type="hidden" name="delKey" value="<%=bbs.getBbsnum() %>"> 
-                                        	<button type="button" id="delete" class="btn btn-primary">삭제</button>
-                                        </form>
-                                        <%} %>
+                                      
                                         <button type="button" id="sendReply" class="btn btn-primary">글쓰기</button>
                                     </span>
                                 </td>
@@ -442,6 +460,13 @@ let useridForDel = "<%=loginedUserId%>" ;
 
 	<!-- Template Main JS File -->
 	<script src="../resources/js/main.js"></script>
+	
+	<!-- 로그아웃 정보 전송 -->
+	<script type="text/javascript">
+		function chk_form() {
+			document.getElementById('logout').submit();
+		}
+	</script>
 	
 </body>
 </html>
