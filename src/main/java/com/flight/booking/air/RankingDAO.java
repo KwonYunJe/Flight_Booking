@@ -19,7 +19,8 @@ public class RankingDAO {
 	// 지역 검색 순위 리스트 가져오기(map reduce한 값)
 	public List<RankingVO> list() {
 		Query query = new Query();
-		query.with(new Sort(Sort.Direction.DESC, "value")); return mongo.find(query, RankingVO.class, "ranking_map_reduce");
+		query.with(new Sort(Sort.Direction.DESC, "value"));
+		return mongo.find(query, RankingVO.class, "ranking_map_reduce");
 	}
 	
 	// 지역 검색 값 DB에 저장

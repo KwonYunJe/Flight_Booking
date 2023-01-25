@@ -208,13 +208,12 @@
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <p>
-                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                </p>
+                <img alt="나홀로나무" src="../resources/img/나홀로나무.jpg" width="250px" height="150px">
+                <br><br>
                 <div class="profile mt-auto">
-                  <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                  <h3>Saul Goodman</h3>
-                  <h4>Ceo &amp; Founder</h4>
+                  <h4>제주</h4>
+                  <h5>나홀로 나무</h5>
+                  <p>제주도 제주시 한림읍 금악리 산 30-8</p>
                 </div>
               </div>
             </div><!-- End testimonial item -->
@@ -224,13 +223,12 @@
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <p>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                </p>
+                <img alt="한담해안산책로" src="../resources/img/한담해안산책로.jpg" width="250px" height="150px">
+                <br><br>
                 <div class="profile mt-auto">
-                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                  <h3>Sara Wilsson</h3>
-                  <h4>Designer</h4>
+                  <h4>제주</h4>
+                  <h5>한담해안산책로</h5>
+                  <p>제주특별자치도 제주시 애월읍 곽지리 </p>
                 </div>
               </div>
             </div><!-- End testimonial item -->
@@ -240,13 +238,42 @@
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <p>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                </p>
+                <img alt="새별오름"  src="../resources/img/새별오름.jpg" width="250px" height="150px">
+                <br><br>
                 <div class="profile mt-auto">
-                  <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                  <h3>Jena Karlis</h3>
-                  <h4>Store Owner</h4>
+                  <h4>제주</h4>
+                  <h5>새별오름</h5>
+                  <p>제주특별자치도 제주시 애월읍 봉성리 산 59-8</p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+			<div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="해운대 블루라인파크"  src="../resources/img/블루라인파크.bmp" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>부산</h4>
+                  <h5>해운대 블루라인파크</h5>
+                  <p>부산광역시 해운대구 청사포로 116 (중동)</p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+            
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="감천문화마을"  src="../resources/img/감천문화마을.jpg" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>부산</h4>
+                  <h5>감천문화마을</h5>
+                  <p>부산광역시 사하구 감내2로 203</p>
                 </div>
               </div>
             </div><!-- End testimonial item -->
@@ -256,13 +283,27 @@
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <p>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                </p>
+                <img alt="황령산 전망대"  src="../resources/img/황령산전망대.jpg" width="250px" height="150px">
+                <br><br>
                 <div class="profile mt-auto">
-                  <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                  <h3>Matt Brandon</h3>
-                  <h4>Freelancer</h4>
+                  <h4>부산</h4>
+                  <h5>황령산 전망대</h5>
+                  <p>부산광역시 남구 황령산로 391-39 (대연동)</p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+            
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="서울숲"  src="../resources/img/서울숲.bmp" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>서울</h4>
+                  <h5>서울숲</h5>
+                  <p>서울특별시 성동구 뚝섬로 273 (성수동1가)</p>
                 </div>
               </div>
             </div><!-- End testimonial item -->
@@ -272,17 +313,30 @@
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <p>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                </p>
+                <img alt="한강시민공원"  src="../resources/img/한강시민공원.jpg" width="250px" height="150px">
+                <br><br>
                 <div class="profile mt-auto">
-                  <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                  <h3>John Larson</h3>
-                  <h4>Entrepreneur</h4>
+                  <h4>서울</h4>
+                  <h5>한강시민공원</h5>
+                  <p>서울특별시 마포구 마포나루길 467 </p>
                 </div>
               </div>
             </div><!-- End testimonial item -->
 
+			<div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="덕수궁돌담길"  src="../resources/img/덕수궁돌담길.jpg" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>서울</h4>
+                  <h5>덕수궁 돌담길</h5>
+                  <p>서울특별시 중구 세종대로 지하 101 </p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
           </div>
           <div class="swiper-pagination"></div>
         </div>
