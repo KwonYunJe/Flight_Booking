@@ -49,8 +49,9 @@ public class BbsVO {
 	}
 	@Override
 	public String toString() {
-		return "BbsVO [userId=" + userId + ", title=" + title + ", bbscont=" + bbscont + ", area=" + area + ", bbstime="
-				+ bbstime;
+		return "BbsVO [bbsnum=" + bbsnum + ", userId=" + userId + ", title=" + title + ", bbscont=" + bbscont
+				+ ", area=" + area + ", bbstime=" + bbstime + "]";
 	}
+	
 	
 }

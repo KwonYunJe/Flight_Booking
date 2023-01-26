@@ -21,5 +21,14 @@ public class UserDAO {
 		System.out.println("DAO 작동");
 		return my.selectOne("userMap.nickCheck", vo);
 	}
-	
+	public UserVO selectUserInfo(String userid){
+		System.out.println("DAO 작동");
+		return my.selectOne("userMap.selectUserDATA",userid);
+	}
+	public int buyingUpdate(String userid) {
+		int result = 0;
+		result = my.update("userMap.byuingUpdate", userid);
+		System.out.println(result);
+		return result;
+	}
 }

@@ -106,16 +106,116 @@
 	transition: 0.3s;
 }
 
+.header .header-user {
+  padding-right: 30px;
+  list-style-type: none;
+  
+  
+}
+
+.header .header-user a {
+  color: white;
+  padding-left: 15px;
+  display: inline-block;
+  line-height: 0px;
+  transition: 0.3s;
+  font-size: 18px;
+}
+
+.header .header-user a:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 575px) {
+  .header .header-user a {
+    padding-left: 5px;
+  }
+}
+
+.header-user .dropdown ul {
+    display: block;
+    position: absolute;
+    list-style-type: none;
+    left: 14px;
+    top: calc(100% + 30px);
+    margin: 0;
+    padding: 10px 0;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    background: var(--color-secondary);
+    transition: 0.3s;
+    border-radius: 4px;
+    background-color: #F2F2F2;
+  }
+
+.header-user .dropdown ul li {
+    min-width: 150px;
+    background-color: #F2F2F2;
+  }
+
+.header-user .dropdown ul a {
+    padding: 10px 20px;
+    font-size: 15px;
+    text-transform: none;
+    font-weight: 400;
+    color: #585858;
+    background-color: #F2F2F2;
+  }
+
+.header-user .dropdown ul a i {
+    font-size: 12px;
+  }
+
+.header-user .dropdown ul a:hover,
+.header-user .dropdown ul .active:hover,
+.header-user .dropdown ul li:hover>a {
+    color: #2D8CFF;
+  }
+
+.header-user .dropdown:hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+
+ .header-user .dropdown .dropdown ul {
+    top: 0;
+    left: calc(100% - 30px);
+    visibility: hidden;
+  }
+
+.header-user .dropdown .dropdown:hover>ul {
+    opacity: 1;
+    top: 0;
+    left: 100%;
+    visibility: visible;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1366px) {
+.header-user .dropdown .dropdown ul {
+    left: -90%;
+  }
+
+.header-user .dropdown .dropdown:hover>ul {
+    left: -100%;
+  }
+}
 .covid_main {
-	transform: translate(0px, -10px);
-	width: 100%;
+	transform: translate(0px, 10px);
+	padding: 45px 10px;
+	width: 50%;
+	height: 350px;
+	border-radius: 20px;
+	border: 1px solid #E2E2E2;
 }
 
 .vichart {
-	transform: translate(0px, 30px);
+	display: flex;
+	transform: translate(650px, -340px);
 	height: 350px;
 	width: 50%;
-	display: flex;
 	padding: 5px 10px;
 	align-items: center;
 	border-radius: 20px;
@@ -147,7 +247,7 @@
 	height: 75px;
 	margin-top: 70px;
 	color: #666;
-	font-size: 40px;
+	font-size: 35px;
 }
 
 .covid_li:first-child {
@@ -165,12 +265,25 @@
 }
 
 .utime {
-	display: inline-block;
+	transform: translate(210px, 0px);
+	display: flex;
 	color: #666;
 }
 
 .utime h5{
 	font-size: 18px;
+}
+
+.bbslsit{
+	display: inline-block;
+	width: 100%;
+}
+
+.col-sm-8{
+	transform: translate(0px, -300px);
+	width:100%;
+	
+
 }
 </style>
 </head>
@@ -182,7 +295,7 @@
 		<div
 			class="container-fluid d-flex align-items-center justify-content-between">
 
-			<a href="index.html"
+			<a href="search_flight.jsp"
 				class="d-flex align-items-center  me-auto me-lg-0"
 				style="transform: translate(10px, 0px);"> <img
 				src="../resources/img/logo.png" alt=""
@@ -191,7 +304,7 @@
 
 			<nav id="navbar" class="navbar">
 				<ul>
-					<li><a href="search_flight.jsp">항공권</a></li>
+					<li><a href="../air/search_flight.jsp">항공권</a></li>
 					<li><a href="tour_main.jsp" class="active">커뮤니티</a></li>
 					<li class="dropdown"><a href="#"><span>관광지갤러리</span> <i
 							class="bi bi-chevron-down dropdown-indicator"></i></a>
@@ -209,17 +322,39 @@
 									<li><a href="#">경상북도</a></li>
 								</ul></li>
 						</ul></li>
-					<li><a href="services.html">게시판</a></li>
+					<li><a href="bbsList?pageNum=1&amount=10">동행찾기</a></li>
 				</ul>
 			</nav>
 			<!-- .navbar -->
 
-			<div class="header-social-links">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+			<%
+		if (session.getAttribute("member") == null) {
+		%>
+			<div class="header-user">
+				<li><a href="login.jsp" >로그인</a></li>
 			</div>
+			
+		<%
+		} else {
+		%>
+			<div class="header-user">
+				<li class="dropdown"><a href="#"><span><%= session.getAttribute("member")%>님 안녕하세요!</span> <i
+							class="bi bi-chevron-down dropdown-indicator"></i></a>
+						<ul>
+							<li><a href="Profile.jsp">프로필</a></li>
+							<form id="logout" action="logout" method="post">
+								<li><a href="#" onclick="return chk_form()">로그아웃</a></li>
+							</form>
+						</ul>
+				</li>
+				
+			</div>
+			
+			
+						
+		<%
+		}
+		%>
 			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i> <i
 				class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
@@ -229,12 +364,101 @@
 
 	<main id="main" data-aos="fade" data-aos-delay="1500">
 		<section id="services" class="page-header" style="margin-top: 10px;">
-			<!-- 코로나 시작 -->
-
+			
 			<div class="container">
+				<div class="regname">
+					<h2>최근 ${covidList.get(0)} 여행에서 동행을 구하는 사람들이에요!</h2>
+				</div>
+				
+		<!-- 검색한 지역의 최신 개시물 5개 출력 -->
+		<div class="bbslsit">
+		<table class="table table-striped">
+		
+		<thead>
+					<tr>						
+						<th>번호</th>
+						<th>내용</th>
+						<th>닉네임</th>
+						<th>지역</th>
+					</tr>
+					</thead>
+					<tbody>
+					
+					<tr>
+						<td>1</td>
+						<td id="bbstitle0" class="recentBbs"></td>
+						<td id="userid0" class="recentBbs"></td>
+						<td id = "bbsarea0" class="recentBbs"></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td id="bbstitle1" class="recentBbs"></td>
+						<td id="userid1" class="recentBbs"></td>
+						<td id = "bbsarea1" class="recentBbs"></td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td id="bbstitle2" class="recentBbs"></td>
+						<td id="userid2" class="recentBbs"></td>
+						<td id = "bbsarea2" class="recentBbs"></td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td id="bbstitle3" class="recentBbs"></td>
+						<td id="userid3" class="recentBbs"></td>
+						<td id = "bbsarea3" class="recentBbs"></td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td id="bbstitle4" class="recentBbs"></td>
+						<td id="userid4" class="recentBbs"></td>
+						<td id = "bbsarea4" class="recentBbs"></td>
+					</tr>
+					
+					</tbody>
+		</table>
+		<span style="float:right";>
+			<form action="bbsList" method="get"><button type="submit" class="btn btn-primary">더 살펴보고 싶으신가요?</button> </form>
+		</span>
+		</div>
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$.ajax({
+					  url : "bbsAll",
+					  type : "post",
+					  data : {
+						  area : '<%=request.getAttribute("region")%>'
+					  },
+					  
+					  success : function(data) {
+						  if(data.length == 0){
+							  $("#recentBBS").html('<div style="text-align : center;">해당 지역에 작성된 게시글이 존재하지 않습니다.</div>')
+						  }
+						  for(var i = 0 ;i < data.length ; i++){
+							  /* $("#bbstitle1").html(data[i].title); */
+							  
+							  
+							  $("#bbstitle" + i).html(data[i].title);
+							  $("#userid" + i).html(data[i].userId);
+							  $("#bbscont" + i).html(data[i].bbscont);
+							  $("#bbsarea" + i).html(data[i].area);
+							  $("#bbstime" + i).html(data[i].bbstime);
+						  };
+						 
+					  },
+					  error : function() {
+					  	alert("error");
+					  }
+					})
+		    });
+			
+			</script>
+				
+				<!-- 코로나 시작 -->
 				<div class="covid_main">
-					<div class="regname">
-						<h2>${covidList.get(0)} COVID-19 발생현황</h2>
+					<div class="utime">
+						<!-- 갱신기준날짜 -->
+						<h5>${covidList.get(0)} ${covidList.get(4)}</h5>
 					</div>
 					<ul class="covid_total">
 						<li class="covid_li">
@@ -247,11 +471,6 @@
 							<h1 class="number">${covidList.get(3)}</h1> <i>사망누적</i>
 						</li>
 					</ul>
-					<div class="utime">
-						<br>
-						<!-- 갱신기준날짜 -->
-						<h5>${covidList.get(4)}</h5>
-					</div>
 				</div>
 			<!-- 코로나 끝 -->
 
@@ -307,104 +526,97 @@
 			var myDoughnutChart = new Chart(ctx, config);
 		</script>
 			<!-- 방문자추이 그래프 끝 -->
+		
+		<!-- 관광지 앨범 -->
+		<div class="region_img">
+    		<div class="row">
+				<br><div class="col-sm-8" >
+				<div class="slides-3 swiper">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                
+                <img alt="나홀로나무" src="../resources/img/나홀로나무.jpg" width="500px" height="300px">
+                
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                
+                <img alt="한담해안산책로" src="../resources/img/한담해안산책로.jpg" width="500px" height="300px">
+                
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                
+                <img alt="새별오름"  src="../resources/img/새별오름.jpg" width="500px" height="300px">
+                
+              </div>
+            </div><!-- End testimonial item -->
+
+			<div class="swiper-slide">
+              <div class="testimonial-item">
+                
+                <img alt="해운대 블루라인파크"  src="../resources/img/블루라인파크.bmp" width="500px" height="300px">
+                
+              </div>
+            </div><!-- End testimonial item -->
+            
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                
+                <img alt="감천문화마을"  src="../resources/img/감천문화마을.jpg" width="500px" height="300px">
+                
+                
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                
+                <img alt="황령산 전망대"  src="../resources/img/황령산전망대.jpg" width="500px" height="300px">
+                
+              </div>
+            </div><!-- End testimonial item -->
+            
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                
+                <img alt="서울숲"  src="../resources/img/서울숲.bmp" width="500px" height="300px">
+                
+                
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                
+                <img alt="한강시민공원"  src="../resources/img/한강시민공원.jpg" width="500px" height="300px">
+     
+              </div>
+            </div><!-- End testimonial item -->
+
+			<div class="swiper-slide">
+              <div class="testimonial-item">
+                
+                <img alt="덕수궁돌담길"  src="../resources/img/덕수궁돌담길.jpg" width="500px" height="300px">
+               
+                
+              </div>
+            </div><!-- End testimonial item -->
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
 		</div>
-		</section>
-		<section id="recentBBS">
-		<h1>최신 게시글</h1><form action="bbsList" method="get"><button type="submit">전체글 보기</button> </form>
-		<ol>
-			<li>
-				<a id="bbstitle1" class="recentBbs"></a>
-				<a id="userid1" class="recentBbs"></a>
-				<a id = "bbsarea1" class="recentBbs"></a>
-			</li>
-			<li>
-				<a id="bbstitle2" class="recentBbs"></a>
-				<a id="userid2" class="recentBbs"></a>
-				<a id = "bbsarea2" class="recentBbs"></a>
-			</li>
-			<li>
-				<a id="bbstitle3" class="recentBbs"></a>
-				<a id="userid3" class="recentBbs"></a>
-				<a id = "bbsarea3" class="recentBbs"></a>
-			</li>
-			<li>
-				<a id="bbstitle4" class="recentBbs"></a>
-				<a id="userid4" class="recentBbs"></a>
-				<a id = "bbsarea4" class="recentBbs"></a>
-			</li>
-			<li>
-				<a id="bbstitle5" class="recentBbs"></a>
-				<a id="userid5" class="recentBbs"></a>
-				<a id = "bbsarea5" class="recentBbs"></a>
-			</li>
-		</ol>
-			<script type="text/javascript">
-			$(document).ready(function(){
-				$.ajax({
-					  url : "bbsAll",
-					  type : "post",
-					  data : {
-						  area : '<%=request.getAttribute("region")%>'
-					  },
-					  
-					  success : function(data) {
-						  if(data.length == 0){
-							  $("#recentBBS").html('<div style="text-align : center;">해당 지역에 작성된 게시글이 존재하지 않습니다.</div>')
-						  }
-						  for(var i = 0 ;i < data.length ; i++){
-							  $("#bbstitle1").html(data[i].title);
-							  console.log(data[i].userId);
-							  console.log(data[i].title);
-							  console.log(data[i].bbscont);
-							  console.log(data[i].area);
-							  console.log(data[i].bbstime);
-							  
-							  $("#bbstitle" + i).html(data[i].title);
-							  $("#userid" + i).html(data[i].userId);
-							  $("#bbscont" + i).html(data[i].bbscont);
-							  $("#bbsarea" + i).html(data[i].area);
-							  $("#bbstime" + i).html(data[i].bbstime);
-						  };
-						  
-						  
-						  /* $("#bbstitle1").html(data[0].title);
-						  $("#userid1").html(data[0].userId);
-						  $("#bbscont1").html(data[0].bbscont);
-						  $("#bbsarea1").html(data[0].area);
-						  $("#bbstime1").html(data[0].bbstime);
-						  
-						  $("#bbstitle2").html(data[1].title);
-						  $("#userid2").html(data[1].userId);
-						  $("#bbscont2").html(data[1].bbscont);
-						  $("#bbsarea2").html(data[1].area);
-						  $("#bbstime2").html(data[1].bbstime);
-						  
-						  $("#bbstitle3").html(data[2].title);
-						  $("#userid3").html(data[2].userId);
-						  $("#bbscont3").html(data[2].bbscont);
-						  $("#bbsarea3").html(data[2].area);
-						  $("#bbstime3").html(data[2].bbstime);
-						  
-						  $("#bbstitle4").html(data[3].title);
-						  $("#userid4").html(data[3].userId);
-						  $("#bbscont4").html(data[3].bbscont);
-						  $("#bbsarea4").html(data[3].area);
-						  $("#bbstime4").html(data[3].bbstime);
-						  
-						  $("#bbstitle5").html(data[4].title);
-						  $("#userid5").html(data[4].userId);
-						  $("#bbscont5").html(data[4].bbscont);
-						  $("#bbsarea5").html(data[4].area);
-						  $("#bbstime5").html(data[4].bbstime); */
-					  },
-					  error : function() {
-					  	alert("error");
-					  }
-					})
-		    });
-			
-			</script>
-			
+		    	
+    		</div>
+    	</div>
+		
+		</div>
 		</section>
 	</main>
 	<!-- End #main -->
@@ -433,5 +645,12 @@
 
 	<!-- Template Main JS File -->
 	<script src="../resources/js/main.js"></script>
+	
+	<!-- 로그아웃 정보 전송 -->
+	<script type="text/javascript">
+		function chk_form() {
+			document.getElementById('logout').submit();
+		}
+	</script>
 </body>
 </html>

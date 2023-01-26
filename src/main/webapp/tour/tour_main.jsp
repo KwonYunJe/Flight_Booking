@@ -170,7 +170,7 @@
 		<div
 			class="container-fluid d-flex align-items-center justify-content-between">
 
-			<a href="index.html"
+			<a href="../air/search_flight.jsp"
 				class="d-flex align-items-center  me-auto me-lg-0"
 				style="transform: translate(10px, 0px);"> <img
 				src="../resources/img/logo.png" alt=""
@@ -197,7 +197,7 @@
 									<li><a href="#">경상북도</a></li>
 								</ul></li>
 						</ul></li>
-					<li><a href="bbsList?pageNum=1&amount=10">게시판</a></li>
+					<li><a href="bbsList?pageNum=1&amount=10">동행찾기</a></li>
 				</ul>
 			</nav>
 			<!-- .navbar -->

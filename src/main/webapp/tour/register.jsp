@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" name="userid" id="userid"
+                                    <input type="email" class="form-control form-control-user" name="userid" id="userid"
                                         placeholder="Email Address">
                                     <font id="id_feedback" size="2"></font>
                                 </div>

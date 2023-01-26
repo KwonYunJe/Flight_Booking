@@ -8,8 +8,12 @@
 
 <title>With Us</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 <meta content="" name="description">
 <meta content="" name="keywords">
+
+<!-- 순위표시 -->
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 
 <!-- Favicons -->
 <link href="../resources/img/icon.png" rel="icon">
@@ -191,6 +195,31 @@
     left: -100%;
   }
 }
+
+.regname {
+	display: inline-block;
+	width: 100%;
+	padding-top: 24px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+
+	text-align: center;
+	background-color: #024DAF;
+	color: white;
+}
+
+.recommendarea{
+	display: inline-block;
+	width: 66%;
+	padding-top: 24px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+
+	text-align: center;
+	background-color: #C6C6C6;
+	color: white;
+
+}
 </style>
 
 
@@ -203,7 +232,7 @@
 		<div
 			class="container-fluid d-flex align-items-center justify-content-between">
 
-			<a href="index.html"
+			<a href="search_flight.jsp"
 				class="d-flex align-items-center  me-auto me-lg-0"
 				style="transform: translate(10px, 0px);"> <img
 				src="../resources/img/logo.png" alt=""
@@ -230,7 +259,7 @@
 									<li><a href="#">경상북도</a></li>
 								</ul></li>
 						</ul></li>
-					<li><a href="../tour/bbsList?pageNum=1&amount=10">게시판</a></li>
+					<li><a href="../tour/bbsList?pageNum=1&amount=10">동행찾기</a></li>
 				</ul>
 			</nav>
 			<!-- .navbar -->
@@ -249,8 +278,8 @@
 				<li class="dropdown"><a href="#"><span><%= session.getAttribute("member")%>님 안녕하세요!</span> <i
 							class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
-							<li><a href="gallery.html">프로필</a></li>
-							<form id="logout" action="logout" method="post">
+							<li><a href="../tour/Profile.jsp">프로필</a></li>
+							<form id="logout" action="../tour/logout" method="post">
 								<li><a href="#" onclick="return chk_form()">로그아웃</a></li>
 							</form>
 						</ul>
@@ -347,13 +376,188 @@
 		</div>
 	</section>
 	<!-- End Hero Section -->
+	<%-- 	<!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+     	<div class = "recommendarea" style="text-align:center;">
+     		<% 
+     		if (session.getAttribute("member") != null) {
+			%>
+    	<a id ="region"></a>
+  
+    	<% } %>
+    	</div>
+    	
+    </section><!-- End Gallery Section --> --%>
 
-	<main id="main" data-aos="fade" data-aos-delay="1500">
-		<div class="emptyarea">
-		
+    	<main id="main" data-aos="fade" data-aos-delay="1500">
+  		<div class="container">
+  		
+    	
+    	<div class="regname">
+					<pre><h3>어느 곳을 여행하고 싶은지 고민하고 있나요?	<button class="btn btn-primary"onclick="location.href='../tour/recommend_place.jsp' ">사용자 기반 맞춤 여행지 추천</button></h3></pre>
+				
 		</div>
-	</main>
-	<!-- End #main -->
+    		
+    	<div>
+    		<div class="row">
+				<br><div class="col-sm-8">
+				<div class="slides-3 swiper">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="나홀로나무" src="../resources/img/나홀로나무.jpg" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>제주</h4>
+                  <h5>나홀로 나무</h5>
+                  <p>제주도 제주시 한림읍 금악리 산 30-8</p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="한담해안산책로" src="../resources/img/한담해안산책로.jpg" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>제주</h4>
+                  <h5>한담해안산책로</h5>
+                  <p>제주특별자치도 제주시 애월읍 곽지리 </p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="새별오름"  src="../resources/img/새별오름.jpg" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>제주</h4>
+                  <h5>새별오름</h5>
+                  <p>제주특별자치도 애월읍 봉성리 산 59-8</p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+			<div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="해운대 블루라인파크"  src="../resources/img/블루라인파크.bmp" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>부산</h4>
+                  <h5>해운대 블루라인파크</h5>
+                  <p>부산광역시 해운대구 청사포로 116 (중동)</p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+            
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="감천문화마을"  src="../resources/img/감천문화마을.jpg" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>부산</h4>
+                  <h5>감천문화마을</h5>
+                  <p>부산광역시 사하구 감내2로 203</p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="황령산 전망대"  src="../resources/img/황령산전망대.jpg" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>부산</h4>
+                  <h5>황령산 전망대</h5>
+                  <p>부산광역시 남구 황령산로 391-39 (대연동)</p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+            
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="서울숲"  src="../resources/img/서울숲.bmp" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>서울</h4>
+                  <h5>서울숲</h5>
+                  <p>서울특별시 성동구 뚝섬로 273 (성수동1가)</p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="한강시민공원"  src="../resources/img/한강시민공원.jpg" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>서울</h4>
+                  <h5>한강시민공원</h5>
+                  <p>서울특별시 마포구 마포나루길 467 </p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+			<div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <img alt="덕수궁돌담길"  src="../resources/img/덕수궁돌담길.jpg" width="250px" height="150px">
+                <br><br>
+                <div class="profile mt-auto">
+                  <h4>서울</h4>
+                  <h5>덕수궁 돌담길</h5>
+                  <p>서울특별시 중구 세종대로 지하 101 </p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+				</div><br>
+		    	<div class="col-sm-4" id="ranking" style="text-align: center;"></div>
+    		</div>
+    	</div>
+	<div class = "recommendarea">
+     			<% 
+     			if (session.getAttribute("member") != null) {
+				%>
+    		<pre><h5 id ="region"></h5></pre>
+  
+    		<% } %>
+    		</div>
+  	</div>
+
+  </main><!-- End #main -->
+    
+	
 
 
 	<!-- ======= Footer ======= -->
@@ -381,6 +585,49 @@
 	<!-- Template Main JS File -->
 	<script src="../resources/js/main.js"></script>
 
+
+	<!-- 로그아웃 정보 전송 -->
+	<script type="text/javascript">
+		function chk_form() {
+			document.getElementById('logout').submit();
+		}
+	</script>
+	
+	<!-- 사용자 기반 추천 -->
+ 	<script type="text/javascript">
+     	$(document).ready(function(){
+     		let recommendid = <%=String.valueOf(request.getAttribute("userid")) %>
+     		$.ajax({
+     			url : 'recommend',
+     			type : 'POST',
+     		 	contentType : "application/json; charset:UTF-8",
+     			success : function(recommendresult){
+     				if(recommendresult == '없음') {
+     					$('#region').html()
+     				}
+     				else {
+     				$('#region').html('최근 '+recommendresult+'을 가장 많이 찾아보셨네요! 		<a href="http://localhost:8080/booking/tour/search_tour?region='+recommendresult+'"><button class="btn btn-secondary"">해당 커뮤니티 둘러보기</button></a>');
+     				}
+     			
+     			},
+     			error : function(e){
+     				console.log(e);
+     			}
+     		})
+     	})
+     </script>
+    
+    <!-- Mongo기반 순위 표시 -->
+    <script type="text/javascript">
+	$(function() {
+		$.ajax({
+			url : "map_reduce",
+			success : function(x){
+				$('#ranking').html(x)
+			}
+		})
+	})
+</script>
 
 	<!-- 로그아웃 정보 전송 -->
 	<script type="text/javascript">

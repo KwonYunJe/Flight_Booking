@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>에러발생</title>
 </head>
 <body>
-추가완료
+	예기치 않은 오류가 발생하였습니다.
+	오류 내용 : ${"error"}
 </body>
 </html>

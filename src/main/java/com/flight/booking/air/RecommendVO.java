@@ -4,6 +4,7 @@ public class RecommendVO {
 	private String userid;
 	private String dest;
 	private String date;
+	
 	public String getUserid() {
 		return userid;
 	}

@@ -1,5 +1,6 @@
 package com.flight.booking.tour;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,38 +10,41 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 @Component
-public class BbsDAO implements BbsDAOInter {
+public class BbsDAO {
 	@Autowired
 	SqlSessionTemplate my;
 
-	@Override
 	public void bbsDelete(int delKey) {
 		my.delete("bbsMap.bbsDelete", delKey);
 	}
 	
-	@Override
 	public void bbsInsert(BbsVO vo) {
 		my.insert("bbsMap.bbsCreate", vo);
 	}
 	
-	@Override
 	public BbsVO bbsOne(int oneKey) {
 		return my.selectOne("bbsMap.bbsOne",oneKey);
 	}
 	
-	@Override
-	public List<BbsVO> bbsAll() {
-		return my.selectList("bbsMap.bbsAll");
+	public int bbsUpdate(BbsVO vo) {
+		my.update("bbsMap.bbsUpdate", vo);
+		return 1;
 	}
 	
-	@Override
+	public List<BbsVO> bbsAll(String area) {
+		return my.selectList("bbsMap.bbsAll", area);
+	}
+	
 	public List<BbsVO> paging(Criteria cri) {
 		return my.selectList("bbsMap.getListPaging", cri);
 	}
 	
-	@Override
 	public int getTotal() {
 		return my.selectOne("bbsMap.getTotal");
+	}
+	
+	public List<BbsVO> userBbs(String userid){		//유저 프로필에 보여질 게시글
+		return my.selectList("bbsMap.userBBS", userid);
 	}
 	
 	public List<BbsVO> searchAllArea(String[] searchArray){		//유저가 모든지역의 게시글 검색

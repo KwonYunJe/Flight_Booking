@@ -5,8 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>With Us</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+<!-- Favicons -->
+<link href="../resources/img/icon.png" rel="icon">
+<link href="../resources/img/apple-touch-icon.png" rel="apple-touch-icon">
+
 <!-- BootStrap-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -86,6 +91,7 @@ button {
 
 .card-title {
   padding: 0px 0px;
+  font-size: 23px;
 }
 
 .card-body {
@@ -172,9 +178,9 @@ button {
     text-transform: uppercase;
     line-height: 1;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 17px;
     color: #ffffff;
-    padding: 17px 29px 16px;
+    padding: 17px 50px 16px;
 }
 	
 </style>
@@ -214,12 +220,13 @@ function hasClass(target, className) {
 </head>
 <body>
 
-<div id="content" class="bg-image"  style="background-color: rgba(0, 0, 0, 0.2);">
+<div id="content" class="bg-image"  style="background-color: rgba(0, 0, 0, 0);">
       <div class="container d-flex align-items-center justify-content-center text-center h-100">
 <!--        <h1 class="text-white text-center mb-8">당신은 어떤 성향의 사용자이신가요?</h1>-->
         <div>
-          <h1 class="text-white text-center mb-8">관광지를 추천해 드릴께요! <br>(현재 제주도 한정 운영)</h1>
-          <div class="card text-center m-5 h-100">
+          <h1 class="text-gray text-center ">관광지를 추천해 드릴께요!</h1>
+          <h3 class="text-gray text-center mb-5">(현재 제주도 한정 운영)</h3>
+          <div class="card text-center m-6 h-100">
             <div class="card-header-light " id="card-header" style="background-color: #2D8CFF;">
               <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist" >
                 <li class="nav-item" role="presentation">
@@ -296,7 +303,7 @@ function hasClass(target, className) {
                 </li>
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="nineteenth-tab" data-bs-toggle="tab" data-bs-target="#nineteenth" type="button"
-                    role="tab" aria-controls="nineteenth" aria-selected="false">19번 질문</button>
+                    role="tab" aria-controls="nineteenth" aria-selected="false">마지막 질문!</button>
                 </li>
               </ul>
 
@@ -872,7 +879,7 @@ function hasClass(target, className) {
               </div>
             </form>
           </div>
-
+			<br>
             <button class="survay-btn btn btn-primary btn-lg" id="quest_answer" type="button" width="180px">성향 파악 완료</button>
           </div>
       </div>

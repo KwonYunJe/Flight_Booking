@@ -93,7 +93,7 @@
 
       .modal_body {
         position: absolute;
-        top: 8%;
+        top: 5%;
         left: 50%;
 		padding-left: 40px;
 		padding-top: 20px;
@@ -222,7 +222,7 @@
 		<div
 			class="container-fluid d-flex align-items-center justify-content-between">
 
-			<a href="index.html"
+			<a href="search_flight.jsp"
 				class="d-flex align-items-center  me-auto me-lg-0"
 				style="transform: translate(10px, 0px);"> 
 				<img src="../resources/img/logo.png" alt=""
@@ -249,7 +249,7 @@
 									<li><a href="#">경상북도</a></li>
 								</ul></li>
 						</ul></li>
-					<li><a href="services.html">게시판</a></li>
+					<li><a href="../tour/bbsList?pageNum=1&amount=10">동행찾기</a></li>
 				</ul>
 			</nav>
 			<!-- .navbar -->
@@ -268,7 +268,7 @@
 				<li class="dropdown"><a href="#"><span><%= session.getAttribute("member")%>님 안녕하세요!</span> <i
 							class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
-							<li><a href="gallery.html">프로필</a></li>
+							<li><a href="Profile.jsp">프로필</a></li>
 							<form id="logout" action="logout" method="post">
 								<li><a href="#" onclick="return chk_form()">로그아웃</a></li>
 							</form>
@@ -295,9 +295,19 @@
 				<div>
 					<%
 					// controller에서 만든 model 가져오기
-					ArrayList<FlightListVO> flightList = (ArrayList) request.getAttribute("flightList");
+					// controller에서 만든 model 가져오기
 					ArrayList<FlightVO> searchList = (ArrayList) request.getAttribute("searchList");
-
+					
+					ArrayList<FlightListVO> sortDepart = (ArrayList) request.getAttribute("sortDepart");
+					ArrayList<FlightListVO> sortPrice = (ArrayList) request.getAttribute("sortPrice");
+					
+					ArrayList<FlightListVO> koreanairList = (ArrayList) request.getAttribute("koreanairList");
+					ArrayList<FlightListVO> jinairList = (ArrayList) request.getAttribute("jinairList");
+					ArrayList<FlightListVO> jejuairList = (ArrayList) request.getAttribute("jejuairList");
+					ArrayList<FlightListVO> asianaairList = (ArrayList) request.getAttribute("asianaList");
+					ArrayList<FlightListVO> airbusanList = (ArrayList) request.getAttribute("airbusanList");
+					ArrayList<FlightListVO> twayairList = (ArrayList) request.getAttribute("twayairList");
+					
 					// 사용자가 검색한 값
 					String dep = searchList.get(0).getDeparture(); // 출발지
 					String arr = searchList.get(0).getArrival(); // 도착지	
@@ -412,7 +422,7 @@
 	
 					<!-- 필터 (왼쪽 div) -->
 					<div class="col-sm-4">
-							<a class="cta-btn">가격 변동 추이</a> <br> <br>
+							<a class="btn btn-primary">가격 변동 추이</a> <br> <br>
 			
 				
 
@@ -421,7 +431,7 @@
    <script>
       const body = document.querySelector('body');
       const modal = document.querySelector('.modal');
-      const btnOpenPopup = document.querySelector('.cta-btn');
+      const btnOpenPopup = document.querySelector('.btn-primary');
 
       btnOpenPopup.addEventListener('click', () => {
         modal.classList.toggle('show');
@@ -458,38 +468,16 @@
     					</script>
 						<br>
 						<h5>항공사</h5>
-						<select class="form-control">
- 							<option>대한항공</option>
- 							<option>아시아나</option>
- 							<option>에어부산</option>
- 							<option>제주항공</option>
- 							<option>진에어</option>
+						<select class="form-control" id ="selectFilter">
+							<option value="전체" selected>전체</option>
+ 							<option value="대한항공">대한항공</option>
+ 							<option value="아시아나">아시아나</option>
+ 							<option value="에어부산">에어부산</option>
+ 							<option value="제주항공">제주항공</option>
+ 							<option value="진에어">진에어</option>
+ 							<option value="티웨이항공">티웨이항공</option>
  						</select>
-						<!-- <div class="form-check">
-  							<label class="form-check-label">
-   							<input type="checkbox" class="form-check-input" value="">대한항공
- 	 						</label>
-						</div>
-						<div class="form-check">
-  							<label class="form-check-label">
-  	  						<input type="checkbox" class="form-check-input" value="">아시아나
-  							</label>
-						</div>
-						<div class="form-check">
-  							<label class="form-check-label">
-  							<input type="checkbox" class="form-check-input" value="">에어부산
- 							</label>
-						</div>
-						<div class="form-check">
-  							<label class="form-check-label">
-  							<input type="checkbox" class="form-check-input" value="">제주항공
- 							</label>
-						</div>
-						<div class="form-check">
-  							<label class="form-check-label">
-  							<input type="checkbox" class="form-check-input" value="">진에어
- 							</label>
-						</div> -->
+						
 						<br>
 					</div>
 					
@@ -500,16 +488,7 @@
  							<div class="col">
  								<h4>최저가</h4>
  								<%
- 								int[] priceArr = new int[flightList.size()];
- 								int minPrice = flightList.get(0).getPrice();	// minPrice(최저값)를 price 첫 값으로 임시지정
-// 								System.out.println("origin min 값 : " + minPrice);
- 								for(int i = 0; i < flightList.size(); i++){
- 									priceArr[i] = flightList.get(i).getPrice();	// price값 콤마 지우고 정수형으로 바꿔서 배열에 저장
-									if(priceArr[i] < minPrice){	// price값이 minPrice보다 작다면
-										minPrice = priceArr[i];	// minPrice를 price값으로 바꿔줌
-									}
-// 									System.out.println("after min 값 : " + minPrice);
- 								}
+ 									int minPrice = sortPrice.get(0).getPrice();	// minPrice(최저값)를 price 첫 값으로 임시지정
  								%>
 								<h4>￦ <fmt:formatNumber value="<%=minPrice %>" pattern="#,###"/></h4> <!-- 최저값을 #,### 형식으로 출력 -->
  							</div>
@@ -521,7 +500,6 @@
  								<select class="form-control" id="selectSort">
  									<option value="minPrice">최저가순</option>
  									<option value="minDep">출발시간순</option>
- 									<option value="minTime">최단여행순</option>
  								</select>
  								</div>
  							</div>
@@ -534,46 +512,150 @@
 									var result = $('#selectSort option:selected').val();
 									if(result == 'minPrice'){
 										alert('최저가순')
+										$('#departSortDiv').hide();
+										$('#priceSortDiv').show();
+										$('#allairDiv').hide();
+										$('#koreanairDiv').hide();									
+										$('#asianaDiv').hide();
+										$('#airbusanDiv').hide();
+										$('#jejuairDiv').hide();
+										$('#jinairDiv').hide();
+										$('#twayairDiv').hide();
+										
+										
 									} else if(result == 'minDep'){
 										alert('출발시간순')
-					
-									} else{
-										alert('최단여행순') 
+										$('#departSortDiv').show();
+										$('#priceSortDiv').hide();
+										$('#allairDiv').hide();
+										$('#koreanairDiv').hide();									
+										$('#asianaDiv').hide();
+										$('#airbusanDiv').hide();
+										$('#jejuairDiv').hide();
+										$('#jinairDiv').hide();
+										$('#twayairDiv').hide();
+								
 									}
 								})
 							})
 						</script>
-						<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
-						<!-- 가격 큰 순으로 정렬 해보기 -->
-						<!-- 일단 버블 정렬  -->
-						<%
-						/* ArrayList<FlightListVO> temp = new ArrayList<FlightListVO>();
-						for(int i = 0 ; i < flightList.size() - 1; i++){
-							for(int j = flightList.size() - 1; j > i; j--){
-								if(flightList.get(j - 1).getPrice() < flightList.get(j).getPrice()){
-									temp = flightList.get(j - 1);
-									flightList.get(j - 1) = flightList.get(j);
-									flightList.get(j) = temp;
-								}
-							}
-						} */
-						%>
-						<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
-												
+						
+						
+						<!-- 항공사 필터 기준 선택 이벤트 -->
+						<script type="text/javascript">
+							$(document).ready(function () {
+								$('#selectFilter').change(function () {
+									var result = $('#selectFilter option:selected').val();
+									if(result == '전체'){
+										$('#departSortDiv').hide();
+										$('#priceSortDiv').hide();
+										$('#allairDiv').show();
+										$('#koreanairDiv').hide();									
+										$('#asianaDiv').hide();
+										$('#airbusanDiv').hide();
+										$('#jejuairDiv').hide();
+										$('#jinairDiv').hide();
+										$('#twayairDiv').hide();
+								
+									} else if(result == '대한항공'){
+										alert('대한항공')
+										$('#departSortDiv').hide();
+										$('#priceSortDiv').hide();
+										$('#allairDiv').hide();
+										$('#koreanairDiv').show();									
+										$('#asianaDiv').hide();
+										$('#airbusanDiv').hide();
+										$('#jejuairDiv').hide();
+										$('#jinairDiv').hide();
+										$('#twayairDiv').hide();
+										
+										
+									} else if(result == '아시아나'){
+										alert('아시아나')
+										$('#departSortDiv').hide();
+										$('#priceSortDiv').hide();
+										$('#allairDiv').hide();
+										$('#koreanairDiv').hide();									
+										$('#asianaDiv').show();
+										$('#airbusanDiv').hide();
+										$('#jejuairDiv').hide();
+										$('#jinairDiv').hide();
+										$('#twayairDiv').hide();
+										
+										
+									}else if(result == '에어부산'){
+										alert('에어부산')
+										$('#departSortDiv').hide();
+										$('#priceSortDiv').hide();
+										$('#allairDiv').hide();
+										$('#koreanairDiv').hide();									
+										$('#asianaDiv').hide();
+										$('#airbusanDiv').show();
+										$('#jejuairDiv').hide();
+										$('#jinairDiv').hide();
+										$('#twayairDiv').hide();
+										
+									}else if(result == '제주항공'){
+										alert('제주항공')
+										$('#departSortDiv').hide();
+										$('#priceSortDiv').hide();
+										$('#allairDiv').hide();
+										$('#koreanairDiv').hide();									
+										$('#asianaDiv').hide();
+										$('#airbusanDiv').hide();
+										$('#jejuairDiv').show();
+										$('#jinairDiv').hide();
+										$('#twayairDiv').hide();
+										
+									}else if(result == '진에어'){
+										alert('진에어')
+										$('#departSortDiv').hide();
+										$('#priceSortDiv').hide();
+										$('#allairDiv').hide();
+										$('#koreanairDiv').hide();									
+										$('#asianaDiv').hide();
+										$('#airbusanDiv').hide();
+										$('#jejuairDiv').hide();
+										$('#jinairDiv').show();
+										$('#twayairDiv').hide();
+									
+									}
+									else if(result == '티웨이항공'){
+										alert('티웨이항공')
+										$('#departSortDiv').hide();
+										$('#priceSortDiv').hide();
+										$('#allairDiv').hide();
+										$('#koreanairDiv').hide();									
+										$('#asianaDiv').hide();
+										$('#airbusanDiv').hide();
+										$('#jejuairDiv').hide();
+										$('#jinairDiv').hide();
+										$('#twayairDiv').show();
+									
+									}
+								})
+							})
+						</script>
+						
+						<!-- 정렬 시작  -->
+						
+						<!-- 출발 시간순 정렬-->
+						<div id="departSortDiv"  style="display:none;" >
+										
 						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
 						<%
-						for (int i = 0; i < flightList.size(); i++) {
-							String airline = flightList.get(i).getAirline();
-							int price = flightList.get(i).getPrice();
-							String tour = flightList.get(i).getTour();
-							String depT = flightList.get(i).getDepTime();
-							String arrT = flightList.get(i).getArrTime();
+						for (int i = 0; i < sortDepart.size(); i++) {
+							String airline = sortDepart.get(i).getAirline();
+							int price = sortDepart.get(i).getPrice();
+							String tour = sortDepart.get(i).getTour();
+							String depT = sortDepart.get(i).getDepTime();
+							String arrT = sortDepart.get(i).getArrTime();
 						%>
 						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
 							<div class="media-body">
 								<div class="row" style="text-align: center;">
 									<div class="col-sm-3" style="margin-top: 25px;">
-										<h5 id="content"><%=airline%></h5>
+										<h5><%=airline%></h5>
 									</div>
 									<div class="col-sm-3" style="margin-top: 25px;">
 										<h5><%=depT%>
@@ -642,7 +724,7 @@
 										<a class="cta-btn"
 											href="https://air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date2%>&arrCity=<%=arrival%>&arrDate=<%=date2%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>">예약</a>
 										<%
-										} 
+										}
 										%>
 										<%-- else {
 										%>
@@ -660,9 +742,867 @@
 						}
 						%>
 					</div>
+					<!-- 최저가순 정렬-->
+						<div id="priceSortDiv">
+										
+						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
+						<%
+						for (int i = 0; i < sortPrice.size(); i++) {
+							String airline = sortPrice.get(i).getAirline();
+							int price = sortPrice.get(i).getPrice();
+							String tour = sortPrice.get(i).getTour();
+							String depT = sortPrice.get(i).getDepTime();
+							String arrT = sortPrice.get(i).getArrTime();
+						%>
+						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
+							<div class="media-body">
+								<div class="row" style="text-align: center;">
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=airline%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=depT%>
+											--<i class="fi fi-ts-plane-alt"></i>
+											<%=arrT%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=tour%></h5>
+									</div>
+									<div class="col-sm-3">
+										<h5>￦<fmt:formatNumber value="<%=price%>" pattern="#,###"/></h5>
+										<%
+										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
+										%>
+										<!-- 예약 버튼 클릭 시 항공권 예약 사이트로 이동  -->
+										<a class="cta-btn"
+											href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart%>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival%>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date%>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">예약</a>
+										<%
+										} else if (tour.equals("웹투어")) {	// 판매사가 웹투어일 경우
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://www2.webtour.com/da/da_list.asp?wItinerary=oneway&wItinerary_cnt=3&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wDepDate=<%=date%>&wArrDate=<%=date%>&wCarCode=KE%2COZ%2CLJ%2C7C%2CZE%2CTW%2CBX%2CRS%2C4H%2C4V%2CRF&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wSeatClass=All&wSeatClass_cnt=3&wSeatClass_1_txt=%C0%FC%C3%BC&wSeatClass_2_txt=%C0%CF%B9%DD%BC%AE%2F%C7%D2%C0%CE%BC%AE&wSeatClass_3_txt=%BA%F1%C1%EE%B4%CF%BD%BA%BC%AE">예약</a>
+										<%
+										} else if (tour.equals("인터파크")) {
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://sky.interpark.com/schedules/domestic/<%=depart%>-<%=arrival%>-<%=nobarDate%>?adt=<%=adult%>&chd=<%=child%>&inf=<%=baby%>&seat=ALL&pickAirLine=&pickmainFltNo=&pickSDate=">예약</a>
+										<%
+										} else if (tour.equals("제주도닷컴")) {
+										%>
+										<a class="cta-btn"
+											href="https://jejudo.com/air/list/search?City_Dep=<%=depart%>&City_Arr=<%=arrival%>&DateDep=<%=date%>&DateArr=<%=date%>&ACnt=<%=adult%>&CCnt=<%=child%>&ICnt=<%=baby%>&itinerary=OneWay">예약</a>
+										<%
+										} else if (tour.equals("하나투어")) {
+										%>
+										<a class="cta-btn"
+											href="https://wtdom2.hanatour.com/00001/DA/da_list.asp?wDepDate=<%=nobarDate%>&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wItinerary=oneway&wSeatClass=ALL&">예약</a>
+										<%
+										} else if (tour.equals("롯데관광")){
+											String date2 = date.replaceAll("-","");
+										%>
+										<a class="cta-btn"
+											href="https://krair.lottetour.com/subIndexNew.lts?arr0=<%=arrival%>&depdate0=<%=date2%>&inf=0&dep0=<%=depart%>&trip=OW&adt=<%=adult%>&chd=<%=child%>">예약</a>
+										<%
+										} else if(tour.equals("와이페이모어"))
+										{
+										%>
+										<a class="cta-btn"
+											href="https://www.whypaymore.co.kr/d/flt/dom/scheds?depLocs=<%=depart%>&arrLocs=<%=arrival%>&selectedIds=&dates=<%=date%>&datestemp=&airlines=KE&airlines=OZ&airlines=RF&airlines=BX&airlines=RS&airlines=YP&airlines=7C&airlines=LJ&airlines=TW&airlines=4V&airlines=4H&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&tripType=1&searchSource=M&maintenanceType=TK&pageType=search">예약</a>	
+										<%
+										} else if(tour.equals("선민투어")){
+											String date2 = date.replaceAll("-", ".");
+										%>
+										<a class="cta-btn"
+											href="https://air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date2%>&arrCity=<%=arrival%>&arrDate=<%=date2%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>">예약</a>
+										<%
+										}
+										%>
+										<%-- else {
+										%>
+										<a class="cta-btn" href="#">예약</a>
+										<%
+										}
+										%>  --%>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+						<br>
+						<%
+						}
+						%>
+						</div>
+						
+						<!-- 정렬 끝 -->
+						
+						<!-- 필터링 시작 -->
+						<!-- 전체 항공사 필터링 -->
+						<div id="allairDiv" style="display: none;">
+										
+						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
+						<%
+						for (int i = 0; i < sortPrice.size(); i++) {
+							String airline = sortPrice.get(i).getAirline();
+							int price = sortPrice.get(i).getPrice();
+							String tour = sortPrice.get(i).getTour();
+							String depT = sortPrice.get(i).getDepTime();
+							String arrT = sortPrice.get(i).getArrTime();
+						%>
+						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
+							<div class="media-body">
+								<div class="row" style="text-align: center;">
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=airline%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=depT%>
+											--<i class="fi fi-ts-plane-alt"></i>
+											<%=arrT%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=tour%></h5>
+									</div>
+									<div class="col-sm-3">
+										<h5>￦<fmt:formatNumber value="<%=price%>" pattern="#,###"/></h5>
+										<%
+										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
+										%>
+										<!-- 예약 버튼 클릭 시 항공권 예약 사이트로 이동  -->
+										<a class="cta-btn"
+											href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart%>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival%>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date%>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">예약</a>
+										<%
+										} else if (tour.equals("웹투어")) {	// 판매사가 웹투어일 경우
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://www2.webtour.com/da/da_list.asp?wItinerary=oneway&wItinerary_cnt=3&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wDepDate=<%=date%>&wArrDate=<%=date%>&wCarCode=KE%2COZ%2CLJ%2C7C%2CZE%2CTW%2CBX%2CRS%2C4H%2C4V%2CRF&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wSeatClass=All&wSeatClass_cnt=3&wSeatClass_1_txt=%C0%FC%C3%BC&wSeatClass_2_txt=%C0%CF%B9%DD%BC%AE%2F%C7%D2%C0%CE%BC%AE&wSeatClass_3_txt=%BA%F1%C1%EE%B4%CF%BD%BA%BC%AE">예약</a>
+										<%
+										} else if (tour.equals("인터파크")) {
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://sky.interpark.com/schedules/domestic/<%=depart%>-<%=arrival%>-<%=nobarDate%>?adt=<%=adult%>&chd=<%=child%>&inf=<%=baby%>&seat=ALL&pickAirLine=&pickmainFltNo=&pickSDate=">예약</a>
+										<%
+										} else if (tour.equals("제주도닷컴")) {
+										%>
+										<a class="cta-btn"
+											href="https://jejudo.com/air/list/search?City_Dep=<%=depart%>&City_Arr=<%=arrival%>&DateDep=<%=date%>&DateArr=<%=date%>&ACnt=<%=adult%>&CCnt=<%=child%>&ICnt=<%=baby%>&itinerary=OneWay">예약</a>
+										<%
+										} else if (tour.equals("하나투어")) {
+										%>
+										<a class="cta-btn"
+											href="https://wtdom2.hanatour.com/00001/DA/da_list.asp?wDepDate=<%=nobarDate%>&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wItinerary=oneway&wSeatClass=ALL&">예약</a>
+										<%
+										} else if (tour.equals("롯데관광")){
+											String date2 = date.replaceAll("-","");
+										%>
+										<a class="cta-btn"
+											href="https://krair.lottetour.com/subIndexNew.lts?arr0=<%=arrival%>&depdate0=<%=date2%>&inf=0&dep0=<%=depart%>&trip=OW&adt=<%=adult%>&chd=<%=child%>">예약</a>
+										<%
+										} else if(tour.equals("와이페이모어"))
+										{
+										%>
+										<a class="cta-btn"
+											href="https://www.whypaymore.co.kr/d/flt/dom/scheds?depLocs=<%=depart%>&arrLocs=<%=arrival%>&selectedIds=&dates=<%=date%>&datestemp=&airlines=KE&airlines=OZ&airlines=RF&airlines=BX&airlines=RS&airlines=YP&airlines=7C&airlines=LJ&airlines=TW&airlines=4V&airlines=4H&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&tripType=1&searchSource=M&maintenanceType=TK&pageType=search">예약</a>	
+										<%
+										} else if(tour.equals("선민투어")){
+											String date2 = date.replaceAll("-", ".");
+										%>
+										<a class="cta-btn"
+											href="https://air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date2%>&arrCity=<%=arrival%>&arrDate=<%=date2%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>">예약</a>
+										<%
+										}
+										%>
+										<%-- else {
+										%>
+										<a class="cta-btn" href="#">예약</a>
+										<%
+										}
+										%>  --%>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+						<br>
+						<%
+						}
+						%>
+						</div>
+						
+						<!-- 대한항공 항공사 -->
+						<div id="koreanairDiv" style="display: none;">
+										
+						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
+						<%
+						for (int i = 0; i < koreanairList.size(); i++) {
+							String airline = koreanairList.get(i).getAirline();
+							int price = koreanairList.get(i).getPrice();
+							String tour = koreanairList.get(i).getTour();
+							String depT = koreanairList.get(i).getDepTime();
+							String arrT = koreanairList.get(i).getArrTime();
+						%>
+						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
+							<div class="media-body">
+								<div class="row" style="text-align: center;">
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=airline%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=depT%>
+											--<i class="fi fi-ts-plane-alt"></i>
+											<%=arrT%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=tour%></h5>
+									</div>
+									<div class="col-sm-3">
+										<h5>￦<fmt:formatNumber value="<%=price%>" pattern="#,###"/></h5>
+										<%
+										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
+										%>
+										<!-- 예약 버튼 클릭 시 항공권 예약 사이트로 이동  -->
+										<a class="cta-btn"
+											href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart%>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival%>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date%>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">예약</a>
+										<%
+										} else if (tour.equals("웹투어")) {	// 판매사가 웹투어일 경우
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://www2.webtour.com/da/da_list.asp?wItinerary=oneway&wItinerary_cnt=3&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wDepDate=<%=date%>&wArrDate=<%=date%>&wCarCode=KE%2COZ%2CLJ%2C7C%2CZE%2CTW%2CBX%2CRS%2C4H%2C4V%2CRF&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wSeatClass=All&wSeatClass_cnt=3&wSeatClass_1_txt=%C0%FC%C3%BC&wSeatClass_2_txt=%C0%CF%B9%DD%BC%AE%2F%C7%D2%C0%CE%BC%AE&wSeatClass_3_txt=%BA%F1%C1%EE%B4%CF%BD%BA%BC%AE">예약</a>
+										<%
+										} else if (tour.equals("인터파크")) {
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://sky.interpark.com/schedules/domestic/<%=depart%>-<%=arrival%>-<%=nobarDate%>?adt=<%=adult%>&chd=<%=child%>&inf=<%=baby%>&seat=ALL&pickAirLine=&pickmainFltNo=&pickSDate=">예약</a>
+										<%
+										} else if (tour.equals("제주도닷컴")) {
+										%>
+										<a class="cta-btn"
+											href="https://jejudo.com/air/list/search?City_Dep=<%=depart%>&City_Arr=<%=arrival%>&DateDep=<%=date%>&DateArr=<%=date%>&ACnt=<%=adult%>&CCnt=<%=child%>&ICnt=<%=baby%>&itinerary=OneWay">예약</a>
+										<%
+										} else if (tour.equals("하나투어")) {
+										%>
+										<a class="cta-btn"
+											href="https://wtdom2.hanatour.com/00001/DA/da_list.asp?wDepDate=<%=nobarDate%>&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wItinerary=oneway&wSeatClass=ALL&">예약</a>
+										<%
+										} else if (tour.equals("롯데관광")){
+											String date2 = date.replaceAll("-","");
+										%>
+										<a class="cta-btn"
+											href="https://krair.lottetour.com/subIndexNew.lts?arr0=<%=arrival%>&depdate0=<%=date2%>&inf=0&dep0=<%=depart%>&trip=OW&adt=<%=adult%>&chd=<%=child%>">예약</a>
+										<%
+										} else if(tour.equals("와이페이모어"))
+										{
+										%>
+										<a class="cta-btn"
+											href="https://www.whypaymore.co.kr/d/flt/dom/scheds?depLocs=<%=depart%>&arrLocs=<%=arrival%>&selectedIds=&dates=<%=date%>&datestemp=&airlines=KE&airlines=OZ&airlines=RF&airlines=BX&airlines=RS&airlines=YP&airlines=7C&airlines=LJ&airlines=TW&airlines=4V&airlines=4H&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&tripType=1&searchSource=M&maintenanceType=TK&pageType=search">예약</a>	
+										<%
+										} else if(tour.equals("선민투어")){
+											String date2 = date.replaceAll("-", ".");
+										%>
+										<a class="cta-btn"
+											href="https://air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date2%>&arrCity=<%=arrival%>&arrDate=<%=date2%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>">예약</a>
+										<%
+										}
+										%>
+										<%-- else {
+										%>
+										<a class="cta-btn" href="#">예약</a>
+										<%
+										}
+										%>  --%>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+						<br>
+						<%
+						}
+						%>
+						</div>
+						
+						<!-- 진에어 항공사 -->
+						<div id="jinairDiv" style="display: none;">
+										
+						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
+						<%
+						for (int i = 0; i < jinairList.size(); i++) {
+							String airline = jinairList.get(i).getAirline();
+							int price = jinairList.get(i).getPrice();
+							String tour = jinairList.get(i).getTour();
+							String depT = jinairList.get(i).getDepTime();
+							String arrT = jinairList.get(i).getArrTime();
+						%>
+						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
+							<div class="media-body">
+								<div class="row" style="text-align: center;">
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=airline%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=depT%>
+											--<i class="fi fi-ts-plane-alt"></i>
+											<%=arrT%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=tour%></h5>
+									</div>
+									<div class="col-sm-3">
+										<h5>￦<fmt:formatNumber value="<%=price%>" pattern="#,###"/></h5>
+										<%
+										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
+										%>
+										<!-- 예약 버튼 클릭 시 항공권 예약 사이트로 이동  -->
+										<a class="cta-btn"
+											href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart%>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival%>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date%>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">예약</a>
+										<%
+										} else if (tour.equals("웹투어")) {	// 판매사가 웹투어일 경우
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://www2.webtour.com/da/da_list.asp?wItinerary=oneway&wItinerary_cnt=3&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wDepDate=<%=date%>&wArrDate=<%=date%>&wCarCode=KE%2COZ%2CLJ%2C7C%2CZE%2CTW%2CBX%2CRS%2C4H%2C4V%2CRF&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wSeatClass=All&wSeatClass_cnt=3&wSeatClass_1_txt=%C0%FC%C3%BC&wSeatClass_2_txt=%C0%CF%B9%DD%BC%AE%2F%C7%D2%C0%CE%BC%AE&wSeatClass_3_txt=%BA%F1%C1%EE%B4%CF%BD%BA%BC%AE">예약</a>
+										<%
+										} else if (tour.equals("인터파크")) {
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://sky.interpark.com/schedules/domestic/<%=depart%>-<%=arrival%>-<%=nobarDate%>?adt=<%=adult%>&chd=<%=child%>&inf=<%=baby%>&seat=ALL&pickAirLine=&pickmainFltNo=&pickSDate=">예약</a>
+										<%
+										} else if (tour.equals("제주도닷컴")) {
+										%>
+										<a class="cta-btn"
+											href="https://jejudo.com/air/list/search?City_Dep=<%=depart%>&City_Arr=<%=arrival%>&DateDep=<%=date%>&DateArr=<%=date%>&ACnt=<%=adult%>&CCnt=<%=child%>&ICnt=<%=baby%>&itinerary=OneWay">예약</a>
+										<%
+										} else if (tour.equals("하나투어")) {
+										%>
+										<a class="cta-btn"
+											href="https://wtdom2.hanatour.com/00001/DA/da_list.asp?wDepDate=<%=nobarDate%>&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wItinerary=oneway&wSeatClass=ALL&">예약</a>
+										<%
+										} else if (tour.equals("롯데관광")){
+											String date2 = date.replaceAll("-","");
+										%>
+										<a class="cta-btn"
+											href="https://krair.lottetour.com/subIndexNew.lts?arr0=<%=arrival%>&depdate0=<%=date2%>&inf=0&dep0=<%=depart%>&trip=OW&adt=<%=adult%>&chd=<%=child%>">예약</a>
+										<%
+										} else if(tour.equals("와이페이모어"))
+										{
+										%>
+										<a class="cta-btn"
+											href="https://www.whypaymore.co.kr/d/flt/dom/scheds?depLocs=<%=depart%>&arrLocs=<%=arrival%>&selectedIds=&dates=<%=date%>&datestemp=&airlines=KE&airlines=OZ&airlines=RF&airlines=BX&airlines=RS&airlines=YP&airlines=7C&airlines=LJ&airlines=TW&airlines=4V&airlines=4H&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&tripType=1&searchSource=M&maintenanceType=TK&pageType=search">예약</a>	
+										<%
+										} else if(tour.equals("선민투어")){
+											String date2 = date.replaceAll("-", ".");
+										%>
+										<a class="cta-btn"
+											href="https://air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date2%>&arrCity=<%=arrival%>&arrDate=<%=date2%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>">예약</a>
+										<%
+										}
+										%>
+										<%-- else {
+										%>
+										<a class="cta-btn" href="#">예약</a>
+										<%
+										}
+										%>  --%>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+						<br>
+						<%
+						}
+						%>
+						</div>
+						
+						<!-- 제주항공 항공사 -->
+						<div id="jejuairDiv" style="display: none;">
+										
+						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
+						<%
+						for (int i = 0; i < jejuairList.size(); i++) {
+							String airline = jejuairList.get(i).getAirline();
+							int price = jejuairList.get(i).getPrice();
+							String tour = jejuairList.get(i).getTour();
+							String depT = jejuairList.get(i).getDepTime();
+							String arrT = jejuairList.get(i).getArrTime();
+						%>
+						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
+							<div class="media-body">
+								<div class="row" style="text-align: center;">
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=airline%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=depT%>
+											--<i class="fi fi-ts-plane-alt"></i>
+											<%=arrT%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=tour%></h5>
+									</div>
+									<div class="col-sm-3">
+										<h5>￦<fmt:formatNumber value="<%=price%>" pattern="#,###"/></h5>
+										<%
+										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
+										%>
+										<!-- 예약 버튼 클릭 시 항공권 예약 사이트로 이동  -->
+										<a class="cta-btn"
+											href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart%>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival%>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date%>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">예약</a>
+										<%
+										} else if (tour.equals("웹투어")) {	// 판매사가 웹투어일 경우
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://www2.webtour.com/da/da_list.asp?wItinerary=oneway&wItinerary_cnt=3&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wDepDate=<%=date%>&wArrDate=<%=date%>&wCarCode=KE%2COZ%2CLJ%2C7C%2CZE%2CTW%2CBX%2CRS%2C4H%2C4V%2CRF&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wSeatClass=All&wSeatClass_cnt=3&wSeatClass_1_txt=%C0%FC%C3%BC&wSeatClass_2_txt=%C0%CF%B9%DD%BC%AE%2F%C7%D2%C0%CE%BC%AE&wSeatClass_3_txt=%BA%F1%C1%EE%B4%CF%BD%BA%BC%AE">예약</a>
+										<%
+										} else if (tour.equals("인터파크")) {
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://sky.interpark.com/schedules/domestic/<%=depart%>-<%=arrival%>-<%=nobarDate%>?adt=<%=adult%>&chd=<%=child%>&inf=<%=baby%>&seat=ALL&pickAirLine=&pickmainFltNo=&pickSDate=">예약</a>
+										<%
+										} else if (tour.equals("제주도닷컴")) {
+										%>
+										<a class="cta-btn"
+											href="https://jejudo.com/air/list/search?City_Dep=<%=depart%>&City_Arr=<%=arrival%>&DateDep=<%=date%>&DateArr=<%=date%>&ACnt=<%=adult%>&CCnt=<%=child%>&ICnt=<%=baby%>&itinerary=OneWay">예약</a>
+										<%
+										} else if (tour.equals("하나투어")) {
+										%>
+										<a class="cta-btn"
+											href="https://wtdom2.hanatour.com/00001/DA/da_list.asp?wDepDate=<%=nobarDate%>&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wItinerary=oneway&wSeatClass=ALL&">예약</a>
+										<%
+										} else if (tour.equals("롯데관광")){
+											String date2 = date.replaceAll("-","");
+										%>
+										<a class="cta-btn"
+											href="https://krair.lottetour.com/subIndexNew.lts?arr0=<%=arrival%>&depdate0=<%=date2%>&inf=0&dep0=<%=depart%>&trip=OW&adt=<%=adult%>&chd=<%=child%>">예약</a>
+										<%
+										} else if(tour.equals("와이페이모어"))
+										{
+										%>
+										<a class="cta-btn"
+											href="https://www.whypaymore.co.kr/d/flt/dom/scheds?depLocs=<%=depart%>&arrLocs=<%=arrival%>&selectedIds=&dates=<%=date%>&datestemp=&airlines=KE&airlines=OZ&airlines=RF&airlines=BX&airlines=RS&airlines=YP&airlines=7C&airlines=LJ&airlines=TW&airlines=4V&airlines=4H&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&tripType=1&searchSource=M&maintenanceType=TK&pageType=search">예약</a>	
+										<%
+										} else if(tour.equals("선민투어")){
+											String date2 = date.replaceAll("-", ".");
+										%>
+										<a class="cta-btn"
+											href="https://air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date2%>&arrCity=<%=arrival%>&arrDate=<%=date2%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>">예약</a>
+										<%
+										}
+										%>
+										<%-- else {
+										%>
+										<a class="cta-btn" href="#">예약</a>
+										<%
+										}
+										%>  --%>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+						<br>
+						<%
+						}
+						%>
+						</div>
+						
+						<!-- 티웨이 항공사 -->
+						<div id="twayairDiv" style="display: none;">
+										
+						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
+						<%
+						for (int i = 0; i < twayairList.size(); i++) {
+							String airline = twayairList.get(i).getAirline();
+							int price = twayairList.get(i).getPrice();
+							String tour = twayairList.get(i).getTour();
+							String depT = twayairList.get(i).getDepTime();
+							String arrT = twayairList.get(i).getArrTime();
+						%>
+						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
+							<div class="media-body">
+								<div class="row" style="text-align: center;">
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=airline%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=depT%>
+											--<i class="fi fi-ts-plane-alt"></i>
+											<%=arrT%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=tour%></h5>
+									</div>
+									<div class="col-sm-3">
+										<h5>￦<fmt:formatNumber value="<%=price%>" pattern="#,###"/></h5>
+										<%
+										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
+										%>
+										<!-- 예약 버튼 클릭 시 항공권 예약 사이트로 이동  -->
+										<a class="cta-btn"
+											href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart%>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival%>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date%>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">예약</a>
+										<%
+										} else if (tour.equals("웹투어")) {	// 판매사가 웹투어일 경우
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://www2.webtour.com/da/da_list.asp?wItinerary=oneway&wItinerary_cnt=3&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wDepDate=<%=date%>&wArrDate=<%=date%>&wCarCode=KE%2COZ%2CLJ%2C7C%2CZE%2CTW%2CBX%2CRS%2C4H%2C4V%2CRF&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wSeatClass=All&wSeatClass_cnt=3&wSeatClass_1_txt=%C0%FC%C3%BC&wSeatClass_2_txt=%C0%CF%B9%DD%BC%AE%2F%C7%D2%C0%CE%BC%AE&wSeatClass_3_txt=%BA%F1%C1%EE%B4%CF%BD%BA%BC%AE">예약</a>
+										<%
+										} else if (tour.equals("인터파크")) {
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://sky.interpark.com/schedules/domestic/<%=depart%>-<%=arrival%>-<%=nobarDate%>?adt=<%=adult%>&chd=<%=child%>&inf=<%=baby%>&seat=ALL&pickAirLine=&pickmainFltNo=&pickSDate=">예약</a>
+										<%
+										} else if (tour.equals("제주도닷컴")) {
+										%>
+										<a class="cta-btn"
+											href="https://jejudo.com/air/list/search?City_Dep=<%=depart%>&City_Arr=<%=arrival%>&DateDep=<%=date%>&DateArr=<%=date%>&ACnt=<%=adult%>&CCnt=<%=child%>&ICnt=<%=baby%>&itinerary=OneWay">예약</a>
+										<%
+										} else if (tour.equals("하나투어")) {
+										%>
+										<a class="cta-btn"
+											href="https://wtdom2.hanatour.com/00001/DA/da_list.asp?wDepDate=<%=nobarDate%>&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wItinerary=oneway&wSeatClass=ALL&">예약</a>
+										<%
+										} else if (tour.equals("롯데관광")){
+											String date2 = date.replaceAll("-","");
+										%>
+										<a class="cta-btn"
+											href="https://krair.lottetour.com/subIndexNew.lts?arr0=<%=arrival%>&depdate0=<%=date2%>&inf=0&dep0=<%=depart%>&trip=OW&adt=<%=adult%>&chd=<%=child%>">예약</a>
+										<%
+										} else if(tour.equals("와이페이모어"))
+										{
+										%>
+										<a class="cta-btn"
+											href="https://www.whypaymore.co.kr/d/flt/dom/scheds?depLocs=<%=depart%>&arrLocs=<%=arrival%>&selectedIds=&dates=<%=date%>&datestemp=&airlines=KE&airlines=OZ&airlines=RF&airlines=BX&airlines=RS&airlines=YP&airlines=7C&airlines=LJ&airlines=TW&airlines=4V&airlines=4H&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&tripType=1&searchSource=M&maintenanceType=TK&pageType=search">예약</a>	
+										<%
+										} else if(tour.equals("선민투어")){
+											String date2 = date.replaceAll("-", ".");
+										%>
+										<a class="cta-btn"
+											href="https://air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date2%>&arrCity=<%=arrival%>&arrDate=<%=date2%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>">예약</a>
+										<%
+										}
+										%>
+										<%-- else {
+										%>
+										<a class="cta-btn" href="#">예약</a>
+										<%
+										}
+										%>  --%>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+						<br>
+						<%
+						}
+						%>
+						</div>
+						
+						<!-- 아시아나 항공사 -->
+						<div id="asianaairDiv" style="display: none;">
+										
+						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
+						<%
+						for (int i = 0; i < asianaairList.size(); i++) {
+							String airline = asianaairList.get(i).getAirline();
+							int price = asianaairList.get(i).getPrice();
+							String tour = asianaairList.get(i).getTour();
+							String depT = asianaairList.get(i).getDepTime();
+							String arrT = asianaairList.get(i).getArrTime();
+						%>
+						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
+							<div class="media-body">
+								<div class="row" style="text-align: center;">
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=airline%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=depT%>
+											--<i class="fi fi-ts-plane-alt"></i>
+											<%=arrT%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=tour%></h5>
+									</div>
+									<div class="col-sm-3">
+										<h5>￦<fmt:formatNumber value="<%=price%>" pattern="#,###"/></h5>
+										<%
+										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
+										%>
+										<!-- 예약 버튼 클릭 시 항공권 예약 사이트로 이동  -->
+										<a class="cta-btn"
+											href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart%>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival%>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date%>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">예약</a>
+										<%
+										} else if (tour.equals("웹투어")) {	// 판매사가 웹투어일 경우
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://www2.webtour.com/da/da_list.asp?wItinerary=oneway&wItinerary_cnt=3&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wDepDate=<%=date%>&wArrDate=<%=date%>&wCarCode=KE%2COZ%2CLJ%2C7C%2CZE%2CTW%2CBX%2CRS%2C4H%2C4V%2CRF&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wSeatClass=All&wSeatClass_cnt=3&wSeatClass_1_txt=%C0%FC%C3%BC&wSeatClass_2_txt=%C0%CF%B9%DD%BC%AE%2F%C7%D2%C0%CE%BC%AE&wSeatClass_3_txt=%BA%F1%C1%EE%B4%CF%BD%BA%BC%AE">예약</a>
+										<%
+										} else if (tour.equals("인터파크")) {
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://sky.interpark.com/schedules/domestic/<%=depart%>-<%=arrival%>-<%=nobarDate%>?adt=<%=adult%>&chd=<%=child%>&inf=<%=baby%>&seat=ALL&pickAirLine=&pickmainFltNo=&pickSDate=">예약</a>
+										<%
+										} else if (tour.equals("제주도닷컴")) {
+										%>
+										<a class="cta-btn"
+											href="https://jejudo.com/air/list/search?City_Dep=<%=depart%>&City_Arr=<%=arrival%>&DateDep=<%=date%>&DateArr=<%=date%>&ACnt=<%=adult%>&CCnt=<%=child%>&ICnt=<%=baby%>&itinerary=OneWay">예약</a>
+										<%
+										} else if (tour.equals("하나투어")) {
+										%>
+										<a class="cta-btn"
+											href="https://wtdom2.hanatour.com/00001/DA/da_list.asp?wDepDate=<%=nobarDate%>&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wItinerary=oneway&wSeatClass=ALL&">예약</a>
+										<%
+										} else if (tour.equals("롯데관광")){
+											String date2 = date.replaceAll("-","");
+										%>
+										<a class="cta-btn"
+											href="https://krair.lottetour.com/subIndexNew.lts?arr0=<%=arrival%>&depdate0=<%=date2%>&inf=0&dep0=<%=depart%>&trip=OW&adt=<%=adult%>&chd=<%=child%>">예약</a>
+										<%
+										} else if(tour.equals("와이페이모어"))
+										{
+										%>
+										<a class="cta-btn"
+											href="https://www.whypaymore.co.kr/d/flt/dom/scheds?depLocs=<%=depart%>&arrLocs=<%=arrival%>&selectedIds=&dates=<%=date%>&datestemp=&airlines=KE&airlines=OZ&airlines=RF&airlines=BX&airlines=RS&airlines=YP&airlines=7C&airlines=LJ&airlines=TW&airlines=4V&airlines=4H&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&tripType=1&searchSource=M&maintenanceType=TK&pageType=search">예약</a>	
+										<%
+										} else if(tour.equals("선민투어")){
+											String date2 = date.replaceAll("-", ".");
+										%>
+										<a class="cta-btn"
+											href="https://air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date2%>&arrCity=<%=arrival%>&arrDate=<%=date2%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>">예약</a>
+										<%
+										}
+										%>
+										<%-- else {
+										%>
+										<a class="cta-btn" href="#">예약</a>
+										<%
+										}
+										%>  --%>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+						<br>
+						<%
+						}
+						%>
+						</div>
+						
+						<!-- 에어부산 항공사 -->
+						<div id="airbusanDiv" style="display: none;">
+										
+						<!-- 항공권 검색 결과 출력 (크롤링 결과) -->
+						<%
+						for (int i = 0; i < airbusanList.size(); i++) {
+							String airline = airbusanList.get(i).getAirline();
+							int price = airbusanList.get(i).getPrice();
+							String tour = airbusanList.get(i).getTour();
+							String depT = airbusanList.get(i).getDepTime();
+							String arrT = airbusanList.get(i).getArrTime();
+						%>
+						<div class="media border p-3" style="border-radius: 10px;"> <!-- 네모 칸 -->
+							<div class="media-body">
+								<div class="row" style="text-align: center;">
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=airline%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=depT%>
+											--<i class="fi fi-ts-plane-alt"></i>
+											<%=arrT%></h5>
+									</div>
+									<div class="col-sm-3" style="margin-top: 25px;">
+										<h5><%=tour%></h5>
+									</div>
+									<div class="col-sm-3">
+										<h5>￦<fmt:formatNumber value="<%=price%>" pattern="#,###"/></h5>
+										<%
+										if (tour.equals("노랑풍선")) {	// 판매사가 노랑풍선일 경우
+										%>
+										<!-- 예약 버튼 클릭 시 항공권 예약 사이트로 이동  -->
+										<a class="cta-btn"
+											href="https://ota.ybtour.co.kr/flight-search-result-go?tripTypeCode=OW&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&laborCount=0&studentCount=0&cabinClassCode=Y&deviceTypeCode=PC&itineraries%5B0%5D%5BoriginCityCodeIata%5D=<%=depart%>&itineraries%5B0%5D%5BdestinationCityCodeIata%5D=<%=arrival%>&itineraries%5B0%5D%5BdepartureDate%5D=<%=date%>&dynamicSearchYn=false&limits%5B0%5D=0&limits%5B1%5D=10">예약</a>
+										<%
+										} else if (tour.equals("웹투어")) {	// 판매사가 웹투어일 경우
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://www2.webtour.com/da/da_list.asp?wItinerary=oneway&wItinerary_cnt=3&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wDepDate=<%=date%>&wArrDate=<%=date%>&wCarCode=KE%2COZ%2CLJ%2C7C%2CZE%2CTW%2CBX%2CRS%2C4H%2C4V%2CRF&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wSeatClass=All&wSeatClass_cnt=3&wSeatClass_1_txt=%C0%FC%C3%BC&wSeatClass_2_txt=%C0%CF%B9%DD%BC%AE%2F%C7%D2%C0%CE%BC%AE&wSeatClass_3_txt=%BA%F1%C1%EE%B4%CF%BD%BA%BC%AE">예약</a>
+										<%
+										} else if (tour.equals("인터파크")) {
+											if (depart.equals("SEL")) {
+												depart = "GMP";
+											}
+											if (arrival.equals("SEL")) {
+												arrival = "GMP";
+											}
+										%>
+										<a class="cta-btn"
+											href="https://sky.interpark.com/schedules/domestic/<%=depart%>-<%=arrival%>-<%=nobarDate%>?adt=<%=adult%>&chd=<%=child%>&inf=<%=baby%>&seat=ALL&pickAirLine=&pickmainFltNo=&pickSDate=">예약</a>
+										<%
+										} else if (tour.equals("제주도닷컴")) {
+										%>
+										<a class="cta-btn"
+											href="https://jejudo.com/air/list/search?City_Dep=<%=depart%>&City_Arr=<%=arrival%>&DateDep=<%=date%>&DateArr=<%=date%>&ACnt=<%=adult%>&CCnt=<%=child%>&ICnt=<%=baby%>&itinerary=OneWay">예약</a>
+										<%
+										} else if (tour.equals("하나투어")) {
+										%>
+										<a class="cta-btn"
+											href="https://wtdom2.hanatour.com/00001/DA/da_list.asp?wDepDate=<%=nobarDate%>&wDepCity=<%=depart%>&wArrCity=<%=arrival%>&wACnt=<%=adult%>&wCCnt=<%=child%>&wICnt=<%=baby%>&wItinerary=oneway&wSeatClass=ALL&">예약</a>
+										<%
+										} else if (tour.equals("롯데관광")){
+											String date2 = date.replaceAll("-","");
+										%>
+										<a class="cta-btn"
+											href="https://krair.lottetour.com/subIndexNew.lts?arr0=<%=arrival%>&depdate0=<%=date2%>&inf=0&dep0=<%=depart%>&trip=OW&adt=<%=adult%>&chd=<%=child%>">예약</a>
+										<%
+										} else if(tour.equals("와이페이모어"))
+										{
+										%>
+										<a class="cta-btn"
+											href="https://www.whypaymore.co.kr/d/flt/dom/scheds?depLocs=<%=depart%>&arrLocs=<%=arrival%>&selectedIds=&dates=<%=date%>&datestemp=&airlines=KE&airlines=OZ&airlines=RF&airlines=BX&airlines=RS&airlines=YP&airlines=7C&airlines=LJ&airlines=TW&airlines=4V&airlines=4H&adultCount=<%=adult%>&childCount=<%=child%>&infantCount=<%=baby%>&tripType=1&searchSource=M&maintenanceType=TK&pageType=search">예약</a>	
+										<%
+										} else if(tour.equals("선민투어")){
+											String date2 = date.replaceAll("-", ".");
+										%>
+										<a class="cta-btn"
+											href="https://air.dcjeju.net/realair/channel/auth/292?depCity=<%=depart%>&depDate=<%=date2%>&arrCity=<%=arrival%>&arrDate=<%=date2%>&waytype=OneWay&adultCnt=<%=adult%>&childCnt=<%=child%>&infantCnt=<%=baby%>">예약</a>
+										<%
+										}
+										%>
+										
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+						<br>
+						<%
+						}
+						%>
+						</div>
+						<!-- 필터 끝 -->
 				</div>
 			</div>
 		</section>
+		
+		<script type="text/javascript">
+				$(".cta-btn").on("click", function(){
+					let frontUserid = '<%=String.valueOf(session.getAttribute("userid"))%>';
+					console.log(frontUserid);
+					
+					$.ajax({
+						url : "/booking/tour/buying",
+						type : "post",
+						data : {
+							userid : frontUserid
+						},
+						dataType : 'json',
+						success : function(buyingResult){
+							console.log("buyingResult : " + buyingResult);
+							if(buyingResult == "1"){
+								alert("티켓구매가 완료되었습니다. 게시판 이용이 가능합니다.");
+							}else{
+								alert("티켓구매가 정상적으로 완료되지 않았습니다.");
+							}
+						},
+						error : function(buyingError){
+							console.log(buyingError)
+						}
+					})
+				})
+			</script>
+		
 	</main>
 	<!-- End #main -->
 

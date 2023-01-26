@@ -28,9 +28,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
 @Service
-public class CovidService implements CovidServiceInter {
+public class CovidService {
 	
-	@Override
 	public ArrayList covid19(CovidDTO dto) {
 		
 		String servicekey = "CY1pPI4iM9tQKAH5vfcZqbwWrS8TGOBho";

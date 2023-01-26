@@ -4,8 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>With Us</title>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<!-- Favicons -->
+<link href="../resources/img/icon.png" rel="icon">
+<link href="../resources/img/apple-touch-icon.png" rel="apple-touch-icon">
 	
 </head>
 <body>
@@ -14,7 +18,7 @@
 	
 	<div id="content" class="bg-image  d-flex align-items-center justify-content-center" style="background-color: rgba(0, 0, 0, 0.2);">
       <div class="container">
-        <h1 class="text-white text-center mb-8">추천 여행지</h1>
+        <h1 class="text-white text-center mb-8">이런 곳은 어떠세요?</h1>
         <div class="row row-cols-1 row-cols-md-3 g-4">
           <div class="col">
             <div class="card mb-3">

@@ -6,7 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script language="javascript">
-	location.href="tableTEST.jsp"
+alert("올바르지 않은 ID, PW 입니다. ");
+location.href = "http://localhost:8080/booking/tour/login.jsp"
 </script>
 </head>
 <body>

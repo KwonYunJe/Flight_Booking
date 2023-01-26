@@ -179,7 +179,7 @@
 		<div
 			class="container-fluid d-flex align-items-center justify-content-between">
 
-			<a href="index.html"
+			<a href="search_flight.jsp"
 				class="d-flex align-items-center  me-auto me-lg-0"
 				style="transform: translate(10px, 0px);"> <img
 				src="../resources/img/logo.png" alt=""
@@ -206,7 +206,7 @@
 									<li><a href="#">경상북도</a></li>
 								</ul></li>
 						</ul></li>
-					<li><a href="bbsList?pageNum=1&amount=10" class="active">게시판</a></li>
+					<li><a href="bbsList?pageNum=1&amount=10" class="active">동행찾기</a></li>
 				</ul>
 			</nav>
 			<!-- .navbar -->
@@ -225,7 +225,7 @@
 				<li class="dropdown"><a href="#"><span><%= session.getAttribute("member")%>님 안녕하세요!</span> <i
 							class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
-							<li><a href="gallery.html">프로필</a></li>
+							<li><a href="Profile.jsp">프로필</a></li>
 							<form id="logout" action="logout" method="post">
 								<li><a href="#" onclick="return chk_form()">로그아웃</a></li>
 							</form>
@@ -346,6 +346,13 @@
   		    yearSuffix: '년'
   		});  
   	</script>
+  	
+  	<!-- 로그아웃 정보 전송 -->
+	<script type="text/javascript">
+		function chk_form() {
+			document.getElementById('logout').submit();
+		}
+	</script>
 </body>
 </html>
 	
